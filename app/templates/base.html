@@ -1,0 +1,31 @@
+<html>
+<head>
+  <title>{% block title %} Week End {% endblock %} </title>
+
+  <!-- META -->
+  <meta charset="UTF-8">
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="apple-touch-icon" href="/static/img/favicon-128.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+
+  <!-- CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/base.css') }}">
+  {% block style %}
+  {% endblock %}
+</head>
+<body>
+  <div class="content">
+  {% block content %}
+  {% endblock %}
+  </div>
+</body>
+
+<!-- JS -->
+{% block script %}
+{% endblock %}
+</html>

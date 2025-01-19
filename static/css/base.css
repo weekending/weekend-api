@@ -1,0 +1,46 @@
+:root {
+  --white: #FFFFFF;
+  --gray-1: #F4F4F4;
+  --gray-2: #EDEDED;
+  --gray-3: #D0D0D0;
+  --gray-4: #A0A0A0;
+  --gray-5: #808080;
+  --gray-6: #606060;
+  --gray-7: #404040;
+  --gray-8: #202020;
+  --black: #000000;
+  --orange: #EC6A5E;
+}
+
+body {
+  margin: 0;
+  font-family: "Pretendard", sans-serif;
+  color: var(--gray-8);
+}
+
+.content {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+input {
+  height: 48px;
+  padding: 1px 12px;
+  border: solid 1px var(--gray-3);
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+input::placeholder {
+  color: var(--gray-4);
+}
+
+button {
+  height: 48px;
+  border: solid 0px;
+  border-radius: 10px;
+  background: var(--gray-7);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gray-1);
+}

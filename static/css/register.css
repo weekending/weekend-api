@@ -1,0 +1,18 @@
+.register-wrapper {
+  margin: 20px;
+}
+
+.register-title {
+  display: inline-block;
+  margin: 10px 0;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.register-item {
+  padding: 10px 0;
+}
+
+.register-item input, button {
+  width: 100%
+}

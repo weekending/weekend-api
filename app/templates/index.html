@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/home.css') }}">
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', path='/js/home.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="home-wrapper">
+  <div class="home-title">Weekend</div>
+  <div class="nav">
+    <div class="nav-item nav-item-active" data-section="song-inprogress">진행 중</div>
+    <div class="nav-item" data-section="song-pending">예비 리스트</div>
+    <div class="nav-item" data-section="song-closed">기각</div>
+  </div>
+  <div id="song-inprogress" class="song-section">
+    <div class="song-list">
+      {% for song in in_progress %}
+      <div class="song-item">
+        <div class="song-info">
+          <div class="song-title">{% if song.from_in_progress <= 30 %}<span>New</span>{% endif %}{{ song.title }}</div>
+          <div class="song-subtitle">{{ song.singer }}</div>
+        </div>
+        {% if song.in_progress_dtm %}<div class="song-date">{{ song.in_progress_dtm }} ~</div>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div id="song-pending" class="song-section" hidden>
+    <div class="song-list-pending">
+      {% for song in pending %}
+      <div class="song-item">
+        <div class="song-info">
+          <div class="song-title">{% if song.from_created <= 7 %}<span>New</span>{% endif %}{{ song.title }}</div>
+          <div class="song-subtitle">{{ song.singer }}</div>
+        </div>
+        <div class="song-date">{{ song.created_dtm }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="bottom-button">
+      <button onclick="location.href='/register'">등록</button>
+    </div>
+  </div>
+  <div id="song-closed" class="song-section" hidden>
+    <div class="song-list">
+      {% for song in closed %}
+      <div class="song-item">
+        <div class="song-info">
+          <div class="song-title">{{ song.title }}</div>
+          <div class="song-subtitle">{{ song.singer }}</div>
+        </div>
+        {% if song.closed_dtm %}<div class="song-date">{{ song.closed_dtm }}</div>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

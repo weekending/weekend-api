@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/register.css') }}">
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', path='/js/register.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="register-wrapper">
+  <div class="register-title">예비 리스트 등록</div>
+  <div class="register-box">
+    <div class="register-item">
+      <input id="input-title" placeholder="곡을 입력하세요.">
+    </div>
+    <div class="register-item">
+      <input id="input-singer" placeholder="가수를 입력하세요.">
+    </div>
+    <div class="register-item">
+      <button onclick="requestRegister()">등록</button>
+    </div>
+  </div>
+</div>
+{% endblock %}

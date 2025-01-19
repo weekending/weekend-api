@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "weekend"
+version = "0.1.0"
+description = "An Application to manage songs for band practice"
+authors = ["miintto <miintto.log@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+asyncpg = "^0.30.0"
+fastapi = "^0.115.6"
+greenlet = "^3.1.1"
+jinja2 = "^3.1.5"
+pydantic-settings = "^2.7.1"
+sqlalchemy = "^2.0.37"
+uvicorn = {extras = ["standard"], version = "^0.34.0"}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

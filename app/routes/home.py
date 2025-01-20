@@ -1,11 +1,13 @@
 from fastapi import APIRouter, Depends, Request
 from starlette.templating import Jinja2Templates
 
+from app.common.utils import urlx_for
 from app.service.song import SongService
 
 router = APIRouter()
 
 template = Jinja2Templates("app/templates/")
+template.env.globals["url_for"] = urlx_for
 
 
 @router.get("/healthcheck", include_in_schema=False)

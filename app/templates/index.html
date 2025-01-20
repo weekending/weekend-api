@@ -9,12 +9,13 @@
 {% endblock %}
 
 {% block content %}
-<div class="home-wrapper">
+<div class="wrapper">
   <div class="home-title">Weekend</div>
   <div class="nav">
     <div class="nav-item nav-item-active" data-section="song-inprogress">진행 중</div>
     <div class="nav-item" data-section="song-pending">예비 리스트</div>
-    <div class="nav-item" data-section="song-closed">기각</div>
+    <div class="nav-item" data-section="song-closed">반려</div>
+    <div class="nav-item" data-section="song-schedule">일정 관리</div>
   </div>
   <div id="song-inprogress" class="song-section">
     <div class="song-list">
@@ -30,7 +31,7 @@
     </div>
   </div>
   <div id="song-pending" class="song-section" hidden>
-    <div class="song-list-pending">
+    <div class="song-list">
       {% for song in pending %}
       <div class="song-item">
         <div class="song-info">
@@ -40,9 +41,6 @@
         <div class="song-date">{{ song.created_dtm }}</div>
       </div>
       {% endfor %}
-    </div>
-    <div class="bottom-button">
-      <button onclick="location.href='/register'">등록</button>
     </div>
   </div>
   <div id="song-closed" class="song-section" hidden>
@@ -57,6 +55,24 @@
       </div>
       {% endfor %}
     </div>
+  </div>
+</div>
+<div id="screen" class="screen" onclick="circleButtonAction()" hidden></div>
+<div class="bottom-button" hidden>
+  <div id="button-schedule" class="button-item" style="bottom:0; opacity:0">
+    <div class="circle-button"></div>
+    <p>일정 추가</p>
+  </div>
+  <div id="button-pick" class="button-item" style="bottom:0; opacity:0">
+    <div class="circle-button"></div>
+    <p>곡 랜덤 선정</p>
+  </div>
+  <div id="button-register" class="button-item" style="bottom:0; opacity:0">
+    <div class="circle-button" onclick="location.href='/register'"></div>
+    <p>곡 등록</p>
+  </div>
+  <div id="button-plus" class="circle-button button-plus" onclick="circleButtonAction()">
+    <img src="{{ url_for('static', path='/img/plus-white.svg') }}">
   </div>
 </div>
 {% endblock %}

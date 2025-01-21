@@ -48,16 +48,17 @@ class Song(BaseModel):
     def to_dict(self) -> dict:
         now = datetime.now()
         return {
+            "id": self.id,
             "title": self.title,
             "singer": self.singer,
             "status": self.status.value,
-            "created_dtm": self.created_dtm.strftime('%Y.%m.%d'),
+            "created_dtm": self.created_dtm.strftime("%Y.%m.%d"),
             "in_progress_dtm": (
-                self.in_progress_dtm.strftime('%Y.%m.%d')
+                self.in_progress_dtm.strftime("%Y.%m.%d")
                 if self.in_progress_dtm else None
             ),
             "closed_dtm": (
-                self.closed_dtm.strftime('%Y.%m.%d')
+                self.closed_dtm.strftime("%Y.%m.%d")
                 if self.closed_dtm else None
             ),
             "from_in_progress":  (

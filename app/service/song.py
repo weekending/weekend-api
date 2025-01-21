@@ -7,9 +7,9 @@ from app.schemas.song import SongInfo, SongStatusInfo
 class SongService:
     async def get_group_info(self, group_id: int) -> dict:
         result = await asyncio.gather(
-            self._get_songs_by_status(group_id, SongStatus.INPROGRESS),
-            self._get_songs_by_status(group_id, SongStatus.PENDING),
-            self._get_songs_by_status(group_id, SongStatus.CLOSED),
+            self.get_songs_by_status(group_id, SongStatus.INPROGRESS),
+            self.get_songs_by_status(group_id, SongStatus.PENDING),
+            self.get_songs_by_status(group_id, SongStatus.CLOSED),
         )
         return {
             "in_progress": result[0],
@@ -32,7 +32,7 @@ class SongService:
         await song.save()
         return song.to_dict()
 
-    async def _get_songs_by_status(self, group_id: int, status: SongStatus):
+    async def get_songs_by_status(self, group_id: int, status: SongStatus):
         songs = await Song.find(
             Song.is_active.is_(True),
             Song.status == status,

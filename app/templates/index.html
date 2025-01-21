@@ -56,6 +56,27 @@
       {% endfor %}
     </div>
   </div>
+  <div id="song-schedule" class="song-section" hidden>
+    {% set ns = namespace(previous_year=None) %}
+    <div class="schedule-list">
+      {% for song in schedules %}
+        {% if song.year != ns.previous_year %}
+        <div class="schedule-year">{{ song.year }}년</div>
+        {% set ns.previous_year = song.year %}
+        {% endif %}
+      <div class="schedule-item">
+        <div class="schedule-info">
+          <p class="schedule-date">{{ song.date }}</p>
+          <p class="schedule-weekday">({{ song.weekday }})</p>
+        </div>
+        <div class="schedule-meta">
+          <p>{{ song.start_time }} ~ {{ song.end_time }}</p>
+          <p>{{ song.location }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 </div>
 <div id="screen" class="screen" onclick="circleButtonAction()" hidden></div>
 <div class="bottom-button" hidden>

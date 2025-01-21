@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, Request
 from starlette.templating import Jinja2Templates
 
 from app.common.utils import urlx_for
+from app.service.schedule import ScheduleService
 from app.service.song import SongService
 
 router = APIRouter()
@@ -19,13 +20,17 @@ def healthcheck() -> str:
 async def main(
     request: Request,
     group_id: int = 1,
-    service: SongService = Depends(SongService),
+    song_service: SongService = Depends(SongService),
+    schedule_service: ScheduleService = Depends(ScheduleService),
 ):
     """메인 화면"""
     return template.TemplateResponse(
         request,
         "/index.html",
-        context=await service.get_group_info(group_id=group_id),
+        context={
+            "schedules": await schedule_service.get_schedules(group_id=group_id),
+            **await song_service.get_group_info(group_id=group_id),
+        },
     )
 
 

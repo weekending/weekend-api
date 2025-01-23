@@ -1,0 +1,11 @@
+.box {
+  margin: 50px 0;
+}
+
+.item {
+  padding: 10px 0;
+}
+
+.item input, button {
+  width: 100%
+}

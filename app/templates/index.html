@@ -10,17 +10,20 @@
 
 {% block content %}
 <div class="wrapper">
-  <div class="home-title">Weekend</div>
-  <div class="nav">
+  <div class="nav-header flex">
+    <div class="home-title">Weekend</div>
+    {% if not is_login %}<div class="login-button" onclick="location.href='/login'">로그인</div>{% endif %}
+  </div>
+  <div class="nav flex">
     <div class="nav-item nav-item-active" data-section="song-inprogress">진행 중</div>
     <div class="nav-item" data-section="song-pending">예비 리스트</div>
-    <div class="nav-item" data-section="song-closed">반려</div>
+    <div class="nav-item" data-section="song-closed">반려곡</div>
     <div class="nav-item" data-section="song-schedule">일정 관리</div>
   </div>
   <div id="song-inprogress" class="song-section">
     <div class="song-list">
       {% for song in in_progress %}
-      <div class="song-item">
+      <div class="song-item flex">
         <div class="song-info">
           <div class="song-title">{% if song.from_in_progress <= 30 %}<span>New</span>{% endif %}{{ song.title }}</div>
           <div class="song-subtitle">{{ song.singer }}</div>
@@ -33,7 +36,7 @@
   <div id="song-pending" class="song-section" hidden>
     <div class="song-list">
       {% for song in pending %}
-      <div class="song-item">
+      <div class="song-item flex">
         <div class="song-info">
           <div class="song-title">{% if song.from_created <= 7 %}<span>New</span>{% endif %}{{ song.title }}</div>
           <div class="song-subtitle">{{ song.singer }}</div>
@@ -46,7 +49,7 @@
   <div id="song-closed" class="song-section" hidden>
     <div class="song-list">
       {% for song in closed %}
-      <div class="song-item">
+      <div class="song-item flex">
         <div class="song-info">
           <div class="song-title">{{ song.title }}</div>
           <div class="song-subtitle">{{ song.singer }}</div>
@@ -64,12 +67,13 @@
         <div class="schedule-year">{{ song.year }}년</div>
         {% set ns.previous_year = song.year %}
         {% endif %}
-      <div class="schedule-item">
+      <div class="schedule-item flex">
         <div class="schedule-info">
           <p class="schedule-date">{{ song.date }}</p>
           <p class="schedule-weekday">({{ song.weekday }})</p>
         </div>
         <div class="schedule-meta">
+          <p style="font-weight:500">{{ song.title }}</p>
           <p>{{ song.start_time }} ~ {{ song.end_time }}</p>
           <p>{{ song.location }}</p>
         </div>
@@ -79,16 +83,16 @@
   </div>
 </div>
 <div id="screen" class="screen" onclick="circleButtonAction()" hidden></div>
-<div class="bottom-button" hidden>
-  <div id="button-schedule" class="button-item" style="bottom:0; opacity:0">
+<div class="bottom-button flex" hidden>
+  <div id="button-schedule" class="button-item flex" style="bottom:0; opacity:0">
     <div class="circle-button"></div>
     <p>일정 추가</p>
   </div>
-  <div id="button-pick" class="button-item" style="bottom:0; opacity:0">
-    <div class="circle-button"></div>
-    <p>곡 랜덤 선정</p>
+  <div id="button-pick" class="button-item flex" style="bottom:0; opacity:0">
+    <div class="circle-button" onclick="location.href='/pick'"></div>
+    <p>연습곡 추가</p>
   </div>
-  <div id="button-register" class="button-item" style="bottom:0; opacity:0">
+  <div id="button-register" class="button-item flex" style="bottom:0; opacity:0">
     <div class="circle-button" onclick="location.href='/register'"></div>
     <p>곡 등록</p>
   </div>

@@ -10,6 +10,7 @@
   --gray-8: #202020;
   --black: #000000;
   --orange: #EC6A5E;
+  --blue: #457CE8;
 }
 
 body {
@@ -27,16 +28,28 @@ body {
   margin: 20px;
 }
 
+.flex {
+  display: flex;
+}
+
+.underline {
+  border: solid .5px var(--gray-3);
+}
+
 input {
-  height: 48px;
-  padding: 1px 12px;
-  border: solid 1px var(--gray-3);
+  height: 42px;
+  padding: 1px 8px;
+  border: none;
   border-radius: 10px;
   font-size: 16px;
 }
 
 input::placeholder {
   color: var(--gray-4);
+}
+
+input:focus {
+  outline: none;
 }
 
 button {

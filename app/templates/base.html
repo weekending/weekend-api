@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>{% block title %} Week End {% endblock %} </title>
+  <title>{% block title %} Week End {% endblock %}</title>
 
   <!-- META -->
   <meta charset="UTF-8">
@@ -9,6 +9,12 @@
   <link rel="apple-touch-icon" href="/static/img/favicon-128.png">
   <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico">
   <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+
+  <meta prefix="og: http://ogp.me/ns#" property="og:site_name" content="윅엔드"/>
+  <meta prefix="og: http://ogp.me/ns#" property="og:title" content="윅엔드"/>
+  <meta prefix="og: http://ogp.me/ns#" property="og:description" content="밴드 연습곡 관리를 손쉽게!"/>
+  <meta prefix="og: http://ogp.me/ns#" property="og:locale" content="ko_KR"/>
+  <meta prefix="og: http://ogp.me/ns#" property="og:image" content="{{ url_for('static', path='/img/og-image.png') }}">
 
   <!-- CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">

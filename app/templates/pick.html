@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/home.css') }}">
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/pick.css') }}">
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', path='/js/pick.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="pick-gnb flex">
+  <div class="pick-title">연습곡 추가</div>
+  <div class="pick-header flex">
+    <div id="total-check" class="total-check" onclick="selectAllSong()">
+      <div class="check-circle">
+        <img src="{{ url_for('static', path='/img/check.png') }}" style="width: 25px">
+      </div>
+    </div>
+    <div class="pick-header-text">모두 선택</div>
+  </div>
+</div>
+<div class="wrapper">
+  <div class="pick-list">
+    {% for song in songs %}
+    <div class="song-item flex">
+      <div class="song-info">
+        <div class="song-id" hidden>{{ song.id }}</div>
+        <div class="song-title">{{ song.title }}</div>
+        <div class="song-subtitle">{{ song.singer }}</div>
+      </div>
+      <div class="song-check">
+        <div class="check-circle">
+          <img src="{{ url_for('static', path='/img/check.png') }}" style="width: 25px">
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<div class="bottom">
+  <div class="pick-button flex">
+    <button>선택한 곡 추가</button>
+    <button>선택한 곡 중 랜덤</button>
+  </div>
+</div>
+{% endblock %}

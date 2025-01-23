@@ -13,7 +13,7 @@ def to_weekday(d: date) -> str:
 
 
 def normalize_date(d: date) -> str:
-    return f"{d.month}월 {d.day}일"
+    return f"{d.month}/{d.day}"
 
 
 def normalize_time(t: time) -> str:

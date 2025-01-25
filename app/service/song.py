@@ -1,15 +1,15 @@
 import asyncio
 
-from app.models.song import Song, SongStatus
 from app.schemas.song import SongInfo, SongStatusInfo
+from app.models import Song, SongStatus, User
 
 
 class SongService:
-    async def get_group_info(self, group_id: int) -> dict:
+    async def get_band_info(self, band_id: int) -> dict:
         result = await asyncio.gather(
-            self.get_songs_by_status(group_id, SongStatus.INPROGRESS),
-            self.get_songs_by_status(group_id, SongStatus.PENDING),
-            self.get_songs_by_status(group_id, SongStatus.CLOSED),
+            self.get_songs_by_status(band_id, SongStatus.INPROGRESS),
+            self.get_songs_by_status(band_id, SongStatus.PENDING),
+            self.get_songs_by_status(band_id, SongStatus.CLOSED),
         )
         return {
             "in_progress": result[0],
@@ -17,8 +17,9 @@ class SongService:
             "closed": result[2],
         }
 
-    async def create_song(self, group_id: int, song_info: SongInfo) -> dict:
-        song = Song(group_id=group_id, **song_info.model_dump())
+    async def create_song(self, data: SongInfo, user_id: int) -> dict:
+        user = await User.find_one(User.id == user_id)
+        song = Song(band_id=user.band_id, user_id=user_id, **data.model_dump())
         await song.save()
         return song.to_dict()
 
@@ -26,16 +27,16 @@ class SongService:
         song = await Song.find_one(Song.id == song_id)
         await song.delete()
 
-    async def update_status(self, song_id: int, song_info: SongStatusInfo) -> dict:
+    async def update_status(self, song_id: int, data: SongStatusInfo) -> dict:
         song = await Song.find_one(Song.id == song_id)
-        song.status = song_info.status
+        song.status = data.status
         await song.save()
         return song.to_dict()
 
-    async def get_songs_by_status(self, group_id: int, status: SongStatus):
+    async def get_songs_by_status(self, band_id: int, status: SongStatus):
         songs = await Song.find(
             Song.is_active.is_(True),
             Song.status == status,
-            Song.group_id == group_id,
+            Song.band_id == band_id,
         )
         return [song.to_dict() for song in songs]

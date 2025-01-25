@@ -1,26 +1,28 @@
 from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
 
-from app.service.song import SongService
+from app.common.auth.schemas import JWTAuthorizationCredentials
+from app.common.permission import is_authenticated
 from app.schemas.song import SongInfo, SongStatusInfo
+from app.service.song import SongService
 
-router = APIRouter(prefix="/api")
+router = APIRouter(prefix="/api/songs")
 
 
-@router.post("/songs")
+@router.post("")
 async def register_song(
     body: SongInfo,
-    group_id: int = 1,
+    credential: JWTAuthorizationCredentials = Depends(is_authenticated),
     service: SongService = Depends(SongService),
 ) -> JSONResponse:
     """곡 등록"""
     return JSONResponse(
-        content=await service.create_song(group_id=group_id, song_info=body),
+        content=await service.create_song(body, credential.user_id),
         status_code=201,
     )
 
 
-@router.delete("/songs/{song_id}")
+@router.delete("{song_id}")
 async def remove_song(
     song_id: int = 1,
     service: SongService = Depends(SongService),
@@ -32,10 +34,10 @@ async def remove_song(
     )
 
 
-@router.post("/songs/{song_id}/status")
+@router.post("{song_id}/status")
 async def update_song(
     body: SongStatusInfo,
-    song_id: int = 1,
+    song_id: int,
     service: SongService = Depends(SongService),
 ) -> JSONResponse:
     """곡 상태 변경"""

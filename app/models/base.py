@@ -54,6 +54,7 @@ class BaseModel(Base):
 
     @include_session
     async def save(self, session: AsyncSession = None):
+        self.updated_dtm = datetime.now()
         session.add(self)
         await session.commit()
 

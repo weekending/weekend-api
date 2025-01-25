@@ -27,21 +27,21 @@ class Song(BaseModel):
     __tablename__ = "t_song"
 
     id = Column(Integer, primary_key=True)
-    group_id = Column(
-        Integer, ForeignKey("t_group.id", ondelete="CASCADE"), nullable=False
+    band_id = Column(
+        Integer, ForeignKey("t_band.id", ondelete="CASCADE"), nullable=False
     )
     user_id = Column(Integer, ForeignKey("t_user.id", ondelete="CASCADE"))
     user = relationship(User, lazy="joined")
     status = Column(
         Enum(SongStatus, native_enum=False),
-        comment="사용자 권한",
-        nullable=False,
         default=SongStatus.PENDING,
+        nullable=False,
+        comment="사용자 권한",
     )
-    title = Column(String(100), comment="타이틀", nullable=False)
-    singer = Column(String(50), comment="가수", nullable=False)
+    title = Column(String(100), nullable=False, comment="타이틀")
+    singer = Column(String(50), nullable=False, comment="가수")
     thumbnail = Column(Text, comment="썸네일 이미지")
-    is_active = Column(Boolean, comment="활성화 여부", nullable=False, default=True)
+    is_active = Column(Boolean, default=True, nullable=False, comment="활성화 여부")
     in_progress_dtm = Column(DateTime, comment="진행 시작 일시")
     closed_dtm = Column(DateTime, comment="종료 일시")
 

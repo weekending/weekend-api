@@ -21,6 +21,8 @@ class Settings(BaseSettings):
     DB_URL: str
     SQLALCHEMY_POOL_SIZE: int = 20
 
+    BASE_DOMAIN: str = "https://weekend.miintto.com"
+
     model_config = ConfigDict(extra="ignore")
 
 

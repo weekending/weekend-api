@@ -19,7 +19,7 @@ def healthcheck() -> str:
 @router.get("/", include_in_schema=False)
 async def main(
     request: Request,
-    group_id: int = 1,
+    band_id: int = 1,
     song_service: SongService = Depends(SongService),
     schedule_service: ScheduleService = Depends(ScheduleService),
 ):
@@ -29,8 +29,8 @@ async def main(
         "/index.html",
         context={
             "is_login": False,
-            "schedules": await schedule_service.get_schedules(group_id=group_id),
-            **await song_service.get_group_info(group_id=group_id),
+            "schedules": await schedule_service.get_schedules(band_id=band_id),
+            **await song_service.get_band_info(band_id=band_id),
         },
     )
 
@@ -50,7 +50,7 @@ async def register(request: Request):
 @router.get("/pick", include_in_schema=False)
 async def register(
     request: Request,
-    group_id: int = 1,
+    band_id: int = 1,
     song_service: SongService = Depends(SongService),
 ):
     """등록 화면"""
@@ -58,7 +58,7 @@ async def register(
         request, "/pick.html",
         context={
             "songs": await song_service.get_songs_by_status(
-                group_id=group_id, status=SongStatus.PENDING
+                band_id=band_id, status=SongStatus.PENDING
             ),
         }
     )

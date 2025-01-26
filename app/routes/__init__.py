@@ -13,3 +13,8 @@ router.include_router(band_router)
 router.include_router(home_router)
 router.include_router(schedule_router)
 router.include_router(song_router)
+
+
+@router.get("/healthcheck", include_in_schema=False)
+def healthcheck() -> str:
+    return "ok"

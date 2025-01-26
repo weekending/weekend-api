@@ -11,11 +11,6 @@ template = Jinja2Templates("app/templates/")
 template.env.globals["url_for"] = urlx_for
 
 
-@router.get("/healthcheck", include_in_schema=False)
-def healthcheck() -> str:
-    return "ok"
-
-
 @router.get("/", include_in_schema=False)
 async def main(
     request: Request,

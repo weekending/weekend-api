@@ -10,11 +10,11 @@ from sqlalchemy import (
     Text,
     select,
 )
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import relationship, selectinload
 
+from app.core.database import execute_query
 from app.core.settings import get_settings
-from .base import BaseModel, include_session
+from .base import BaseModel
 
 
 def generate_hash() -> str:
@@ -31,13 +31,8 @@ class Band(BaseModel):
     links = relationship("BandLink", back_populates="band")
 
     @classmethod
-    @include_session
-    async def find_one(
-        cls,
-        *whereclause,
-        session: AsyncSession = None,
-    ) -> Union["Band", None]:
-        result = await session.execute(
+    async def find_one(cls, *whereclause) -> Union["Band", None]:
+        result = await execute_query(
             select(cls)
             .options(selectinload(cls.links))
             .where(*whereclause)

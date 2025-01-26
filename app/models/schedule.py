@@ -13,10 +13,10 @@ from sqlalchemy import (
     Time,
     select,
 )
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import Mapped, relationship, selectinload
 
-from .base import BaseModel, include_session
+from app.core.database import execute_query
+from .base import BaseModel
 from .user import User
 
 
@@ -55,14 +55,15 @@ class Schedule(BaseModel):
     users: Mapped[list[User]] = relationship(secondary=schedule_user)
 
     @classmethod
-    @include_session
-    async def find_active_schedules(
-        cls, band_id: int, session: AsyncSession = None
-    ) -> Sequence["Schedule"]:
-        query = select(cls).options(selectinload(cls.users)).where(
-            cls.is_active.is_(True),
-            cls.band_id == band_id,
-            cls.date >= datetime.now().date(),
-        ).order_by(cls.date, cls.start_time)
-        result = await session.execute(query)
+    async def find_active_schedules(cls, band_id: int) -> Sequence["Schedule"]:
+        result = await execute_query(
+            select(cls)
+            .options(selectinload(cls.users))
+            .where(
+                cls.is_active.is_(True),
+                cls.band_id == band_id,
+                cls.date >= datetime.now().date(),
+            )
+            .order_by(cls.date, cls.start_time)
+        )
         return result.scalars().all()

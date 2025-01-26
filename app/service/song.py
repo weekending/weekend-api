@@ -9,13 +9,8 @@ class SongService:
         result = await asyncio.gather(
             self.get_songs_by_status(band_id, SongStatus.INPROGRESS),
             self.get_songs_by_status(band_id, SongStatus.PENDING),
-            self.get_songs_by_status(band_id, SongStatus.CLOSED),
         )
-        return {
-            "in_progress": result[0],
-            "pending": result[1],
-            "closed": result[2],
-        }
+        return {"in_progress": result[0], "pending": result[1]}
 
     async def create_song(self, data: SongInfo, user_id: int) -> dict:
         user = await User.find_one(User.id == user_id)

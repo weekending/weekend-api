@@ -17,7 +17,6 @@
   <div class="nav flex">
     <div class="nav-item nav-item-active" data-section="song-inprogress">진행 중</div>
     <div class="nav-item" data-section="song-pending">예비 리스트</div>
-    <div class="nav-item" data-section="song-closed">반려곡</div>
     <div class="nav-item" data-section="song-schedule">일정 관리</div>
   </div>
   <div id="song-inprogress" class="song-section">
@@ -42,19 +41,6 @@
           <div class="song-subtitle">{{ song.singer }}</div>
         </div>
         <div class="song-date">{{ song.created_dtm }}</div>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-  <div id="song-closed" class="song-section" hidden>
-    <div class="song-list">
-      {% for song in closed %}
-      <div class="song-item flex">
-        <div class="song-info">
-          <div class="song-title">{{ song.title }}</div>
-          <div class="song-subtitle">{{ song.singer }}</div>
-        </div>
-        {% if song.closed_dtm %}<div class="song-date">{{ song.closed_dtm }}</div>{% endif %}
       </div>
       {% endfor %}
     </div>

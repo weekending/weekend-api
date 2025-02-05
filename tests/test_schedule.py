@@ -12,7 +12,7 @@ async def test_일정_등록(client):
     await test_밴드_생성(client)
 
     data = {
-        "date": "2025-01-01",
+        "day": "2025-01-01",
         "start_time": "12:00",
         "end_time": "14:00",
         "title": "합주",
@@ -26,6 +26,6 @@ async def test_일정_등록(client):
 async def test_일정_날짜만_등록(client):
     await test_밴드_생성(client)
 
-    data = {"date": "2025-01-01"}
+    data = {"day": "2025-01-01"}
     response = await client.post("/api/schedule", json=data)
     assert response.status_code == 201

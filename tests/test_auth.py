@@ -6,7 +6,7 @@ from app.core.settings import get_settings
 settings = get_settings()
 
 NAME = "테스트사용자"
-USERNAME = "test_user"
+EMAIL = "test_user"
 PASSWORD = "test-password"
 
 
@@ -14,7 +14,7 @@ PASSWORD = "test-password"
 async def test_회원가입(client):
     data = {
         "name": NAME,
-        "username": USERNAME,
+        "email": EMAIL,
         "password": PASSWORD,
         "password_check": PASSWORD,
     }
@@ -26,7 +26,7 @@ async def test_회원가입(client):
 async def test_일치하지않는_비밀번호로_회원가입(client):
     data = {
         "name": NAME,
-        "username": USERNAME,
+        "email": EMAIL,
         "password": PASSWORD,
         "password_check": PASSWORD + "123",
     }
@@ -40,7 +40,7 @@ async def test_중복된_이메일로_회원가입(client):
 
     data = {
         "name": NAME,
-        "username": USERNAME,
+        "email": EMAIL,
         "password": PASSWORD,
         "password_check": PASSWORD,
     }
@@ -53,7 +53,7 @@ async def test_로그인(client):
     await test_회원가입(client)
 
     data = {
-        "username": USERNAME,
+        "email": EMAIL,
         "password": PASSWORD,
     }
     response = await client.post("/api/auth/login", json=data)
@@ -67,7 +67,7 @@ async def test_잘못된_이메일로_로그인(client):
     await test_회원가입(client)
 
     data = {
-        "username": USERNAME + "123",
+        "email": EMAIL + "123",
         "password": PASSWORD,
     }
     response = await client.post("/api/auth/login", json=data)
@@ -79,7 +79,7 @@ async def test_잘못된_비밀번호로_로그인(client):
     await test_회원가입(client)
 
     data = {
-        "username": USERNAME,
+        "email": EMAIL,
         "password": PASSWORD + "123",
     }
     response = await client.post("/api/auth/login", json=data)

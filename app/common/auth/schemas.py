@@ -5,7 +5,7 @@ from app.models import PermissionType
 
 class JWTAuthorizationCredentials(BaseModel):
     user_id: int
-    username: str
+    email: str
     permission: PermissionType
     exp: float
     iat: float

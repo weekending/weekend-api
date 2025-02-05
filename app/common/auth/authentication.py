@@ -21,10 +21,13 @@ class BaseAuthentication:
         try:
             return JWTAuthorizationCredentials(**jwt.decode_token(token))
         except (ValidationError, InvalidTokenError):
-            raise HTTPException(status_code=401, detail="잘못된 인증")
+            self.handle_exception()
 
     def get_authorization(self, request: Request) -> str:
         raise NotImplementedError("`get_authorization` must be overridden.")
+
+    def handle_exception(self):
+        raise HTTPException(status_code=401, detail="잘못된 인증")
 
 
 class Authentication(BaseAuthentication):
@@ -50,3 +53,6 @@ class CookieAuthentication(BaseAuthentication):
         cookie.load(request.headers.get("Cookie", ""))
         token = cookie.get("token")
         return token.value if token else ""
+
+    def handle_exception(self):
+        raise HTTPException(status_code=302, headers={"Location": "/docs/login"})

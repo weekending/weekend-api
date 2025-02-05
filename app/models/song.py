@@ -46,7 +46,6 @@ class Song(BaseModel):
     closed_dtm = Column(DateTime, comment="종료 일시")
 
     def to_dict(self) -> dict:
-        now = datetime.now()
         return {
             "id": self.id,
             "title": self.title,
@@ -61,9 +60,4 @@ class Song(BaseModel):
                 self.closed_dtm.strftime("%Y.%m.%d")
                 if self.closed_dtm else None
             ),
-            "from_in_progress":  (
-                (now - self.in_progress_dtm).days
-                if self.in_progress_dtm else None
-            ),
-            "from_created":  (now - self.created_dtm).days
         }

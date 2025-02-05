@@ -12,7 +12,7 @@ def to_weekday(d: date) -> str:
     return weekdays[d.weekday()]
 
 
-def normalize_date(d: date) -> str:
+def normalize_day(d: date) -> str:
     return f"{d.month}/{d.day}"
 
 

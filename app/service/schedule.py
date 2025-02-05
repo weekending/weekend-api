@@ -1,4 +1,4 @@
-from app.common.utils import normalize_date, normalize_time, to_weekday
+from app.common.utils import normalize_day, normalize_time, to_weekday
 from app.models import PermissionType, Schedule, User
 from app.schemas.schedule import ScheduleInfo
 
@@ -18,9 +18,9 @@ class ScheduleService:
         return [
             {
                 "id": schedule.id,
-                "year": schedule.date.year,
-                "date": normalize_date(schedule.date),
-                "weekday": to_weekday(schedule.date),
+                "year": schedule.day.year,
+                "day": normalize_day(schedule.day),
+                "weekday": to_weekday(schedule.day),
                 "start_time": (
                     normalize_time(schedule.start_time)
                     if schedule.start_time

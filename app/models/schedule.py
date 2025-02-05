@@ -45,7 +45,7 @@ class Schedule(BaseModel):
     band_id = Column(
         Integer, ForeignKey("t_band.id", ondelete="CASCADE"), nullable=False
     )
-    date = Column(Date, nullable=False, comment="일시")
+    day = Column(Date, nullable=False, comment="일시")
     start_time = Column(Time, comment="시작 시간")
     end_time = Column(Time, comment="종료 시간")
     title = Column(String(20), comment="제목")
@@ -62,8 +62,8 @@ class Schedule(BaseModel):
             .where(
                 cls.is_active.is_(True),
                 cls.band_id == band_id,
-                cls.date >= datetime.now().date(),
+                cls.day >= datetime.now().date(),
             )
-            .order_by(cls.date, cls.start_time)
+            .order_by(cls.day, cls.start_time)
         )
         return result.scalars().all()

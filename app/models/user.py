@@ -25,7 +25,7 @@ class User(BaseModel):
     id = Column(Integer, primary_key=True)
     band_id = Column(Integer, ForeignKey("t_band.id", ondelete="CASCADE"))
     name = Column(String(30), nullable=False, comment="닉네임")
-    username = Column(String(16), unique=True, nullable=False, comment="아이디")
+    email = Column(String(255), unique=True, nullable=False, comment="이메일")
     hashed_password = Column(String(200), comment="비밀번호")
     permission = Column(
         Enum(PermissionType, native_enum=False),

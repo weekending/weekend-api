@@ -6,10 +6,12 @@ from starlette.templating import Jinja2Templates
 
 from app.common.auth import cookie
 from app.common.auth.schemas import JWTAuthorizationCredentials
+from app.common.utils import urlx_for
 
 router = APIRouter()
 
 template = Jinja2Templates("app/templates/")
+template.env.globals["url_for"] = urlx_for
 
 
 @router.get("/docs", include_in_schema=False)

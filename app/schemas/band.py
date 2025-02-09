@@ -16,7 +16,9 @@ class BandResponse(BaseModel):
     thumbnail: str | None = Field(title="썸네일 이미지 링크", )
     is_active: bool = Field(title="활성화 여부", examples=[True])
     link_url: str | None = Field(
-        title="공유하기 링크", examples=[f"{settings.BASE_DOMAIN}/link/05f08022"]
+        title="공유하기 링크",
+        examples=[f"{settings.BASE_DOMAIN}/link/05f08022"],
+        default=None,
     )
 
 

@@ -7,6 +7,7 @@ from .base import BaseErrorResponse
 
 
 class SongInfo(BaseModel):
+    band_id: int = Field(title="밴드 PK")
     title: str = Field(title="곡 제목", examples=["밥편지"])
     singer: str = Field(title="가수", examples=["아이유"])
 

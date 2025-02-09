@@ -6,15 +6,17 @@ from sqlalchemy import (
     Column,
     ForeignKey,
     Integer,
+    ScalarResult,
     String,
     Text,
     select,
 )
-from sqlalchemy.orm import relationship, selectinload
+from sqlalchemy.orm import Mapped, relationship, selectinload
 
 from app.core.database import execute_query
 from app.core.settings import get_settings
 from .base import BaseModel
+from .user import User, band_user
 
 
 def generate_hash() -> str:
@@ -29,6 +31,7 @@ class Band(BaseModel):
     thumbnail = Column(Text, comment="썸네일 이미지")
     is_active = Column(Boolean, default=True, nullable=False, comment="활성화 여부")
     links = relationship("BandLink", back_populates="band")
+    users: Mapped[list[User]] = relationship(User, secondary=band_user, back_populates="bands")
 
     @classmethod
     async def find_one(cls, *whereclause) -> Union["Band", None]:
@@ -38,6 +41,15 @@ class Band(BaseModel):
             .where(*whereclause)
         )
         return result.scalar_one_or_none()
+
+    @classmethod
+    async def find_user_bands(cls, user_id: int) -> ScalarResult["Band"]:
+        result = await execute_query(
+            select(cls)
+            .select_from(band_user.join(cls, band_user.c.band_id == cls.id))
+            .where(band_user.c.user_id == user_id)
+        )
+        return result.scalars()
 
     @property
     def link_url(self) -> str | None:

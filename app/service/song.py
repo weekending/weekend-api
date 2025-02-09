@@ -3,7 +3,7 @@ import asyncio
 from starlette.exceptions import HTTPException
 
 from app.schemas.song import SongInfo, SongStatusInfo
-from app.models import Song, SongStatus, User
+from app.models import Song, SongStatus
 
 
 class SongService:
@@ -15,8 +15,7 @@ class SongService:
         return {"in_progress": result[0], "pending": result[1]}
 
     async def create_song(self, data: SongInfo, user_id: int) -> dict:
-        user = await User.find_one(User.id == user_id)
-        song = Song(band_id=user.band_id, user_id=user_id, **data.model_dump())
+        song = Song(user_id=user_id, **data.model_dump())
         await song.save()
         return song.to_dict()
 

@@ -21,7 +21,6 @@ class JWTProvider:
         payload = {
             "user_id": user.id,
             "email": user.email,
-            "permission": user.permission.value,
             "exp": (now + self.JWT_EXPIRATION_INTERVAL).timestamp(),
             "iat": now.timestamp(),
         }

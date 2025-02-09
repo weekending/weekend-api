@@ -7,6 +7,7 @@ from starlette.templating import Jinja2Templates
 from app.common.auth import cookie
 from app.common.auth.schemas import JWTAuthorizationCredentials
 from app.common.utils import urlx_for
+from app.models.user import User
 
 router = APIRouter()
 
@@ -19,7 +20,8 @@ async def redoc_html(
     credentials: JWTAuthorizationCredentials = Depends(cookie)
 ) -> HTMLResponse:
     """API 문서"""
-    if not credentials.permission.is_admin():
+    user = await User.find_one(User.id == credentials.user_id)
+    if not user or not user.is_admin:
         raise HTTPException(status_code=302, headers={"Location": "/docs/login"})
     return get_redoc_html(openapi_url="/openapi.json", title="윅엔드")
 

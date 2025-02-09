@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
 
-from app.models import PermissionType
 from app.schemas.auth import (
     AutoTokenResponse,
     LoginInfo,
@@ -28,8 +27,9 @@ async def signup(
     body: SignupInfo, service: AuthService = Depends(AuthService)
 ) -> JSONResponse:
     """사용자 정보를 받아 회원가입 후 인증 토큰 반환"""
-    token = await service.signup(body, permission=PermissionType.LEADER)
-    return JSONResponse(content={"token": token}, status_code=201)
+    return JSONResponse(
+        content={"token": await service.signup(body)}, status_code=201
+    )
 
 
 @router.post(

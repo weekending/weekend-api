@@ -4,6 +4,7 @@ from pydantic import BaseModel, Field
 
 
 class ScheduleInfo(BaseModel):
+    band_id: int = Field(title="밴드 PK")
     day: date = Field(title="날짜", description="`YYYY-MM-DD` 형식")
     start_time: time | None = Field(
         title="시작 시간", default=None, examples=["12:00:00"]

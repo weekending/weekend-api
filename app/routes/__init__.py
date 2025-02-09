@@ -6,6 +6,7 @@ from .document import router as doc_router
 from .home import router as home_router
 from .schedule import router as schedule_router
 from .song import router as song_router
+from .user import router as user_router
 
 
 router = APIRouter()
@@ -15,6 +16,7 @@ router.include_router(doc_router)
 # router.include_router(home_router)
 router.include_router(schedule_router)
 router.include_router(song_router)
+router.include_router(user_router)
 
 
 @router.get("/", include_in_schema=False)

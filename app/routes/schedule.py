@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
 
 from app.common.auth.schemas import JWTAuthorizationCredentials
-from app.common.permission import leader_only
+from app.common.permission import is_authenticated
 from app.schemas.base import PermissionDeniedResponse, UnauthenticatedResponse
 from app.schemas.schedule import ScheduleInfo
 from app.service.schedule import ScheduleService
@@ -23,7 +23,7 @@ router = APIRouter(prefix="/api/schedule", tags=["Schedule"])
 )
 async def create_schedule(
     body: ScheduleInfo,
-    credential: JWTAuthorizationCredentials = Depends(leader_only),
+    credential: JWTAuthorizationCredentials = Depends(is_authenticated),
     service: ScheduleService = Depends(ScheduleService),
 ) -> JSONResponse:
     """일정 등록"""

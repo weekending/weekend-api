@@ -1,9 +1,14 @@
 from fastapi import APIRouter, Depends
-from fastapi.responses import JSONResponse
 
 from app.common.auth.schemas import JWTAuthorizationCredentials
+from app.common.http import Http2XX
 from app.common.permission import is_authenticated
-from app.schemas.base import PermissionDeniedResponse, UnauthenticatedResponse
+from app.common.response import APIResponse
+from app.schemas.base import (
+    PermissionDeniedResponse,
+    SuccessResponse,
+    UnauthenticatedResponse,
+)
 from app.schemas.user import UserBandResponse, UserInfoResponse
 from app.service.band import BandService
 from app.service.user import UserService
@@ -15,7 +20,7 @@ router = APIRouter(prefix="/api/users", tags=["User"])
     "/me/info",
     summary="사용자 정보 조회",
     responses={
-        200: {"description": "조회 성공", "model": UserInfoResponse},
+        200: {"description": "조회 성공", "model": SuccessResponse[UserInfoResponse]},
         401: UnauthenticatedResponse.to_openapi(),
         403: PermissionDeniedResponse.to_openapi(),
         422: {},
@@ -24,10 +29,10 @@ router = APIRouter(prefix="/api/users", tags=["User"])
 async def get_user_bands(
     credential: JWTAuthorizationCredentials = Depends(is_authenticated),
     service: UserService = Depends(UserService),
-) -> JSONResponse:
+) -> APIResponse:
     """사용자 정보 조회"""
-    return JSONResponse(
-        content=await service.get_user_info(credential.user_id)
+    return APIResponse(
+        Http2XX.OK, data=await service.get_user_info(credential.user_id)
     )
 
 
@@ -35,7 +40,7 @@ async def get_user_bands(
     "/me/bands",
     summary="사용자 밴드 조회",
     responses={
-        200: {"description": "조회 성공", "model": list[UserBandResponse]},
+        200: {"description": "조회 성공", "model": SuccessResponse[list[UserBandResponse]]},
         401: UnauthenticatedResponse.to_openapi(),
         403: PermissionDeniedResponse.to_openapi(),
         422: {},
@@ -44,8 +49,9 @@ async def get_user_bands(
 async def get_user_bands(
     credential: JWTAuthorizationCredentials = Depends(is_authenticated),
     service: BandService = Depends(BandService),
-) -> JSONResponse:
+) -> APIResponse:
     """사용자가 가입한 밴드 리스트 조회"""
-    return JSONResponse(
-        content=await service.get_user_bands(credential.user_id),
+    return APIResponse(
+        Http2XX.OK,
+        data=await service.get_user_bands(credential.user_id),
     )

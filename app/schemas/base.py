@@ -1,6 +1,25 @@
-from typing import ClassVar
+from typing import ClassVar, Generic, TypeVar
 
 from pydantic import BaseModel, ConfigDict, Field
+
+
+T = TypeVar("T")
+
+
+class BaseResponse(BaseModel, Generic[T]):
+    code: str = Field(title="코드")
+    message: str = Field(title="메시지")
+    data: T = Field(title="응답 데이터", default=None)
+
+
+class SuccessResponse(BaseResponse):
+    code: str = Field(title="코드", examples=["S000"])
+    message: str = Field(title="메시지", examples=["성공"])
+
+
+class CreatedResponse(BaseResponse):
+    code: str = Field(title="코드", examples=["S001"])
+    message: str = Field(title="메시지", examples=["생성 완료"])
 
 
 class BaseErrorResponse(BaseModel):

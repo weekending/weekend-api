@@ -3,6 +3,10 @@ from pydantic import BaseModel, Field
 from .base import BaseErrorResponse
 
 
+class EmailInfo(BaseModel):
+    email: str = Field(title="이메일", examples=["weekend.dev@gmail.com"])
+
+
 class SignupInfo(BaseModel):
     name: str = Field(title="닉네임", examples=["미민또"])
     email: str = Field(title="이메일", examples=["weekend.dev@gmail.com"])

@@ -7,6 +7,8 @@ from pydantic import ValidationError
 from starlette.exceptions import HTTPException
 from starlette.requests import Request
 
+from app.common.exception import APIException
+from app.common.http import Http4XX
 from .jwt_provider import JWTProvider
 from .schemas import JWTAuthorizationCredentials
 
@@ -27,7 +29,7 @@ class BaseAuthentication:
         raise NotImplementedError("`get_authorization` must be overridden.")
 
     def handle_exception(self):
-        raise HTTPException(status_code=401, detail="잘못된 인증")
+        raise APIException(Http4XX.UNAUTHENTICATED)
 
 
 class Authentication(BaseAuthentication):
@@ -43,7 +45,7 @@ class Authentication(BaseAuthentication):
         authorization = request.headers.get("Authorization")
         scheme, token = get_authorization_scheme_param(authorization)
         if not authorization or scheme.upper() != self.scheme:
-            raise HTTPException(status_code=401, detail="잘못된 인증")
+            raise APIException(Http4XX.UNAUTHENTICATED)
         return token
 
 

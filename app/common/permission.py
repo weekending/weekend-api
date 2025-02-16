@@ -1,8 +1,9 @@
 from fastapi import Depends
-from starlette.exceptions import HTTPException
 
 from app.common.auth import jwt_auth
 from app.common.auth.authentication import JWTAuthorizationCredentials
+from app.common.exception import APIException
+from app.common.http import Http4XX
 
 
 def is_authenticated(
@@ -16,4 +17,4 @@ def leader_only(
 ) -> JWTAuthorizationCredentials:
     if credentials.permission.is_leader() or credentials.permission.is_admin():
         return credentials
-    raise HTTPException(status_code=403, detail="권한이 없습니다.")
+    raise APIException(Http4XX.PERMISSION_DENIED)

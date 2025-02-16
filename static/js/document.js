@@ -23,7 +23,7 @@ const requestLogin = () => {
       $('.exception-message').text("");
     },
     success: (data) => {
-      setCookie("token", data.token);
+      setCookie("token", data.data.token);
       location.replace("/docs");
     },
     error: (data) => {

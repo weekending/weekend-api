@@ -1,7 +1,7 @@
 import asyncio
 
-from starlette.exceptions import HTTPException
-
+from app.common.exception import APIException
+from app.common.http import Http4XX
 from app.schemas.song import SongInfo, SongStatusInfo
 from app.models import Song, SongStatus
 
@@ -22,13 +22,12 @@ class SongService:
     async def remove_song(self, song_id: int):
         song = await Song.find_one(Song.id == song_id)
         if not song:
-            raise HTTPException(status_code=404, detail="곡을 찾을 수 없습니다.")
+            raise APIException(Http4XX.SONG_NOT_FOUND)
         await song.delete()
 
     async def update_status(self, song_id: int, data: SongStatusInfo) -> dict:
-        song = await Song.find_one(Song.id == song_id)
-        if not song:
-            raise HTTPException(status_code=404, detail="곡을 찾을 수 없습니다.")
+        if not (song := await Song.find_one(Song.id == song_id)):
+            raise APIException(Http4XX.SONG_NOT_FOUND)
         song.status = data.status
         await song.save()
         return song.to_dict()

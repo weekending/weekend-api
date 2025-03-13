@@ -1,5 +1,4 @@
 from asyncio import TimeoutError, current_task, open_connection, wait_for
-from contextlib import asynccontextmanager
 import logging
 
 from sqlalchemy.ext.asyncio import (

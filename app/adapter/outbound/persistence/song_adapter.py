@@ -8,9 +8,7 @@ from app.domain import Song
 
 class SongPersistenceAdapter(BaseRepository, SongRepositoryPort):
     async def save(self, song: Song) -> Song:
-        model = SongModel.from_domain(song)
-        self._session.add(model)
-        await self._session.commit()
+        model = await self._save(song, SongModel)
         return model.to_domain()
 
     async def remove(self, song: Song):
@@ -19,8 +17,5 @@ class SongPersistenceAdapter(BaseRepository, SongRepositoryPort):
         )
 
     async def find_by_id_or_none(self, id_: int) -> Song | None:
-        result = await self._session.execute(
-            select(SongModel).where(SongModel.id == id_)
-        )
-        if band := result.scalar_one_or_none():
-            return band.to_domain()
+        if model := await self._find_by_id_or_none(id_, SongModel):
+            return model.to_domain()

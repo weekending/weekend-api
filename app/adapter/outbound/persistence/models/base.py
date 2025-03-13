@@ -6,7 +6,7 @@ from sqlalchemy.orm import declarative_base
 _Base = declarative_base()
 
 
-class BaseModel(_Base):
+class Model(_Base):
     __abstract__ = True
 
     updated_dtm = Column(DateTime, comment="수정 일시")

@@ -16,12 +16,12 @@ from sqlalchemy.orm import Mapped, relationship
 
 from app.core.settings import get_settings
 from app.domain import Band, BandLink, MemberType
-from .base import BaseModel
+from .base import Model
 
 
 user_band_model = Table(
     "t_user_band",
-    BaseModel.metadata,
+    Model.metadata,
     Column("id", Integer, primary_key=True),
     Column(
         "user_id",
@@ -53,7 +53,7 @@ user_band_model = Table(
 )
 
 
-class BandModel(BaseModel):
+class BandModel(Model):
     __tablename__ = "t_band"
 
     id = Column(Integer, primary_key=True)
@@ -83,7 +83,7 @@ class BandModel(BaseModel):
         )
 
 
-class BandLinkModel(BaseModel):
+class BandLinkModel(Model):
     __tablename__ = "t_band_link"
 
     id = Column(Integer, primary_key=True)

@@ -16,13 +16,13 @@ from sqlalchemy import (
 from sqlalchemy.orm import Mapped, relationship
 
 from app.domain import Schedule
-from .base import BaseModel
+from .base import Model
 from .user import UserModel
 
 
 schedule_user_model = Table(
     "t_schedule_user",
-    BaseModel.metadata,
+    Model.metadata,
     Column("id", Integer, primary_key=True),
     Column(
         "schedule_id",
@@ -47,7 +47,7 @@ schedule_user_model = Table(
 )
 
 
-class ScheduleModel(BaseModel):
+class ScheduleModel(Model):
     __tablename__ = "t_schedule"
 
     id = Column(Integer, primary_key=True)

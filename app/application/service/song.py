@@ -1,24 +1,31 @@
 from datetime import datetime
 from fastapi import Depends
 
-from app.adapter.outbound.persistence import SongPersistenceAdapter
+from app.adapter.outbound.persistence import (
+    SongPersistenceAdapter,
+    UserBandPersistenceAdapter,
+)
 from app.common.exception import APIException
 from app.common.http import Http4XX
 from app.domain import Song, SongStatus
 from ..port.input import SongUseCase
-from ..port.output import SongRepositoryPort
+from ..port.output import SongRepositoryPort, UserBandRepositoryPort
 
 
 class SongService(SongUseCase):
     def __init__(
         self,
         song_repo: SongRepositoryPort = Depends(SongPersistenceAdapter),
+        user_band_repo: UserBandRepositoryPort = Depends(UserBandPersistenceAdapter),
     ):
         self._song_repo = song_repo
+        self._user_band_repo = user_band_repo
 
     async def create_song(
         self, user_id: int, band_id: int, title: str, singer: str
     ) -> Song:
+        if not await self._user_band_repo.exists(user_id, band_id):
+            raise APIException(Http4XX.BAND_NOT_REGISTERED)
         return await self._song_repo.save(
             Song(
                 band_id=band_id,

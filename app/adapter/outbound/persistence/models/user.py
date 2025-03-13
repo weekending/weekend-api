@@ -3,10 +3,10 @@ from sqlalchemy.orm import Mapped, relationship
 
 from app.domain import User
 from .band import BandModel, user_band_model
-from .base import BaseModel
+from .base import Model
 
 
-class UserModel(BaseModel):
+class UserModel(Model):
     __tablename__ = "t_user"
 
     id = Column(Integer, primary_key=True)

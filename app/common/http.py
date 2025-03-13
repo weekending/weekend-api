@@ -35,7 +35,8 @@ class Http4XX(BaseStatus):
     BAND_NOT_FOUND = ("F007", "밴드를 찾을 수 없습니다.", HTTP_404_NOT_FOUND)
     SONG_NOT_FOUND = ("F008", "연습곡을 찾을 수 없습니다.", HTTP_404_NOT_FOUND)
     USER_NOT_FOUND = ("F009", "사용자를 찾을 수 없습니다.", HTTP_404_NOT_FOUND)
-    SCHEDULE_NOT_FOUND = ("F010", "일정을 찾을 수 없습니다.", HTTP_404_NOT_FOUND)
+    BAND_NOT_REGISTERED = ("F010", "가입하지 않은 밴드입니다.", HTTP_422_UNPROCESSABLE_ENTITY)
+    SCHEDULE_NOT_FOUND = ("F011", "일정을 찾을 수 없습니다.", HTTP_404_NOT_FOUND)
 
 
 class Http5XX(BaseStatus):

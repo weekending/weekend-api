@@ -10,5 +10,9 @@ class UserBandRepositoryPort(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    async def exists(self, user_id: int, band_id: int) -> bool:
+        raise NotImplementedError
+
+    @abstractmethod
     async def find_user_bands(self, user_id: int) -> Iterable[Band]:
         raise NotImplementedError

@@ -11,11 +11,11 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 
 from app.domain import Song, SongStatus
-from .base import BaseModel
+from .base import Model
 from .user import UserModel
 
 
-class SongModel(BaseModel):
+class SongModel(Model):
     __tablename__ = "t_song"
 
     id = Column(Integer, primary_key=True)

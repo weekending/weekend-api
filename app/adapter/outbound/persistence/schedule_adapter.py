@@ -12,9 +12,7 @@ from app.domain import Schedule
 
 class SchedulePersistenceAdapter(BaseRepository, ScheduleRepositoryPort):
     async def save(self, schedule: Schedule) -> Schedule:
-        model = ScheduleModel.from_domain(schedule)
-        self._session.add(model)
-        await self._session.commit()
+        model = await self._save(schedule, ScheduleModel)
         return model.to_domain()
 
     async def find_by_id_with_user(self, id_: int) -> Schedule | None:

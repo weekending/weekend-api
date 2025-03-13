@@ -4,11 +4,11 @@ import pytest
 import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
 
-from app.models.base import BaseModel
+from app.adapter.outbound.persistence.models.base import Model
 
 try:
     from app.asgi import app
-    from app.core.database import db
+    from app.adapter.outbound.persistence.reporitory import db
 except ImportError:
     raise
 
@@ -23,10 +23,10 @@ def event_loop():
 @pytest_asyncio.fixture(scope="function")
 async def setup_db():
     async with db.engine.begin() as conn:
-        await conn.run_sync(BaseModel.metadata.create_all)
+        await conn.run_sync(Model.metadata.create_all)
     yield
     async with db.engine.begin() as conn:
-        await conn.run_sync(BaseModel.metadata.drop_all)
+        await conn.run_sync(Model.metadata.drop_all)
 
 
 @pytest_asyncio.fixture(scope="function")

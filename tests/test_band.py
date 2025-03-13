@@ -13,15 +13,15 @@ async def test_밴드_생성(client):
     client.headers.update({"Authorization": f"Bearer {token}"})
 
     data = {"name": "밴드명"}
-    response = await client.post("/api/band", json=data)
+    response = await client.post("/bands", json=data)
     assert response.status_code == 201
-    return response.json()
+    return response.json()["data"]
 
 
 @pytest.mark.asyncio
 async def test_밴드_조회(client):
     band = await test_밴드_생성(client)
 
-    response = await client.get(f"/api/band/{band["id"]}")
+    response = await client.get(f"/bands/{band["id"]}")
     assert response.status_code == 200
     return response.json()

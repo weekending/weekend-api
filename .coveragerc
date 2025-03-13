@@ -1,3 +1,8 @@
 [run]
 source = app
 omit = app/core/settings/*
+concurrency = thread, greenlet
+
+[report]
+exclude_lines =
+    NotImplementedError

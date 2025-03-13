@@ -4,7 +4,8 @@ from fastapi import Depends
 from jwt import decode, encode
 
 from app.core.settings import Settings, get_settings
-from app.models import User
+from app.domain.user import User
+from .schemas import JWTAuthorizationCredentials
 
 
 class JWTProvider:
@@ -18,14 +19,16 @@ class JWTProvider:
 
     def encode_token(self, user: User) -> str:
         now = datetime.now(tz=timezone.utc)
-        payload = {
-            "user_id": user.id,
-            "email": user.email,
-            "exp": (now + self.JWT_EXPIRATION_INTERVAL).timestamp(),
-            "iat": now.timestamp(),
-        }
+        credential = JWTAuthorizationCredentials(
+            user_id=user.id,
+            email=user.email,
+            exp=(now + self.JWT_EXPIRATION_INTERVAL).timestamp(),
+            iat=now.timestamp(),
+        )
         return encode(
-            payload=payload, key=self.secret_key, algorithm=self.ALGORITHM
+            payload=credential.model_dump(),
+            key=self.secret_key,
+            algorithm=self.ALGORITHM,
         )
 
     def decode_token(self, token: str) -> dict:

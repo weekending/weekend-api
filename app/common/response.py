@@ -1,3 +1,4 @@
+import json
 from typing import Any
 
 from starlette.responses import JSONResponse
@@ -11,3 +12,13 @@ class APIResponse(JSONResponse):
             content={"code": http.code, "message": http.message, "data": data},
             status_code=http.status_code,
         )
+
+    def render(self, content: Any) -> bytes:
+        return json.dumps(
+            content,
+            ensure_ascii=False,
+            allow_nan=False,
+            indent=None,
+            separators=(",", ":"),
+            default=str,
+        ).encode("utf-8")

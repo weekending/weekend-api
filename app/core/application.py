@@ -3,14 +3,14 @@ from logging.config import DictConfigurator
 from fastapi import FastAPI
 from starlette.staticfiles import StaticFiles
 
+from app.adapter.inbound.routes import router
+from app.adapter.outbound.persistence.reporitory import db
 from app.common.exception import APIException
 from app.core.openapi import DESCRIPTION
-from app.core.database import db
 from app.core.exception_handlers import api_exception_handler
 from app.core.logging.config import logging_config
 from app.core.middlewares.logging import LoggingMiddleware
 from app.core.settings import get_settings
-from app.routes import router
 
 settings = get_settings()
 

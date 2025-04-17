@@ -15,3 +15,8 @@ class SongRepositoryPort(ABC):
     @abstractmethod
     async def find_by_id_or_none(self, id_: int) -> Song | None:
         raise NotImplementedError
+
+    @abstractmethod
+    async def find_by_band(self, band_id: int) -> list[Song]:
+        raise NotImplementedError
+

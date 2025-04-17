@@ -29,7 +29,7 @@ router = APIRouter(prefix="/schedules", tags=["Schedule"])
     },
 )
 async def get_schedules(
-    band_id: int = Query(title="밴드 PK"),
+    band_id: int = Query(title="밴드 PK", default=1),
     credential: JWTAuthorizationCredentials = Depends(is_authenticated),
     service: ScheduleUseCase = Depends(ScheduleService),
 ) -> APIResponse:

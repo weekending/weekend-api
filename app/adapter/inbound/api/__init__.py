@@ -7,7 +7,7 @@ from .song_router import router as song_router
 from .user_router import router as user_router
 
 
-router = APIRouter()
+router = APIRouter(prefix="/api")
 router.include_router(auth_router)
 router.include_router(band_router)
 router.include_router(schedule_router)

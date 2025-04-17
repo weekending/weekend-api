@@ -17,10 +17,10 @@ class Song(BaseModel):
     id: int = None
     band_id: int
     user_id: int | None
-    status: SongStatus
     title: str
     singer: str
     thumbnail: str | None
+    status: SongStatus
     is_active: bool
     created_dtm: datetime
     in_progress_dtm: datetime | None

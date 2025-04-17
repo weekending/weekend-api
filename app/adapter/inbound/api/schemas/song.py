@@ -20,6 +20,7 @@ class SongResponse(BaseModel):
     id: int = Field(title="곡 PK")
     title: str = Field(title="곡 제목", examples=["밥편지"])
     singer: str = Field(title="가수", examples=["아이유"])
+    thumbnail: str | None = Field(title="가수")
     status: SongStatus
     created_dtm: datetime = Field(title="곡 등록 일시")
     in_progress_dtm: datetime | None = Field(title="연습 시작 일시")
@@ -31,6 +32,7 @@ class SongResponse(BaseModel):
             id=song.id,
             title=song.title,
             singer=song.singer,
+            thumbnail=song.thumbnail,
             status=song.status,
             created_dtm=song.created_dtm,
             in_progress_dtm=song.in_progress_dtm,

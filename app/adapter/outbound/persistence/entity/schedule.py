@@ -16,13 +16,13 @@ from sqlalchemy import (
 from sqlalchemy.orm import Mapped, relationship
 
 from app.domain import Schedule
-from .base import Model
-from .user import UserModel
+from .base import Base
+from .user import UserEntity
 
 
 schedule_user_model = Table(
     "t_schedule_user",
-    Model.metadata,
+    Base.metadata,
     Column("id", Integer, primary_key=True),
     Column(
         "schedule_id",
@@ -47,8 +47,9 @@ schedule_user_model = Table(
 )
 
 
-class ScheduleModel(Model):
+class ScheduleEntity(Base):
     __tablename__ = "t_schedule"
+    __domain__ = Schedule
 
     id = Column(Integer, primary_key=True)
     band_id = Column(
@@ -61,21 +62,7 @@ class ScheduleModel(Model):
     location = Column(String(30), comment="장소")
     memo = Column(Text, comment="메모")
     is_active = Column(Boolean, default=True, nullable=False, comment="활성화 여부")
-    users: Mapped[list[UserModel]] = relationship(secondary=schedule_user_model)
-
-    @staticmethod
-    def from_domain(schedule: Schedule) -> "ScheduleModel":
-        return ScheduleModel(
-            id=schedule.id,
-            band_id=schedule.band_id,
-            day=schedule.day,
-            start_time=schedule.start_time,
-            end_time=schedule.end_time,
-            title=schedule.title,
-            location=schedule.location,
-            memo=schedule.memo,
-            is_active=schedule.is_active,
-        )
+    users: Mapped[list[UserEntity]] = relationship(secondary=schedule_user_model)
 
     def to_domain(self, user: bool = False) -> Schedule:
         return Schedule(

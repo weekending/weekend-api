@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Path, Query
 
 from app.application.port.input import ScheduleUseCase
-from app.application.service.schedule import ScheduleService
+from app.application.service.schedule_service import ScheduleService
 from app.common.auth.schemas import JWTAuthorizationCredentials
 from app.common.http import Http2XX
 from app.common.permission import is_authenticated

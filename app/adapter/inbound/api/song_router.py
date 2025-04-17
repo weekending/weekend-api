@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Path
 
 from app.application.port.input import SongUseCase
-from app.application.service.song import SongService
+from app.application.service.song_service import SongService
 from app.common.auth.schemas import JWTAuthorizationCredentials
 from app.common.http import Http2XX
 from app.common.permission import is_authenticated

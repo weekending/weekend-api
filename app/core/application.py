@@ -3,7 +3,8 @@ from logging.config import DictConfigurator
 from fastapi import FastAPI
 from starlette.staticfiles import StaticFiles
 
-from app.adapter.inbound.routes import router
+from app.adapter.inbound.api import router as api_router
+from app.adapter.inbound.web import router as web_router
 from app.adapter.outbound.persistence.reporitory import db
 from app.common.exception import APIException
 from app.core.openapi import DESCRIPTION
@@ -24,7 +25,8 @@ def create_app() -> FastAPI:
         exception_handlers={APIException: api_exception_handler}
     )
 
-    app.include_router(router)
+    app.include_router(api_router)
+    app.include_router(web_router)
 
     # Logging
     DictConfigurator(logging_config).configure()

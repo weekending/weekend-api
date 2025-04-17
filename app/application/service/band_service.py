@@ -3,7 +3,6 @@ from uuid import uuid4
 from fastapi import Depends
 
 from app.adapter.outbound.persistence import (
-    BandLinkPersistenceAdapter,
     BandPersistenceAdapter,
     UserBandPersistenceAdapter,
 )
@@ -11,22 +10,16 @@ from app.common.exception import APIException
 from app.common.http import Http4XX
 from app.domain import Band, BandLink, MemberType, UserBand
 from ..port.input import BandUseCase
-from ..port.output import (
-    BandRepositoryPort,
-    BandLinkRepositoryPort,
-    UserBandRepositoryPort,
-)
+from ..port.output import BandRepositoryPort, UserBandRepositoryPort
 
 
 class BandService(BandUseCase):
     def __init__(
         self,
         band_repo: BandRepositoryPort = Depends(BandPersistenceAdapter),
-        band_link_repo: BandLinkRepositoryPort = Depends(BandLinkPersistenceAdapter),
         user_band_repo: UserBandRepositoryPort = Depends(UserBandPersistenceAdapter),
     ):
         self._band_repo = band_repo
-        self._band_link_repo = band_link_repo
         self._user_band_repo = user_band_repo
 
     async def create_band(
@@ -42,7 +35,7 @@ class BandService(BandUseCase):
         await self._user_band_repo.save(
             UserBand(user_id=user_id, band_id=band.id, member_type=member_type)
         )
-        await self._band_link_repo.save(
+        await self._band_repo.create_link(
             BandLink(band_id=band.id, hash=uuid4().hex[:18], is_active=True)
         )
         return band

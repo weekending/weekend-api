@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends, Request
 from starlette.templating import Jinja2Templates
 
-from app.application.service.schedule import ScheduleService
-from app.application.service.song import SongService, SongStatus
+from app.application.service.schedule_service import ScheduleService
+from app.application.service.song_service import SongService, SongStatus
 from app.common.utils import urlx_for
 
 router = APIRouter()
 
-template = Jinja2Templates("app/templates/")
+template = Jinja2Templates("app/adapter/inbound/web/templates/")
 template.env.globals["url_for"] = urlx_for
 
 
@@ -24,8 +24,6 @@ async def main(
         "/index.html",
         context={
             "is_login": False,
-            "schedules": await schedule_service.get_schedules(band_id=band_id),
-            **await song_service.get_band_info(band_id=band_id),
         },
     )
 

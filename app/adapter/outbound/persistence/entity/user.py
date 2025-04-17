@@ -2,12 +2,13 @@ from sqlalchemy import Boolean, Column, Integer, String
 from sqlalchemy.orm import Mapped, relationship
 
 from app.domain import User
-from .band import BandModel, user_band_model
-from .base import Model
+from .band import BandEntity, user_band_entity
+from .base import Base
 
 
-class UserModel(Model):
+class UserEntity(Base):
     __tablename__ = "t_user"
+    __domain__ = User
 
     id = Column(Integer, primary_key=True)
     name = Column(String(30), nullable=False, comment="닉네임")
@@ -15,13 +16,13 @@ class UserModel(Model):
     hashed_password = Column(String(200), comment="비밀번호")
     is_active = Column(Boolean, default=True, nullable=False, comment="활성화 여부")
     is_admin = Column(Boolean, default=False, nullable=False, comment="어드민 여부")
-    bands: Mapped[list[BandModel]] = relationship(
-        BandModel, secondary=user_band_model, back_populates="users"
+    bands: Mapped[list[BandEntity]] = relationship(
+        BandEntity, secondary=user_band_entity, back_populates="users"
     )
 
-    @staticmethod
-    def from_domain(user: User) -> "UserModel":
-        return UserModel(
+    @classmethod
+    def from_domain(cls, user: User) -> "UserEntity":
+        return cls(
             id=user.id,
             name=user.name,
             email=user.email,

@@ -5,10 +5,10 @@ from pydantic import BaseModel
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.adapter.outbound.persistence.models.base import Model
+from app.adapter.outbound.persistence.entity.base import Base
 from . import db
 
-T = TypeVar("T", bound=Model)
+T = TypeVar("T", bound=Base)
 
 
 class BaseRepository:
@@ -18,7 +18,7 @@ class BaseRepository:
     @overload
     async def _save(self, domain: BaseModel, entity: type[T]) -> T: ...
 
-    async def _save(self, domain: BaseModel, entity: type[Model]) -> Model:
+    async def _save(self, domain: BaseModel, entity: type[Base]) -> Base:
         if not domain.id:
             model = entity.from_domain(domain)
             self._session.add(model)
@@ -35,8 +35,8 @@ class BaseRepository:
     ) -> T | None: ...
 
     async def _find_by_id_or_none(
-        self, id_: int, entity: type[Model]
-    ) -> Model | None:
+        self, id_: int, entity: type[Base]
+    ) -> Base | None:
         result = await self._session.execute(
             select(entity).where(entity.id == id_)
         )

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 
 from app.application.port.input import UserUseCase
-from app.application.service.user import UserService
+from app.application.service.user_service import UserService
 from app.common.auth.schemas import JWTAuthorizationCredentials
 from app.common.http import Http2XX
 from app.common.permission import is_authenticated

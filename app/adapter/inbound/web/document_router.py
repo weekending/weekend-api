@@ -5,14 +5,14 @@ from starlette.responses import HTMLResponse
 from starlette.templating import Jinja2Templates
 
 from app.application.port.input import UserUseCase
-from app.application.service.user import UserService
+from app.application.service.user_service import UserService
 from app.common.auth import cookie
 from app.common.auth.schemas import JWTAuthorizationCredentials
 from app.common.utils import urlx_for
 
 router = APIRouter()
 
-template = Jinja2Templates("app/templates/")
+template = Jinja2Templates("app/adapter/inbound/web/templates/")
 template.env.globals["url_for"] = urlx_for
 
 

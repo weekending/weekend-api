@@ -16,12 +16,12 @@ from sqlalchemy.orm import Mapped, relationship
 
 from app.core.settings import get_settings
 from app.domain import Band, BandLink, MemberType
-from .base import Model
+from .base import Base
 
 
-user_band_model = Table(
+user_band_entity = Table(
     "t_user_band",
-    Model.metadata,
+    Base.metadata,
     Column("id", Integer, primary_key=True),
     Column(
         "user_id",
@@ -53,44 +53,29 @@ user_band_model = Table(
 )
 
 
-class BandModel(Model):
+class BandEntity(Base):
     __tablename__ = "t_band"
+    __domain__ = Band
 
     id = Column(Integer, primary_key=True)
     name = Column(String(30), nullable=False, comment="밴드명")
     thumbnail = Column(Text, comment="썸네일 이미지")
     is_active = Column(Boolean, default=True, nullable=False, comment="활성화 여부")
-    links = relationship("BandLinkModel", back_populates="band")
-    users: Mapped[list["UserModel"]] = relationship(
-        "UserModel", secondary=user_band_model, back_populates="bands"
+    links = relationship("BandLinkEntity", back_populates="band")
+    users: Mapped[list["UserEntity"]] = relationship(
+        "UserEntity", secondary=user_band_entity, back_populates="bands"
     )
 
-    @staticmethod
-    def from_domain(band: Band) -> "BandModel":
-        return BandModel(
-            id=band.id,
-            name=band.name,
-            thumbnail=band.thumbnail,
-            is_active=band.is_active,
-        )
 
-    def to_domain(self) -> Band:
-        return Band(
-            id=self.id,
-            name=self.name,
-            thumbnail=self.thumbnail,
-            is_active=self.is_active,
-        )
-
-
-class BandLinkModel(Model):
+class BandLinkEntity(Base):
     __tablename__ = "t_band_link"
+    __domain__ = BandLink
 
     id = Column(Integer, primary_key=True)
     band_id = Column(
         Integer, ForeignKey("t_band.id", ondelete="CASCADE"), nullable=False
     )
-    band = relationship(BandModel, back_populates="links")
+    band = relationship(BandEntity, back_populates="links")
     hash = Column(
         String(20),
         unique=True,
@@ -99,25 +84,16 @@ class BandLinkModel(Model):
     )
     is_active = Column(Boolean, default=True, nullable=False, comment="활성화 여부")
 
-    @staticmethod
-    def from_domain(band_link: BandLink) -> "BandLinkModel":
-        return BandLinkModel(
+    @property
+    def link_url(self) -> str:
+        settings = get_settings()
+        return f"{settings.BASE_DOMAIN}/link/{self.hash}"
+
+    @classmethod
+    def from_domain( cls, band_link: BandLink) -> "BandLinkEntity":
+        return cls(
             id=band_link.id,
             band_id=band_link.band_id,
             hash=band_link.hash,
             is_active=band_link.is_active,
         )
-
-    def to_domain(self) -> BandLink:
-        return BandLink(
-            id=self.id,
-            band_id=self.band_id,
-            hash=self.hash,
-            link_url=self.link_url,
-            is_active=self.is_active,
-        )
-
-    @property
-    def link_url(self) -> str:
-        settings = get_settings()
-        return f"{settings.BASE_DOMAIN}/link/{self.hash}"

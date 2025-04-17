@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Path
 
 from app.application.port.input import BandUseCase
-from app.application.service.band import BandService
+from app.application.service.band_service import BandService
 from app.common.auth.schemas import JWTAuthorizationCredentials
 from app.common.http import Http2XX
 from app.common.permission import is_authenticated

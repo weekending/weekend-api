@@ -12,20 +12,9 @@ template.env.globals["url_for"] = urlx_for
 
 
 @router.get("/", include_in_schema=False)
-async def main(
-    request: Request,
-    band_id: int = 1,
-    song_service: SongService = Depends(SongService),
-    schedule_service: ScheduleService = Depends(ScheduleService),
-):
+async def main(request: Request):
     """메인 화면"""
-    return template.TemplateResponse(
-        request,
-        "/index.html",
-        context={
-            "is_login": False,
-        },
-    )
+    return template.TemplateResponse(request, "/index.html")
 
 
 @router.get("/login", include_in_schema=False)

@@ -1,38 +1,28 @@
-const activate = (element) => {
-  element.setAttribute('open', true);
-  element.classList.add('active');
-}
+const calcDDay = (dateStr) => {
+  const targetDate = new Date(dateStr);
+  const today = new Date()
+  today.setHours(0, 0, 0, 0);
+  targetDate.setHours(0, 0, 0, 0);
+  const diffDays = Math.ceil((targetDate - today) / (1000 * 60 * 60 * 24));
 
-const deactivate = (element) => {
-  element.removeAttribute('open');
-  element.classList.remove('active');
-}
-
-const selectAllSong = () => {
-  const totalCheck = document.getElementById('total-check');
-  if (totalCheck.getAttribute('open')) {
-    deactivate(totalCheck)
-    document.querySelectorAll('.song-check').forEach(element => {
-      deactivate(element);
-    });
+  if (diffDays > 0) {
+    return `D-${diffDays}`;
   } else {
-    activate(totalCheck)
-    document.querySelectorAll('.song-check').forEach(element => {
-      activate(element);
-    });
+    return "D-Day";
   }
 }
 
-const selectSong = (element) => {
-  if (element.getAttribute('open')) {
-    deactivate(element);
-    const totalCheck = document.getElementById('total-check');
-    deactivate(totalCheck)
-  } else {
-    activate(element);
-  }
+const formatDate = (dateStr) => {
+  const [, month, day] = dateStr.split("-");
+  return `${month}.${day}`;
 }
 
-document.querySelectorAll('.song-check').forEach(element => {
-  element.addEventListener('click', (e) => selectSong(element))
-});
+function formatTimeTo12Hour(timeStr) {
+  const [hourStr, minuteStr] = timeStr.split(":");
+  let hour = parseInt(hourStr, 10);
+  const minute = parseInt(minuteStr, 10);
+  const period = hour >= 12 ? "PM" : "AM";
+  hour = hour % 12;
+  if (hour === 0) hour = 12;
+  return `${hour}:${minute.toString().padStart(2, "0")} ${period}`;
+}

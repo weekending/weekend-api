@@ -1,39 +1,58 @@
-const switchTab = (event) => {
-  const target = event.target.dataset.section;
-  document.querySelectorAll('.song-section').forEach(element => {
-    if (element.id === target) {
-      element.removeAttribute('hidden');
-    } else {
-      element.setAttribute('hidden', true);
+const requestSchedule = () => {
+  $.ajax({
+    url: "/api/schedules",
+    method: "GET",
+    success: function(response) {
+      response.data.forEach(item => {
+        $(".schedule-list").append(
+          `<div class="schedule-item flex">
+            <div class="schedule-info flex">
+              <div class="schedule-info-wrapper">
+                <div class="schedule-info-dday">${calcDDay(item.day)}</div>
+                <div class="schedule-info-date">${formatDate(item.day)} (${item.weekday})</div>
+              </div>
+            </div>
+            <div class="schedule-description">
+              <div class="schedule-title">${item.title}</div>
+              <div class="schedule-text">${formatTimeTo12Hour(item.start_time)} ~ ${formatTimeTo12Hour(item.end_time)}</div>
+              <div class="schedule-text">${item.location}</div>
+              <div class="schedule-text">4명 참여</div>
+            </div>
+          </div>`
+        )
+      });
+    },
+    error: function(error) {
+      console.error(error);
     }
   });
-  document.querySelectorAll('.nav-item').forEach(element => {
-    element.classList.remove('nav-item-active')
+}
+
+const requestSongs = () => {
+  $.ajax({
+    url: "/api/songs",
+    method: "GET",
+    success: function(response) {
+      $(".song-list").empty();
+      response.data.forEach(item => {
+        $(".song-list").append(
+          `<div class="song-item flex">
+            <div class="song-thumbnail">
+              <img src="${item.thumbnail}" width="42px">
+            </div>
+            <div class="song-info">
+              <div class="song-title">${item.title}</div>
+              <div class="song-singer">${item.singer}</div>
+            </div>
+          </div>`
+        )
+      });
+    },
+    error: function(error) {
+      console.error(error);
+    }
   });
-  event.target.classList.add('nav-item-active')
 }
 
-document.querySelectorAll('.nav-item').forEach(element => {
-  element.addEventListener('click', (e) => switchTab(e))
-});
-
-const circleButtonAction = () => {
-  const ids = ['button-register', 'button-pick', 'button-schedule'];
-  if (document.getElementById('button-plus').getAttribute('open')) {
-    document.getElementById('screen').setAttribute('hidden', true);
-    for (let i = 0; i < ids.length; i++) {
-      element = document.getElementById(ids[i]);
-      element.style.bottom = 0;
-      element.style.opacity = 0;
-    }
-    document.getElementById('button-plus').removeAttribute('open');
-  } else {
-    document.getElementById('screen').removeAttribute('hidden');
-    for (let i = 0; i < ids.length; i++) {
-      element = document.getElementById(ids[i]);
-      element.style.bottom = 58 * (i + 1) + 'px';
-      element.style.opacity = 1;
-    }
-    document.getElementById('button-plus').setAttribute('open', true);
-  }
-}
+requestSchedule();
+requestSongs();

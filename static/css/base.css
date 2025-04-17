@@ -19,13 +19,9 @@ body {
   color: var(--gray-8);
 }
 
-.content {
+.wrapper {
   max-width: 500px;
   margin: 0 auto;
-}
-
-.wrapper {
-  margin: 20px;
 }
 
 .flex {

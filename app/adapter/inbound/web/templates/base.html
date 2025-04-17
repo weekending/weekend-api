@@ -25,13 +25,14 @@
   {% endblock %}
 </head>
 <body>
-  <div class="content">
+  <div class="wrapper">
   {% block content %}
   {% endblock %}
   </div>
-</body>
 
-<!-- JS -->
-{% block script %}
-{% endblock %}
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <!-- JS -->
+  {% block script %}
+  {% endblock %}
+</body>
 </html>

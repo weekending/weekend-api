@@ -5,85 +5,49 @@
 {% endblock %}
 
 {% block script %}
+<script src="{{ url_for('static', path='/js/utils.js') }}"></script>
 <script src="{{ url_for('static', path='/js/home.js') }}"></script>
 {% endblock %}
 
 {% block content %}
-<div class="wrapper">
-  <div class="nav-header flex">
-    <div class="home-title">Weekend</div>
-    {% if not is_login %}<div class="login-button" onclick="location.href='/login'">로그인</div>{% endif %}
-  </div>
+<div class="content">
   <div class="nav flex">
-    <div class="nav-item nav-item-active" data-section="song-inprogress">진행 중</div>
-    <div class="nav-item" data-section="song-pending">예비 리스트</div>
-    <div class="nav-item" data-section="song-schedule">일정 관리</div>
+    <div class="nav-title">Week-End</div>
+    <a class="setting flex">
+      <img src="{{ url_for('static', path='/img/setting.svg') }}" width="25px">
+    </a>
   </div>
-  <div id="song-inprogress" class="song-section">
-    <div class="song-list">
-      {% for song in in_progress %}
-      <div class="song-item flex">
-        <div class="song-info">
-          <div class="song-title">{% if song.from_in_progress <= 30 %}<span>New</span>{% endif %}{{ song.title }}</div>
-          <div class="song-subtitle">{{ song.singer }}</div>
+  <div class="section-list">
+    <div class="section">
+      <div class="schedule">
+        <div class="schedule-list flex">
         </div>
-        {% if song.in_progress_dtm %}<div class="song-date">{{ song.in_progress_dtm }} ~</div>{% endif %}
+        <div class="schedule-scroll"></div>
       </div>
-      {% endfor %}
     </div>
-  </div>
-  <div id="song-pending" class="song-section" hidden>
-    <div class="song-list">
-      {% for song in pending %}
-      <div class="song-item flex">
-        <div class="song-info">
-          <div class="song-title">{% if song.from_created <= 7 %}<span>New</span>{% endif %}{{ song.title }}</div>
-          <div class="song-subtitle">{{ song.singer }}</div>
+    <div class="section">
+      <div class="section-content">
+        <div class="section-header">
+          <div class="section-title">진행중인 연습곡</div>
+          <div class="section-subtitle">아래 곡들을 연습하고 있어요!</div>
         </div>
-        <div class="song-date">{{ song.created_dtm }}</div>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-  <div id="song-schedule" class="song-section" hidden>
-    {% set ns = namespace(previous_year=None) %}
-    <div class="schedule-list">
-      {% for song in schedules %}
-        {% if song.year != ns.previous_year %}
-        <div class="schedule-year">{{ song.year }}년</div>
-        {% set ns.previous_year = song.year %}
-        {% endif %}
-      <div class="schedule-item flex">
-        <div class="schedule-info">
-          <p class="schedule-date">{{ song.date }}</p>
-          <p class="schedule-weekday">({{ song.weekday }})</p>
+        <div id="song-list" class="song-list">
         </div>
-        <div class="schedule-meta">
-          <p style="font-weight:500">{{ song.title }}</p>
-          <p>{{ song.start_time }} ~ {{ song.end_time }}</p>
-          <p>{{ song.location }}</p>
+        <div class="section-bottom">
+          <a>
+            <div class="section-next">더 많은 곡 보기 ></div>
+          </a>
         </div>
       </div>
-      {% endfor %}
     </div>
-  </div>
-</div>
-<div id="screen" class="screen" onclick="circleButtonAction()" hidden></div>
-<div class="bottom-button flex" hidden>
-  <div id="button-schedule" class="button-item flex" style="bottom:0; opacity:0">
-    <div class="circle-button"></div>
-    <p>일정 추가</p>
-  </div>
-  <div id="button-pick" class="button-item flex" style="bottom:0; opacity:0">
-    <div class="circle-button" onclick="location.href='/pick'"></div>
-    <p>연습곡 추가</p>
-  </div>
-  <div id="button-register" class="button-item flex" style="bottom:0; opacity:0">
-    <div class="circle-button" onclick="location.href='/register'"></div>
-    <p>곡 등록</p>
-  </div>
-  <div id="button-plus" class="circle-button button-plus" onclick="circleButtonAction()">
-    <img src="{{ url_for('static', path='/img/plus-white.svg') }}">
+    <div class="section">
+      <div class="section-content">
+        <div class="section-header">
+          <div class="section-title">투표</div>
+          <div class="section-subtitle">Coming Soon!</div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}

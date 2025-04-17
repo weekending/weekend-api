@@ -38,7 +38,7 @@ const requestSongs = () => {
         $(".song-list").append(
           `<div class="song-item flex">
             <div class="song-thumbnail">
-              <img src="${item.thumbnail}" width="42px">
+              <img src="${item.thumbnail}">
             </div>
             <div class="song-info">
               <div class="song-title">${item.title}</div>

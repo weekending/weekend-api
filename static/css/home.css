@@ -2,24 +2,6 @@ body {
   background: var(--gray-1);
 }
 
-.nav {
-  justify-content: space-between;
-  height: 35px;
-  margin: 15px;
-}
-
-.setting {
-  width: 35px;
-  height: 35px;
-}
-
-.nav-title {
-  margin: 5px;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--gray-7);
-}
-
 .section {
   margin: 20px 15px;
   border-radius: 20px;
@@ -36,8 +18,8 @@ body {
 
   .section-title {
     margin: 10px 0;
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 19px;
+    font-weight: 700;
   }
 
   .section-subtitle {
@@ -49,20 +31,25 @@ body {
 
 .section-bottom {
   text-align: right;
-  height: 30px;
+  height: 45px;
+  border-top: solid 1px var(--gray-2)
 }
 
 .section-next {
   display: inline-block;
-  margin: 0 5px;
+  margin: 15px 5px;
   font-size: 15px;
   color: var(--gray-6);
   cursor: pointer;
+  span,img{
+    vertical-align: middle;
+  }
 }
 
 .schedule {
-  display: inline-block;
-  margin: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
 }
 
 .schedule-list {
@@ -100,7 +87,7 @@ body {
   .schedule-title {
     margin: 5px;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 600;
   }
 
   .schedule-text {
@@ -111,40 +98,26 @@ body {
 }
 
 .schedule-scroll {
-  height: 27px;
+  height: 30px;
 }
 
-.song-list {
-  margin: 15px 5px;
-  border-bottom: solid 1px var(--gray-2)
-}
+.scroll {
+  text-align: center;
+  margin: auto;
 
-.song-item {
-  margin: 20px 0;
-
-  .song-thumbnail{
-    width: 54px;
-    height: 54px;
-    overflow: hidden;
-    border-radius: 27px;
-
-    img {
-      width: 100%;
-    }
+  button {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    min-width: 0;
+    margin: 0 1.8px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: var(--gray-2)
   }
 
-  .song-info {
-    margin-left: 18px;
-
-    .song-title {
-      margin: 5px 0;
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .song-singer {
-      font-size: 15px;
-      color: var(--gray-5);
-    }
+  button.active {
+    background: var(--gray-5)
   }
 }

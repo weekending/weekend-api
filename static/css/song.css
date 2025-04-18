@@ -1,0 +1,65 @@
+.song-content {
+  margin: 30px 20px;
+}
+
+.song-list {
+  margin: 5px;
+}
+
+.song-item {
+  margin: 20px 0;
+
+  .song-thumbnail{
+    width: 54px;
+    height: 54px;
+    overflow: hidden;
+    border-radius: 27px;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .song-info {
+    margin-left: 18px;
+
+    .song-title {
+      margin: 5px 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .song-singer {
+      font-size: 15px;
+      color: var(--gray-5);
+    }
+  }
+}
+
+.song-status {
+  border-radius: 18px;
+  font-size: 14px;
+
+  p {
+    padding: 4px 12px;
+  }
+}
+
+.pending {
+  color: var(--aqua-3);
+  background: var(--aqua-1);
+}
+
+.inprogress {
+  color: var(--crimson-3);
+  background: var(--crimson-1);
+}
+
+.closed {
+  color: var(--gray-5);
+  background: var(--gray-1);
+}
+
+.song-item-wrapper {
+  justify-content: space-between;
+}

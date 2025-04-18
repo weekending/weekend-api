@@ -2,9 +2,11 @@
 
 {% block style %}
 <link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/home.css') }}">
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/song.css') }}">
 {% endblock %}
 
 {% block script %}
+<script src="{{ url_for('static', path='/js/request.js') }}"></script>
 <script src="{{ url_for('static', path='/js/utils.js') }}"></script>
 <script src="{{ url_for('static', path='/js/home.js') }}"></script>
 {% endblock %}
@@ -22,7 +24,14 @@
       <div class="schedule">
         <div class="schedule-list flex">
         </div>
-        <div class="schedule-scroll"></div>
+        <div class="schedule-scroll flex">
+          <div class="scroll">
+            <button class="active"></button>
+            <button></button>
+            <button></button>
+            <button></button>
+          </div>
+        </div>
       </div>
     </div>
     <div class="section">
@@ -31,12 +40,22 @@
           <div class="section-title">진행중인 연습곡</div>
           <div class="section-subtitle">아래 곡들을 연습하고 있어요!</div>
         </div>
-        <div id="song-list" class="song-list">
-        </div>
+        <div id="song-list" class="song-list"></div>
         <div class="section-bottom">
           <a>
-            <div class="section-next">더 많은 곡 보기 ></div>
+            <div class="section-next" onclick="location.href='/songs';">
+              <span>더 많은 곡 보기</span>
+              <img src="{{ url_for('static', path='/img/next.svg') }}" width="18px">
+            </div>
           </a>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-content">
+        <div class="section-header">
+          <div class="section-title">캘린더</div>
+          <div class="section-subtitle">Coming Soon!</div>
         </div>
       </div>
     </div>

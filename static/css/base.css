@@ -9,8 +9,12 @@
   --gray-7: #404040;
   --gray-8: #202020;
   --black: #000000;
-  --orange: #EC6A5E;
-  --blue: #457CE8;
+  --aqua-1: #EDF8F9;
+  --aqua-2: #A2CED1;
+  --aqua-3: #509A9F;
+  --crimson-1: #FCEBEB;
+  --crimson-2: #DFA1A1;
+  --crimson-3: #B46363;
 }
 
 body {
@@ -32,28 +36,26 @@ body {
   border: solid .5px var(--gray-3);
 }
 
-input {
-  height: 42px;
-  padding: 1px 8px;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
+.nav {
+  justify-content: space-between;
+  height: 35px;
+  margin: 15px;
 }
 
-input::placeholder {
-  color: var(--gray-4);
+.nav-back {
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
 }
 
-input:focus {
-  outline: none;
+.setting {
+  width: 35px;
+  height: 35px;
 }
 
-button {
-  height: 48px;
-  border: solid 0px;
-  border-radius: 10px;
-  background: var(--gray-7);
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--gray-1);
+.nav-title {
+  margin: 5px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gray-7);
 }

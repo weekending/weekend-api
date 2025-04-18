@@ -6,6 +6,7 @@ from app.common.auth.schemas import JWTAuthorizationCredentials
 from app.common.http import Http2XX
 from app.common.permission import is_authenticated
 from app.common.response import APIResponse
+from app.domain.song import SongStatus
 from .schemas.song import (
     SongCreateValidationErrorResponse,
     SongInfo,
@@ -25,10 +26,10 @@ router = APIRouter(prefix="/songs", tags=["Song"])
 
 @router.get(
     "",
-    summary="곡 조회",
+    summary="곡 목록 조회",
     status_code=200,
     responses={
-        201: {"description": "곡 등록 성공", "model": CreatedResponse[SongResponse]},
+        200: {"description": "곡 목록 조회 성공", "model": SuccessResponse[SongResponse]},
         400: SongCreateValidationErrorResponse.to_openapi(),
         401: UnauthenticatedResponse.to_openapi(),
         403: PermissionDeniedResponse.to_openapi(),
@@ -37,11 +38,12 @@ router = APIRouter(prefix="/songs", tags=["Song"])
 )
 async def register_song(
     band_id: int = 1,
+    status: SongStatus = None,
     credential: JWTAuthorizationCredentials = Depends(is_authenticated),
     service: SongUseCase = Depends(SongService),
 ) -> APIResponse:
-    """곡 조회"""
-    songs = await service.get_song_list(credential.user_id, band_id)
+    """곡 목록 조회"""
+    songs = await service.get_song_list(credential.user_id, band_id, status)
     return APIResponse(
         Http2XX.OK,
         data=[SongResponse.from_domain(song).model_dump() for song in songs]

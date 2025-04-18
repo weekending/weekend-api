@@ -25,9 +25,11 @@ class SongService(SongUseCase):
         if not await self._user_band_repo.exists(user_id, band_id):
             raise APIException(Http4XX.BAND_NOT_REGISTERED)
 
-    async def get_song_list(self, user_id: int, band_id: int) -> list[Song]:
+    async def get_song_list(
+        self, user_id: int, band_id: int, status: SongStatus
+    ) -> list[Song]:
         await self._check_user_band_permission(user_id, band_id)
-        return await self._song_repo.find_by_band(band_id)
+        return await self._song_repo.find_by_band(band_id, status)
 
     async def create_song(
         self, user_id: int, band_id: int, title: str, singer: str

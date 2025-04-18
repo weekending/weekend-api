@@ -8,7 +8,7 @@ const calcDDay = (dateStr) => {
   if (diffDays > 0) {
     return `D-${diffDays}`;
   } else {
-    return "D-Day";
+    return "D-day";
   }
 }
 

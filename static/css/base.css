@@ -59,3 +59,30 @@ body {
   font-weight: 700;
   color: var(--gray-7);
 }
+
+footer {
+  background: var(--gray-1)
+}
+
+.footer-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 30px;
+  text-align: center;
+
+  .footer-info {
+    font-size: 14px;
+    color: var(--gray-4);
+  }
+  .footer-link {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+
+    .link-box {
+      margin: 8px;
+    }
+  }
+}
+
+

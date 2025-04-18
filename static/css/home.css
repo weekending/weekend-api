@@ -74,11 +74,17 @@ body {
 
 .schedule-info-wrapper {
   margin: auto;
-}
 
-.schedule-info-dday {
-  font-size: 36px;
-  font-weight: 900;
+  .schedule-info-dday {
+    margin-bottom: 10px;
+    font-size: 36px;
+    font-weight: 900;
+  }
+
+  .schedule-info-date {
+    font-size: 15px;
+    color: var(--gray-7);
+  }
 }
 
 .schedule-description {

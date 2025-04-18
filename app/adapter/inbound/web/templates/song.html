@@ -24,4 +24,22 @@
     <div id="song-list" class="song-list"></div>
   </div>
 </div>
+<div id="screen" class="screen" onclick="circleButtonAction()" hidden></div>
+<div class="bottom-button flex" hidden>
+  <div id="button-pick" class="button-item flex" style="bottom:0; opacity:0">
+    <div class="circle-button">
+      <img src="{{ url_for('static', path='/img/button-pick.svg') }}" width="30px">
+    </div>
+    <p>랜덤 뽑기</p>
+  </div>
+  <div id="button-register" class="button-item flex" style="bottom:0; opacity:0">
+    <div class="circle-button">
+      <img src="{{ url_for('static', path='/img/button-register.svg') }}" width="30px">
+    </div>
+    <p>연습곡 등록</p>
+  </div>
+  <div id="button-plus" class="circle-button button-plus" onclick="circleButtonAction()">
+    <img src="{{ url_for('static', path='/img/plus.svg') }}">
+  </div>
+</div>
 {% endblock %}

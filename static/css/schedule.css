@@ -29,7 +29,6 @@
 }
 
 .schedule-description {
-  margin-left: 93px;
   padding: 3px 15px 12px 15px;
 
   .schedule-title {
@@ -46,5 +45,6 @@
 }
 
 .schedule-description.line {
+  margin-left: 93px;
   border-left: solid 3px var(--gray-2);
 }

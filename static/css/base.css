@@ -24,8 +24,19 @@ body {
 }
 
 .wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.content {
+  flex: 1;
   max-width: 500px;
-  margin: 0 auto;
+
+  @media screen and (min-width: 500px) {
+    width: 500px;
+    margin: 0 auto;
+  }
 }
 
 .flex {

@@ -21,13 +21,13 @@ async def login(request: Request):
     return template.TemplateResponse(request, "/login.html")
 
 
-@router.get("/register")
-async def register(request: Request):
-    """등록 화면"""
-    return template.TemplateResponse(request, "/register.html")
-
-
 @router.get("/songs")
 async def register(request: Request):
     """곡 리스트 화면"""
-    return template.TemplateResponse(request, "/song.html")
+    return template.TemplateResponse(request, "/song/song.html")
+
+
+@router.get("/songs/register")
+async def register(request: Request):
+    """곡 등록 화면"""
+    return template.TemplateResponse(request, "/song/register.html")

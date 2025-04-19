@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/button.css') }}">
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/calendar.css') }}">
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/schedule.css') }}">
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+{% block content %}
+<div class="schedule">
+  <div class="nav flex">
+    <a class="nav-back flex" onclick="javascript:history.back();">
+      <img src="{{ url_for('static', path='/img/back.svg') }}" width="30px">
+    </a>
+    <div class="nav-title">{{ title }}</div>
+    <a class="change-schedule">
+      <p>수정</p>
+    </a>
+  </div>
+  <div class="schedule-detail-content">
+    <div class="schedule-detail-section flex">
+      <div class="schedule-icon">
+        <img src="{{ url_for('static', path='/img/time.svg') }}" width="24px">
+      </div>
+      <div>
+        <p class="schedule-date">{{ date }}</p>
+        <p>{{ time }}</p>
+      </div>
+    </div>
+    <div class="schedule-detail-section flex">
+      <div class="schedule-icon">
+        <img src="{{ url_for('static', path='/img/location.svg') }}" width="24px">
+      </div>
+      <p>{{ location }}</p>
+    </div>
+    <div class="schedule-detail-section flex">
+      <div class="schedule-icon">
+        <img src="{{ url_for('static', path='/img/users.svg') }}" width="24px">
+      </div>
+      <p>{{ user_count }}명<span>{{ usernames }}</span></p>
+    </div>
+    <div class="schedule-detail-section flex">
+      <div class="schedule-icon">
+        <img src="{{ url_for('static', path='/img/memo.svg') }}" width="24px">
+      </div>
+      <p>{{ memo }}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

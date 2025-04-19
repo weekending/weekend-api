@@ -71,7 +71,7 @@ async def create_schedule(
 
 
 @router.get(
-    "/{band_id}",
+    "/{schedule_id}",
     status_code=200,
     summary="일정 정보 조회",
     responses={
@@ -82,12 +82,12 @@ async def create_schedule(
     },
 )
 async def get_schedule_info(
-    band_id: int = Path(title="밴드 PK"),
+    schedule_id: int = Path(title="밴드 PK"),
     credential: JWTAuthorizationCredentials = Depends(is_authenticated),
     service: ScheduleUseCase = Depends(ScheduleService),
 ) -> APIResponse:
     """일정 정보 조회"""
-    schedule = await service.get_schedule_info(band_id)
+    schedule = await service.get_schedule_info(schedule_id)
     return APIResponse(
         Http2XX.OK, data=ScheduleResponse.from_domain(schedule).model_dump()
     )

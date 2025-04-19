@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, time
 
 from fastapi import Request
 from jinja2 import pass_context
@@ -10,6 +10,13 @@ weekdays = ["월", "화", "수", "목", "금", "토", "일"]
 
 def to_weekday(d: date) -> str:
     return weekdays[d.weekday()]
+
+
+def format_time(t: time):
+    return (
+        f"{'오전' if t.hour < 12 else '오후'} "
+        f"{t.hour if t.hour <= 12 else t.hour - 12}:{str(t.minute).zfill(2)}"
+    )
 
 
 @pass_context

@@ -20,8 +20,26 @@ const renderCalendar = (date) => {
   const lastDate = new Date(year, month + 1, 0).getDate();
 
   $("#month-title").text(`${year}년 ${month + 1}월`);
-  const calendarDays = $("#calendarDays")
-  calendarDays.innerHTML = "";
+  const calendarDays = $("#calendarDays");
+  $("#calendarDays").empty();
+  for (let i = 0; i < firstDay; i++) {
+    calendarDays.append(
+      `<div class="day-item">
+        <div class="day"></div>
+        <div class="day-schedule"></div>
+      </div>`
+    );
+  }
+
+  const today = new Date();
+  for (let day = 1; day <= lastDate; day++) {
+    calendarDays.append(
+      `<div class="day-item">
+        <div class="day ${todayClass(year, month, day, today)} ${sundayClass(year, month, day)}">${day}</div>
+        <div class="day-schedule" data-date=${dayToYYYYMMDD(year, month, day)}></div>
+      </div>`
+    );
+  }
 
   requestSchedule(
     $.param(
@@ -41,36 +59,20 @@ const renderCalendar = (date) => {
           scheduleDate = item.day;
         }
         $("#schedule-list").append(
-          `<div class="schedule-description line">
+          `<div class="schedule-description line" data-id="${item.id}">
             <div class="schedule-title">${item.title}</div>
             <div class="schedule-text">${formatTimeTo12Hour(item.start_time)} ~ ${formatTimeTo12Hour(item.end_time)}</div>
             <div class="schedule-text">${item.location}</div>
-            <div class="schedule-text">4명 참여</div>
+            <div class="schedule-text">${item.users.length}명 참여</div>
           </div>`
         )
+        $("#schedule-list").on("click", ".schedule-description", function () {
+          location.href = "/schedule/" + $(this).data("id");
+        });
+        $(`.day-schedule[data-date="${item.day}"]`).append(`<div class="event"></div>`);
       });
     }
   );
-
-  $("#calendarDays").empty();
-  for (let i = 0; i < firstDay; i++) {
-    calendarDays.append(
-      `<div class="day-item">
-        <div class="day"></div>
-        <div class="day-schedule"></div>
-      </div>`
-    );
-  }
-
-  const today = new Date();
-  for (let day = 1; day <= lastDate; day++) {
-    calendarDays.append(
-      `<div class="day-item">
-        <div class="day ${todayClass(year, month, day, today)} ${sundayClass(year, month, day)}">${day}</div>
-        <div class="day-schedule"></div>
-      </div>`
-    );
-  }
 }
 
 const currentDate = new Date();

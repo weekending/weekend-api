@@ -1,3 +1,15 @@
+.change-schedule {
+  width: 35px;
+  cursor: pointer;
+
+  p {
+    margin: 7px 0;
+    font-size: 14px;
+    color: var(--gray-5);
+    text-align: center;
+  }
+}
+
 .schedule-content {
   margin: 15px;
 }
@@ -23,7 +35,7 @@
     p {
       margin: 0;
       font-size: 14px;
-      color: var(--gray-4);
+      color: var(--gray-5);
     }
   }
 }
@@ -47,4 +59,31 @@
 .schedule-description.line {
   margin-left: 93px;
   border-left: solid 3px var(--gray-2);
+  cursor: pointer;
+}
+
+.schedule-detail-content {
+  padding: 20px;
+}
+
+.schedule-detail-section {
+  margin: 10px;
+  font-size: 16px;
+  color: var(--gray-8);
+
+  .schedule-date {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .schedule-icon {
+    height: 25px;
+    margin: 7px 0;
+  }
+
+  p {
+    min-height: 28px;
+    margin: 5px 10px;
+    line-height: 28px;
+  }
 }

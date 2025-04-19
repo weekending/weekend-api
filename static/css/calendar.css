@@ -64,4 +64,14 @@
 
 .day-schedule {
   height: 12px;
+
+  .event {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    min-width: 0;
+    margin: 0 1px;
+    border-radius: 50%;
+    background: var(--gray-4);
+  }
 }

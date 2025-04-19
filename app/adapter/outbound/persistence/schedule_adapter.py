@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 from typing import Iterable
 
 from sqlalchemy import select
@@ -26,16 +26,21 @@ class SchedulePersistenceAdapter(BaseRepository, ScheduleRepositoryPort):
             return schedule.to_domain(user=True)
 
     async def find_active_schedules_with_user(
-        self, band_id: int
+        self, band_id: int, from_: date, to: date
     ) -> Iterable[Schedule]:
-        result = await self._session.execute(
+        query = (
             select(ScheduleEntity)
             .options(selectinload(ScheduleEntity.users))
             .where(
                 ScheduleEntity.is_active.is_(True),
                 ScheduleEntity.band_id == band_id,
-                ScheduleEntity.day >= datetime.now().date(),
             )
-            .order_by(ScheduleEntity.day, ScheduleEntity.start_time)
+        )
+        if from_:
+            query = query.where(ScheduleEntity.day >= from_)
+        if to:
+            query = query.where(ScheduleEntity.day <= to)
+        result = await self._session.execute(
+            query.order_by(ScheduleEntity.day, ScheduleEntity.start_time)
         )
         return map(lambda schedule: schedule.to_domain(user=True), result.scalars())

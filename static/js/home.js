@@ -1,7 +1,8 @@
 requestSchedule(
+  $.param({"from": dateToYYYYMMDD(new Date())}),
   (response) => {
     response.data.forEach(item => {
-      $(".schedule-list").append(
+      $("#d-day-list").append(
         `<div class="schedule-item flex">
           <div class="schedule-info flex">
             <div class="schedule-info-wrapper">

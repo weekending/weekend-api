@@ -8,27 +8,6 @@ const getStatusDisplay = (status) => {
   }
 }
 
-const circleButtonAction = () => {
-  const ids = ['button-register', 'button-pick'];
-  if ($("#button-plus").attr("open")) {
-    $("#screen").attr("hidden", true)
-    for (let i = 0; i < ids.length; i++) {
-      element = document.getElementById(ids[i]);
-      element.style.bottom = 0;
-      element.style.opacity = 0;
-    }
-    $("#button-plus").removeAttr("open")
-  } else {
-    $("#screen").removeAttr("hidden", true)
-    for (let i = 0; i < ids.length; i++) {
-      element = document.getElementById(ids[i]);
-      element.style.bottom = 58 * (i + 1) + 'px';
-      element.style.opacity = 1;
-    }
-    $("#button-plus").attr("open", true)
-  }
-}
-
 requestSongs(
   $.param({}),
   (response) => {

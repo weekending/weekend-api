@@ -1,0 +1,21 @@
+<div class="calendar">
+  <div class="calendar-header">
+    <div id="prev-month" class="calendar-button">
+      <img src="{{ url_for('static', path='/img/prev-light.svg') }}" width="24px">
+    </div>
+    <div id="month-title" class="month-title">April 2025</div>
+    <div id="next-month" class="calendar-button">
+      <img src="{{ url_for('static', path='/img/next-light.svg') }}" width="24px">
+    </div>
+  </div>
+  <div class="calendar-grid">
+    <div class="day-name">일</div>
+    <div class="day-name">월</div>
+    <div class="day-name">화</div>
+    <div class="day-name">수</div>
+    <div class="day-name">목</div>
+    <div class="day-name">금</div>
+    <div class="day-name">토</div>
+  </div>
+  <div id="calendarDays" class="calendar-grid"></div>
+</div>

@@ -1,0 +1,50 @@
+.schedule-content {
+  margin: 15px;
+}
+
+.schedule-list {
+  margin: 20px 0;
+  padding: 20px 0;
+  border-top: solid 1px var(--gray-1);
+
+  .schedule-date {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100px;
+
+    .circle {
+      width: 11px;
+      height: 11px;
+      margin: 3px 0px 3px 12px;
+      background: var(--gray-5);
+      border-radius: 50%;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--gray-4);
+    }
+  }
+}
+
+.schedule-description {
+  margin-left: 93px;
+  padding: 3px 15px 12px 15px;
+
+  .schedule-title {
+    margin: 5px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .schedule-text {
+    margin: 5px;
+    font-size: 14px;
+    color: var(--gray-5);
+  }
+}
+
+.schedule-description.line {
+  border-left: solid 3px var(--gray-2);
+}

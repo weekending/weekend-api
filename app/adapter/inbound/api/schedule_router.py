@@ -1,3 +1,5 @@
+from datetime import date
+
 from fastapi import APIRouter, Depends, Path, Query
 
 from app.application.port.input import ScheduleUseCase
@@ -30,11 +32,15 @@ router = APIRouter(prefix="/schedules", tags=["Schedule"])
 )
 async def get_schedules(
     band_id: int = Query(title="밴드 PK", default=1),
+    from_: date = Query(title="조회 시작일", default=None, alias="from"),
+    to: date = Query(title="조회 종료일", default=None),
     credential: JWTAuthorizationCredentials = Depends(is_authenticated),
     service: ScheduleUseCase = Depends(ScheduleService),
 ) -> APIResponse:
     """밴드에 등록된 일정 리스트 조회"""
-    schedule = await service.get_band_schedules(credential.user_id, band_id)
+    schedule = await service.get_band_schedules(
+        credential.user_id, band_id, from_, to
+    )
     return APIResponse(
         Http2XX.OK,
         data=[ScheduleResponse.from_domain(s).model_dump() for s in schedule],

@@ -29,5 +29,13 @@ class ScheduleService(ScheduleUseCase):
             raise APIException(Http4XX.SCHEDULE_NOT_FOUND)
         return schedule
 
-    async def get_band_schedules(self, user_id: int, band_id: int) -> list[Schedule]:
-        return await self._schedule_repo.find_active_schedules_with_user(band_id)
+    async def get_band_schedules(
+        self,
+        user_id: int,
+        band_id: int,
+        from_: date,
+        to: date,
+    ) -> list[Schedule]:
+        return await self._schedule_repo.find_active_schedules_with_user(
+            band_id, from_, to
+        )

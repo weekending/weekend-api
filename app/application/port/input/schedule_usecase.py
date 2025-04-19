@@ -16,5 +16,11 @@ class ScheduleUseCase(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def get_band_schedules(self, user_id: int, band_id: int) -> list[Schedule]:
+    async def get_band_schedules(
+        self,
+        user_id: int,
+        band_id: int,
+        from_: date,
+        to: date,
+    ) -> list[Schedule]:
         raise NotImplementedError

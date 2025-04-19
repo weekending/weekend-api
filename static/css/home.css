@@ -11,6 +11,10 @@ body {
 
 .section-content {
   padding: 20px;
+
+  .calendar-button {
+    display: none;
+  }
 }
 
 .section-header {
@@ -52,12 +56,12 @@ body {
   padding: 10px;
 }
 
-.schedule-list {
+.d-day-list {
   flex-wrap: nowrap;
   overflow-x: auto;
 }
 
-.schedule-list::-webkit-scrollbar {
+.d-day-list::-webkit-scrollbar {
   display: none;
 }
 
@@ -85,22 +89,6 @@ body {
   .schedule-info-date {
     font-size: 15px;
     color: var(--gray-7);
-  }
-}
-
-.schedule-description {
-  margin: 5px 5px 5px 20px;
-
-  .schedule-title {
-    margin: 5px;
-    font-size: 18px;
-    font-weight: 600;
-  }
-
-  .schedule-text {
-    margin: 5px;
-    font-size: 14px;
-    color: var(--gray-5);
   }
 }
 

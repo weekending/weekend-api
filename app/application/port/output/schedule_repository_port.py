@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from datetime import date
 
 from app.domain import Schedule
 
@@ -14,6 +15,6 @@ class ScheduleRepositoryPort(ABC):
 
     @abstractmethod
     async def find_active_schedules_with_user(
-        self, band_id: int
+        self, band_id: int, from_: date, to: date
     ) -> list[Schedule]:
         raise NotImplementedError

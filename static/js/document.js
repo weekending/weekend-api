@@ -14,7 +14,7 @@ const requestLogin = () => {
   }
 
   $.ajax({
-    url: "/auth/login",
+    url: "/api/auth/login",
     type: "POST",
     dataType: "JSON",
     contentType: "application/json;",

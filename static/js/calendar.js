@@ -13,17 +13,9 @@ const sundayClass = (year, month, day) => {
   return ""
 }
 
-const renderCalendar = (date) => {
-  const year = date.getFullYear();
-  const month = date.getMonth();
-  const firstDay = new Date(year, month, 1).getDay();
-  const lastDate = new Date(year, month + 1, 0).getDate();
-
-  $("#month-title").text(`${year}년 ${month + 1}월`);
-  const calendarDays = $("#calendarDays");
-  $("#calendarDays").empty();
+const fillDays = (calendarDay, year, month, firstDay, lastDate) => {
   for (let i = 0; i < firstDay; i++) {
-    calendarDays.append(
+    calendarDay.append(
       `<div class="day-item">
         <div class="day"></div>
         <div class="day-schedule"></div>
@@ -33,24 +25,25 @@ const renderCalendar = (date) => {
 
   const today = new Date();
   for (let day = 1; day <= lastDate; day++) {
-    calendarDays.append(
+    calendarDay.append(
       `<div class="day-item">
         <div class="day ${todayClass(year, month, day, today)} ${sundayClass(year, month, day)}">${day}</div>
         <div class="day-schedule" data-date=${dayToYYYYMMDD(year, month, day)}></div>
       </div>`
     );
   }
+}
 
+const renderScheduleList = (scheduleList, year, month) => {
   requestSchedule(
     $.param(
       {"from": dateToYYYYMMDD(new Date(year, month, 1)), "to": dateToYYYYMMDD(new Date(year, month + 1, 0))}
     ),
     (response) => {
-      $("#schedule-list").empty();
       let scheduleDate = null;
       response.data.forEach(item => {
         if (scheduleDate !== item.day) {
-          $("#schedule-list").append(
+          scheduleList.append(
             `<div class="schedule-date">
               <div class="circle"></div>
               <p>${formatDate(item.day)} (${item.weekday})</p>
@@ -58,7 +51,7 @@ const renderCalendar = (date) => {
           )
           scheduleDate = item.day;
         }
-        $("#schedule-list").append(
+        scheduleList.append(
           `<div class="schedule-description line" data-id="${item.id}">
             <div class="schedule-title">${item.title}</div>
             <div class="schedule-text">${formatTimeTo12Hour(item.start_time)} ~ ${formatTimeTo12Hour(item.end_time)}</div>
@@ -66,13 +59,30 @@ const renderCalendar = (date) => {
             <div class="schedule-text">${item.users.length}명 참여</div>
           </div>`
         )
-        $("#schedule-list").on("click", ".schedule-description", function () {
+        scheduleList.on("click", ".schedule-description", function () {
           location.href = "/schedule/" + $(this).data("id");
         });
         $(`.day-schedule[data-date="${item.day}"]`).append(`<div class="event"></div>`);
       });
     }
   );
+}
+
+const renderCalendar = (date) => {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const firstDay = new Date(year, month, 1).getDay();
+  const lastDate = new Date(year, month + 1, 0).getDate();
+
+  $("#month-title").text(`${year}년 ${month + 1}월`);
+  const calendarDay = $("#calendar-day");
+  const scheduleList = $("#schedule-list");
+
+  calendarDay.empty();
+  scheduleList.empty();
+
+  fillDays(calendarDay, year, month, firstDay, lastDate)
+  renderScheduleList(scheduleList, year, month)
 }
 
 const currentDate = new Date();

@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 
 {% block style %}
-<link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/button.css') }}">
-<link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/calendar.css') }}">
 <link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/schedule.css') }}">
 {% endblock %}
 
 {% block script %}
+<script src="{{ url_for('static', path='/js/schedule-detail.js') }}"></script>
 {% endblock %}
 
 {% block content %}
@@ -16,37 +15,62 @@
       <img src="{{ url_for('static', path='/img/back.svg') }}" width="30px">
     </a>
     <div class="nav-title">{{ title }}</div>
-    <a class="change-schedule">
+    {% if is_edit %}
+    <a id="save-schedule"  class="edit-schedule">
+      <p>저장</p>
+    </a>
+    {% else %}
+    <a id="edit-schedule" class="edit-schedule">
       <p>수정</p>
     </a>
+    {% endif %}
   </div>
   <div class="schedule-detail-content">
     <div class="schedule-detail-section flex">
       <div class="schedule-icon">
         <img src="{{ url_for('static', path='/img/time.svg') }}" width="24px">
       </div>
+      {% if is_edit %}
+      <div class="schedule-input-date">
+        <input id="schedule-input-date" value="{{ date }}" type="date">
+        <div class="flex">
+          <input id="schedule-input-start-time" value="{{ start_time }}" type="time">
+        <p>~</p>
+          <input id="schedule-input-end-time" value="{{ end_time }}" type="time">
+        </div>
+      </div>
+      {% else %}
       <div>
-        <p class="schedule-date">{{ date }}</p>
+        <p>{{ date }}</p>
         <p>{{ time }}</p>
       </div>
+      {% endif %}
     </div>
     <div class="schedule-detail-section flex">
       <div class="schedule-icon">
         <img src="{{ url_for('static', path='/img/location.svg') }}" width="24px">
       </div>
+      {% if is_edit %}
+      <textarea id="schedule-input-location" style="height: 35px;">{{ location }}</textarea>
+      {% else %}
       <p>{{ location }}</p>
+      {% endif %}
     </div>
     <div class="schedule-detail-section flex">
       <div class="schedule-icon">
         <img src="{{ url_for('static', path='/img/users.svg') }}" width="24px">
       </div>
-      <p>{{ user_count }}명<span>{{ usernames }}</span></p>
+      <p>{{ user_count }}명 {% if user_count > 0 %}<span>({{ usernames }})</span> {% endif %}</p>
     </div>
     <div class="schedule-detail-section flex">
       <div class="schedule-icon">
         <img src="{{ url_for('static', path='/img/memo.svg') }}" width="24px">
       </div>
+      {% if is_edit %}
+      <textarea id="schedule-input-memo" style="height: 10em;">{{ memo }}</textarea>
+      {% else %}
       <p>{{ memo }}</p>
+      {% endif %}
     </div>
   </div>
 </div>

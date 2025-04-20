@@ -1,10 +1,10 @@
-.change-schedule {
+.edit-schedule {
   width: 35px;
   cursor: pointer;
 
   p {
-    margin: 7px 0;
-    font-size: 14px;
+    margin: 8px 0;
+    font-size: 15px;
     color: var(--gray-5);
     text-align: center;
   }
@@ -63,12 +63,12 @@
 }
 
 .schedule-detail-content {
-  padding: 20px;
+  padding: 10px 20px;
 }
 
 .schedule-detail-section {
-  margin: 10px;
-  font-size: 16px;
+  margin: 10px 0;
+  padding-right: 10px;
   color: var(--gray-8);
 
   .schedule-date {
@@ -78,12 +78,44 @@
 
   .schedule-icon {
     height: 25px;
-    margin: 7px 0;
+    margin: 5px;
+  }
+
+  .schedule-input-date {
+    width: 100%;
   }
 
   p {
-    min-height: 28px;
-    margin: 5px 10px;
-    line-height: 28px;
+    min-height: 25px;
+    margin: 5px;
+    font-size: 16px;
+    line-height: 25px;
+  }
+
+  span {
+    margin: 0 10px;
+    font-size: 15px;
+    color: var(--gray-5);
+  }
+
+  input {
+    height: 25px;
+    margin: 5px;
+    border: none;
+    font-family: "Pretendard", sans-serif;
+    font-size: 16px;
+    outline: none;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 5px;
+    border: none;
+    background: var(--gray-1);
+    font-family: "Pretendard", sans-serif;
+    font-size: 16px;
+    line-height: 25px;
+    outline: none;
+    resize: none;
   }
 }

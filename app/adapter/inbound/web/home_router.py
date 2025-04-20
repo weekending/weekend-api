@@ -11,6 +11,19 @@ template = Jinja2Templates("app/adapter/inbound/web/templates/")
 template.env.globals["url_for"] = urlx_for
 
 
+def get_song_context(schedule, is_edit: bool = False):
+    return {
+        "title": schedule.title,
+        "date": f'{schedule.day.strftime("%Y.%m.%d")} ({to_weekday(schedule.day)})',
+        "time": f'{format_time(schedule.start_time)} ~ {format_time(schedule.end_time)}',
+        "location": schedule.location,
+        "user_count": len(schedule.users),
+        "usernames": ", ".join([u.name for u in schedule.users]),
+        "memo": schedule.memo or "",
+        "is_edit": is_edit
+    }
+
+
 @router.get("/")
 async def main(request: Request):
     """메인 화면"""
@@ -60,5 +73,31 @@ async def schedule_detail(
             "user_count": len(schedule.users),
             "usernames": ", ".join([u.name for u in schedule.users]),
             "memo": schedule.memo or "",
+            "is_edit": False,
+        }
+    )
+
+
+@router.get("/schedule/{schedule_id}/edit")
+async def edit_schedule_detail(
+    schedule_id: int,
+    request: Request,
+    service: ScheduleUseCase = Depends(ScheduleService),
+):
+    """일정 상세 수정"""
+    schedule = await service.get_schedule_info(schedule_id)
+    return template.TemplateResponse(
+        request,
+        "/schedule/schedule-detail.html",
+        context={
+            "title": schedule.title,
+            "date": schedule.day.strftime("%Y-%m-%d"),
+            "start_time": schedule.start_time,
+            "end_time": schedule.end_time,
+            "location": schedule.location,
+            "user_count": len(schedule.users),
+            "usernames": ", ".join([u.name for u in schedule.users]),
+            "memo": schedule.memo or "",
+            "is_edit": True,
         }
     )

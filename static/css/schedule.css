@@ -62,6 +62,10 @@
   cursor: pointer;
 }
 
+.schedule-description.line:active {
+  background: var(--gray-1);
+}
+
 .schedule-detail-content {
   padding: 10px 20px;
 }
@@ -71,6 +75,12 @@
   padding-right: 10px;
   color: var(--gray-8);
 
+  .schedule-input-title {
+    width: 100%;
+    border-bottom: solid 1px var(--gray-2);
+    font-size: 18px;
+  }
+
   .schedule-date {
     font-size: 18px;
     font-weight: 500;
@@ -79,6 +89,10 @@
   .schedule-icon {
     height: 25px;
     margin: 5px;
+  }
+
+  .schedule-icon.title {
+    padding: 5px 0;
   }
 
   .schedule-input-date {
@@ -93,7 +107,7 @@
   }
 
   span {
-    margin: 0 10px;
+    margin: 0 4px;
     font-size: 15px;
     color: var(--gray-5);
   }
@@ -117,5 +131,9 @@
     line-height: 25px;
     outline: none;
     resize: none;
+  }
+
+  input::placeholder,textarea::placeholder {
+    color: var(--gray-4);
   }
 }

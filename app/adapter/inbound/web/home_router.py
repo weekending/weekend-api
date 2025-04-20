@@ -54,6 +54,20 @@ async def schedule_list(request: Request):
     return template.TemplateResponse(request, "/schedule/schedule.html")
 
 
+@router.get("/schedule/register")
+async def register_schedule(request: Request):
+    """일정 상세 수정"""
+    return template.TemplateResponse(
+        request,
+        "/schedule/schedule-detail.html",
+        context={
+            "title": "일정 등록",
+            "is_register": True,
+            "is_edit": True,
+        }
+    )
+
+
 @router.get("/schedule/{schedule_id}")
 async def schedule_detail(
     schedule_id: int,
@@ -73,6 +87,7 @@ async def schedule_detail(
             "user_count": len(schedule.users),
             "usernames": ", ".join([u.name for u in schedule.users]),
             "memo": schedule.memo or "",
+            "is_register": False,
             "is_edit": False,
         }
     )
@@ -98,6 +113,7 @@ async def edit_schedule_detail(
             "user_count": len(schedule.users),
             "usernames": ", ".join([u.name for u in schedule.users]),
             "memo": schedule.memo or "",
+            "is_register": False,
             "is_edit": True,
         }
     )

@@ -26,6 +26,14 @@
     {% endif %}
   </div>
   <div class="schedule-detail-content">
+    {% if is_register %}
+    <div class="schedule-detail-section flex">
+      <div class="schedule-icon title">
+        <img src="{{ url_for('static', path='/img/schedule.svg') }}" width="24px">
+      </div>
+      <input id="schedule-input-title" class="schedule-input-title" placeholder="타이틀" style="height: 35px;">
+    </div>
+    {% endif %}
     <div class="schedule-detail-section flex">
       <div class="schedule-icon">
         <img src="{{ url_for('static', path='/img/time.svg') }}" width="24px">
@@ -51,23 +59,25 @@
         <img src="{{ url_for('static', path='/img/location.svg') }}" width="24px">
       </div>
       {% if is_edit %}
-      <textarea id="schedule-input-location" style="height: 35px;">{{ location }}</textarea>
+      <textarea id="schedule-input-location" placeholder="장소" style="height: 35px;">{{ location }}</textarea>
       {% else %}
       <p>{{ location }}</p>
       {% endif %}
     </div>
+    {% if not is_register %}
     <div class="schedule-detail-section flex">
       <div class="schedule-icon">
         <img src="{{ url_for('static', path='/img/users.svg') }}" width="24px">
       </div>
       <p>{{ user_count }}명 {% if user_count > 0 %}<span>({{ usernames }})</span> {% endif %}</p>
     </div>
+    {% endif %}
     <div class="schedule-detail-section flex">
       <div class="schedule-icon">
         <img src="{{ url_for('static', path='/img/memo.svg') }}" width="24px">
       </div>
       {% if is_edit %}
-      <textarea id="schedule-input-memo" style="height: 10em;">{{ memo }}</textarea>
+      <textarea id="schedule-input-memo" placeholder="메모" style="height: 10em;">{{ memo }}</textarea>
       {% else %}
       <p>{{ memo }}</p>
       {% endif %}

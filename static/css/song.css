@@ -132,6 +132,7 @@
     width: 150px;
     border: solid 1px var(--gray-2);
     border-radius: 5px;
+    background: var(--white);
     box-shadow: 2px 2px 15px 0px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 

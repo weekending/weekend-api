@@ -8,6 +8,7 @@
 
 .song-item {
   padding: 10px 0;
+  cursor: pointer;
 
   .song-thumbnail{
     width: 54px;
@@ -36,30 +37,149 @@
   }
 }
 
-.song-status {
+.song-status p {
+  margin: 10px;
+  padding: 4px 12px;
   border-radius: 18px;
   font-size: 14px;
-
-  p {
-    padding: 4px 12px;
-  }
 }
 
-.pending {
+.pending p {
   color: var(--aqua-3);
   background: var(--aqua-1);
 }
 
-.inprogress {
+.inprogress p {
   color: var(--crimson-3);
   background: var(--crimson-1);
 }
 
-.closed {
+.closed p {
   color: var(--gray-5);
   background: var(--gray-1);
 }
 
 .song-item-wrapper {
   justify-content: space-between;
+}
+
+.song-thumbnail-section {
+  margin: 0 70px;
+  padding-bottom: 20px;
+
+  img {
+    border-radius: 15px;
+  }
+}
+
+.song-detail {
+  margin: 5px;
+
+  .song-title {
+    margin: 10px;
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .song-singer {
+    margin: 10px;
+    font-size: 18px;
+    font-weight: 500;=
+  }
+
+  .song-text-edit {
+    margin: 10px 0;
+  }
+
+  .song-icon {
+    height: 25px;
+    margin: 10px 5px;
+  }
+
+  input {
+    width: 100%;
+    height: 35px;
+    margin: 5px;
+    border: none;
+    border-bottom: solid 1px var(--gray-2);
+    font-family: "Pretendard", sans-serif;
+    font-size: 18px;
+    outline: none;
+  }
+}
+
+.status-item {
+  display: flex;
+  list-style-type: none;
+}
+
+.song-tag {
+  margin: 0 10px;
+
+  .song-select {
+    display: flex;
+    width: 150px;
+    cursor: pointer;
+
+    .song-expand {
+      margin: 12px 0;
+    }
+  }
+
+  .song-status-option {
+    display: none;
+    position: absolute;
+    width: 150px;
+    border: solid 1px var(--gray-2);
+    border-radius: 5px;
+    box-shadow: 2px 2px 15px 0px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+    .status-option-item-top {
+      height: 30px;
+      border-bottom: solid 1px var(--gray-2);
+
+      p {
+        margin: 7px 10px;
+        font-size: 13px;
+        color: var(--gray-5);
+      }
+    }
+
+    .status-option-item {
+      cursor: pointer;
+    }
+
+    .status-option-item:hover {
+      background: var(--gray-3);
+    }
+  }
+
+  .song-status-option.on {
+    display: block;
+  }
+}
+
+.line {
+  margin: 0 10px;
+
+  hr {
+    border: solid .5px var(--gray-2)
+  }
+}
+
+.song-history {
+  margin: 20px;
+  padding-bottom: 50px;
+
+  .song-timeline {
+    display: flex;
+    justify-content: space-between;
+
+    p {
+      margin: 5px;
+      font-size: 14px;
+      color: var(--gray-5)
+    }
+  }
 }

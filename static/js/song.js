@@ -11,10 +11,11 @@ const getStatusDisplay = (status) => {
 requestSongs(
   $.param({}),
   (response) => {
-    $("#song-list").empty();
+    const songLint = $("#song-list")
+    songLint.empty();
     response.data.forEach(item => {
-      $("#song-list").append(
-        `<div class="song-item song-item-wrapper flex">
+      songLint.append(
+        `<div class="song-item song-item-wrapper flex" data-id="${item.id}">
           <div class="flex">
             <div class="song-thumbnail">
               <img src="${item.thumbnail}">
@@ -28,6 +29,9 @@ requestSongs(
           <div>
         </div>`
       )
+    });
+    songLint.on("click", ".song-item", function() {
+      location.href = "/songs/" + $(this).data("id");
     });
   }
 );

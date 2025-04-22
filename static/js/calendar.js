@@ -59,10 +59,10 @@ const renderScheduleList = (scheduleList, year, month) => {
             <div class="schedule-text">${item.users.length}명 참여</div>
           </div>`
         )
-        scheduleList.on("click", ".schedule-description", function () {
-          location.href = "/schedule/" + $(this).data("id");
-        });
         $(`.day-schedule[data-date="${item.day}"]`).append(`<div class="event"></div>`);
+      });
+      scheduleList.on("click", ".schedule-description", function() {
+        location.href = "/schedule/" + $(this).data("id");
       });
     }
   );

@@ -12,6 +12,16 @@ class SongStatus(Enum):
     def __str__(self):
         return self.value
 
+    @property
+    def text(self):
+        match self:
+            case self.PENDING:
+                return "대기"
+            case self.INPROGRESS:
+                return "진행중"
+            case self.CLOSED:
+                return "종료"
+
 
 class Song(BaseModel):
     id: int = None

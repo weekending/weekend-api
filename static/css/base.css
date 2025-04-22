@@ -23,6 +23,10 @@ body {
   color: var(--gray-8);
 }
 
+input::placeholder,textarea::placeholder {
+  color: var(--gray-4);
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -62,6 +66,18 @@ body {
 .setting {
   width: 35px;
   height: 35px;
+}
+
+.nav-edit {
+  width: 35px;
+  cursor: pointer;
+
+  p {
+    margin: 8px 0;
+    font-size: 15px;
+    color: var(--gray-5);
+    text-align: center;
+  }
 }
 
 .nav-title {

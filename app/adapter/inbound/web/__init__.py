@@ -2,8 +2,12 @@ from fastapi import APIRouter
 
 from .document_router import router as document_router
 from .home_router import router as home_router
+from .schedule_router import router as scheduler_router
+from .song_router import router as song_router
 
 
-router = APIRouter()
+router = APIRouter(include_in_schema=False)
 router.include_router(document_router)
 router.include_router(home_router)
+router.include_router(scheduler_router)
+router.include_router(song_router)

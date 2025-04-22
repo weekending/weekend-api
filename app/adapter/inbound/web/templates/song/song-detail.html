@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/song.css') }}">
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', path='/js/song-detail.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="song">
+  <div class="nav flex">
+    <a class="nav-back flex" onclick="javascript:history.back();">
+      <img src="{{ url_for('static', path='/img/back.svg') }}" width="30px">
+    </a>
+    <div class="nav-title">{{ nav_title }}</div>
+    {% if is_edit %}
+    <a id="save-song" class="nav-edit">
+      <p>저장</p>
+    </a>
+    {% else %}
+    <a id="edit-song" class="nav-edit">
+      <p>수정</p>
+    </a>
+    {% endif %}
+  </div>
+  <div class="song-content">
+    <!-- 썸네일 이미지 -->
+    <div class="song-thumbnail-section">
+      {% if is_register %}
+      {% elif is_edit %}
+      <img src="{{ thumbnail }}" width="100%" style="opacity: 0.3;">
+      {% else %}
+      <img src="{{ thumbnail }}" width="100%">
+      {% endif %}
+    </div>
+    <!-- 연습곡 상세 정보 -->
+    <div class="song-detail">
+      {% if is_edit %}
+      <div class="song-text-edit flex">
+        <div class="song-icon">
+          <img src="{{ url_for('static', path='/img/song.svg') }}" width="24px">
+        </div>
+        <input placeholder="타이틀" value="{{ title }}">
+      </div>
+      <div class="song-text-edit flex">
+        <div class="song-icon">
+          <img src="{{ url_for('static', path='/img/singer.svg') }}" width="24px">
+        </div>
+        <input placeholder="가수" value="{{ singer }}">
+      </div>
+      {% else %}
+      <div class="song-title">{{ title }}</div>
+      <div class="song-singer">{{ singer }}</div>
+      {% endif %}
+    </div>
+    <!-- 연습곡 상태 -->
+    {% if is_register %}
+    {% elif is_edit %}
+    <div class="song-tag">
+      <div id="song-select" class="song-select">
+        <div class="status-item">
+          <div class="song-status {{ status | lower }}">
+            <p>{{ status.text }}</p>
+          </div>
+        </div>
+        <div class="song-expand">
+          <img src="{{ url_for('static', path='/img/expand.svg') }}" width="20px">
+        </div>
+      </div>
+      <ui id="song-status-option" class="song-status-option">
+        <li class="status-item status-option-item-top">
+          <p>상태를 선택해주세요</p>
+        </li>
+        {% for s in status_list %}
+        <li class="status-item status-option-item">
+          <div class="song-status {{ s | lower }}" --data-status="{{ s | lower }}">
+            <p>{{ s.text }}</p>
+          </div>
+        </li>
+        {% endfor %}
+      </ui>
+    </div>
+    {% else %}
+    <div class="song-tag flex">
+      <div class="song-status {{ status | lower }}" --data-status="{{ status | lower }}">
+        <p>{{ status.text }}</p>
+      </div>
+    </div>
+    {% endif %}
+    <!-- 연습곡 변경 이력 -->
+    {% if not is_edit %}
+    <div class="line"><hr></div>
+    <div class="song-history">
+      <div class="song-timeline">
+        <p>생성 일시</p>
+        <p>{{ created_dtm }}</p>
+      </div>
+      <div class="song-timeline">
+        <p>연습 시작 일시</p>
+        <p>{{ in_progress_dtm }}</p>
+      </div>
+      <div class="song-timeline">
+        <p>종료 일시</p>
+        <p>{{ closed_dtm }}</p>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

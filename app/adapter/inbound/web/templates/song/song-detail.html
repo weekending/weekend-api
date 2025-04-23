@@ -12,15 +12,15 @@
 <div class="song">
   <div class="nav flex">
     <a class="nav-back flex" onclick="javascript:history.back();">
-      <img src="{{ url_for('static', path='/img/back.svg') }}" width="30px">
+      <img src="{{ url_for('static', path='/img/back.svg') }}" width="25px">
     </a>
-    <div class="nav-title">{{ nav_title }}</div>
+    <div class="nav-title font-title-2">{{ nav_title }}</div>
     {% if is_edit %}
-    <a id="save-song" class="nav-edit">
+    <a id="save-song" class="nav-edit font-text-light-1">
       <p>저장</p>
     </a>
     {% else %}
-    <a id="edit-song" class="nav-edit">
+    <a id="edit-song" class="nav-edit font-text-light-1">
       <p>수정</p>
     </a>
     {% endif %}
@@ -51,8 +51,8 @@
         <input placeholder="가수" value="{{ singer }}">
       </div>
       {% else %}
-      <div class="song-title">{{ title }}</div>
-      <div class="song-singer">{{ singer }}</div>
+      <div class="song-title font-title-1">{{ title }}</div>
+      <div class="song-singer font-subtitle-1">{{ singer }}</div>
       {% endif %}
     </div>
     <!-- 연습곡 상태 -->
@@ -70,7 +70,7 @@
         </div>
       </div>
       <ui id="song-status-option" class="song-status-option">
-        <li class="status-item status-option-item-top">
+        <li class="status-item status-option-item-top font-text-light-3">
           <p>상태를 선택해주세요</p>
         </li>
         {% for s in status_list %}
@@ -93,15 +93,15 @@
     {% if not is_edit %}
     <div class="line"><hr></div>
     <div class="song-history">
-      <div class="song-timeline">
+      <div class="song-timeline font-text-light-3">
         <p>생성 일시</p>
         <p>{{ created_dtm }}</p>
       </div>
-      <div class="song-timeline">
+      <div class="song-timeline font-text-light-3">
         <p>연습 시작 일시</p>
         <p>{{ in_progress_dtm }}</p>
       </div>
-      <div class="song-timeline">
+      <div class="song-timeline font-text-light-3">
         <p>종료 일시</p>
         <p>{{ closed_dtm }}</p>
       </div>

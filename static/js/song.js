@@ -8,6 +8,11 @@ const getStatusDisplay = (status) => {
   }
 }
 
+const registerSong = () => {
+  hideButton();
+  location.href='/songs/register';
+}
+
 requestSongs(
   $.param({}),
   (response) => {
@@ -21,8 +26,8 @@ requestSongs(
               <img src="${item.thumbnail}">
             </div>
             <div class="song-info">
-              <div class="song-title">${item.title}</div>
-              <div class="song-singer">${item.singer}</div>
+              <div class="song-title font-title-3">${item.title}</div>
+              <div class="font-text-light-2">${item.singer}</div>
             </div>
           </div>
           <div class="song-item-right">${getStatusDisplay(item.status)}

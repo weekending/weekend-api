@@ -26,7 +26,7 @@ const fillDays = (calendarDay, year, month, firstDay, lastDate) => {
   const today = new Date();
   for (let day = 1; day <= lastDate; day++) {
     calendarDay.append(
-      `<div class="day-item">
+      `<div class="day-item font-text-2">
         <div class="day ${todayClass(year, month, day, today)} ${sundayClass(year, month, day)}">${day}</div>
         <div class="day-schedule" data-date=${dayToYYYYMMDD(year, month, day)}></div>
       </div>`
@@ -44,7 +44,7 @@ const renderScheduleList = (scheduleList, year, month) => {
       response.data.forEach(item => {
         if (scheduleDate !== item.day) {
           scheduleList.append(
-            `<div class="schedule-date">
+            `<div class="schedule-date font-text-light-3">
               <div class="circle"></div>
               <p>${formatDate(item.day)} (${item.weekday})</p>
             </div>`
@@ -53,10 +53,10 @@ const renderScheduleList = (scheduleList, year, month) => {
         }
         scheduleList.append(
           `<div class="schedule-description line" data-id="${item.id}">
-            <div class="schedule-title">${item.title}</div>
-            <div class="schedule-text">${formatTimeTo12Hour(item.start_time)} ~ ${formatTimeTo12Hour(item.end_time)}</div>
-            <div class="schedule-text">${item.location}</div>
-            <div class="schedule-text">${item.users.length}명 참여</div>
+            <div class="schedule-title font-title-3">${item.title}</div>
+            <div class="schedule-text font-text-light-3">${formatTimeTo12Hour(item.start_time)} ~ ${formatTimeTo12Hour(item.end_time)}</div>
+            <div class="schedule-text font-text-light-3">${item.location}</div>
+            <div class="schedule-text font-text-light-3">${item.users.length}명 참여</div>
           </div>`
         )
         $(`.day-schedule[data-date="${item.day}"]`).append(`<div class="event"></div>`);

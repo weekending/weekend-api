@@ -22,14 +22,10 @@ body {
 
   .section-title {
     margin: 10px 0;
-    font-size: 19px;
-    font-weight: 700;
   }
 
   .section-subtitle {
     margin: 10px 0;
-    font-size: 16px;
-    color: var(--gray-5);
   }
 }
 
@@ -43,8 +39,6 @@ body {
 .section-next {
   display: inline-block;
   margin: 15px 5px;
-  font-size: 15px;
-  color: var(--gray-6);
   cursor: pointer;
   span,img{
     vertical-align: middle;
@@ -81,15 +75,10 @@ body {
   margin: auto;
 
   .schedule-info-dday {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     font-size: 36px;
     font-weight: 900;
     letter-spacing: -0.03em;
-  }
-
-  .schedule-info-date {
-    font-size: 15px;
-    color: var(--gray-7);
   }
 }
 

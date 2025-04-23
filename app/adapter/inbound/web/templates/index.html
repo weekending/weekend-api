@@ -17,7 +17,7 @@
 {% block content %}
 <div class="home">
   <div class="nav flex">
-    <div class="nav-title">Week-End</div>
+    <div class="nav-title font-title-2">Week-End</div>
     <a class="setting flex">
       <img src="{{ url_for('static', path='/img/setting.svg') }}" width="25px">
     </a>
@@ -40,13 +40,13 @@
     <div class="section">
       <div class="section-content">
         <div class="section-header">
-          <div class="section-title">진행중인 연습곡</div>
-          <div class="section-subtitle">아래 곡들을 연습하고 있어요!</div>
+          <div class="section-title font-title-2">진행중인 연습곡</div>
+          <div class="section-subtitle font-text-light-1">아래 곡들을 연습하고 있어요!</div>
         </div>
         <div id="song-list" class="song-list"></div>
         <div class="section-bottom">
           <a>
-            <div class="section-next" onclick="location.href='/songs';">
+            <div class="section-next font-text-light-2" onclick="location.href='/songs';">
               <span>더 많은 곡 보기</span>
               <img src="{{ url_for('static', path='/img/next.svg') }}" width="18px">
             </div>
@@ -57,12 +57,13 @@
     <div class="section">
       <div class="section-content">
         <div class="section-header">
-          <div class="section-title">캘린더</div>
+          <div class="section-title font-title-2">캘린더</div>
+          <div class="section-subtitle font-text-light-1">다가올 일정을 확인해 보세요.</div>
         </div>
         {% include "schedule/calendar.html" %}
         <div class="section-bottom">
           <a>
-            <div class="section-next" onclick="location.href='/schedule';">
+            <div class="section-next font-text-light-2" onclick="location.href='/schedule';">
               <span>일정 관리하기</span>
               <img src="{{ url_for('static', path='/img/next.svg') }}" width="18px">
             </div>

@@ -12,29 +12,31 @@
 <div class="schedule">
   <div class="nav flex">
     <a class="nav-back flex" onclick="javascript:history.back();">
-      <img src="{{ url_for('static', path='/img/back.svg') }}" width="30px">
+      <img src="{{ url_for('static', path='/img/back.svg') }}" width="25px">
     </a>
-    <div class="nav-title">{{ title }}</div>
+    <div class="nav-title font-title-2">{{ nav_title }}</div>
     {% if is_edit %}
-    <a id="save-schedule"  class="nav-edit">
+    <a id="save-schedule" class="nav-edit font-text-light-1">
       <p>저장</p>
     </a>
     {% else %}
-    <a id="edit-schedule" class="nav-edit">
+    <a id="edit-schedule" class="nav-edit font-text-light-1">
       <p>수정</p>
     </a>
     {% endif %}
   </div>
   <div class="schedule-detail-content">
-    {% if is_register %}
     <div class="schedule-detail-section flex">
       <div class="schedule-icon title">
         <img src="{{ url_for('static', path='/img/schedule.svg') }}" width="24px">
       </div>
-      <input id="schedule-input-title" class="schedule-input-title" placeholder="타이틀" style="height: 35px;">
+      {% if is_edit %}
+      <input id="schedule-input-title" class="schedule-input-title" placeholder="타이틀" value="{{ title }}"  style="height: 35px;">
+      {% else %}
+      <p class="schedule-title font-text-1">{{ title }}</p>
+      {% endif %}
     </div>
-    {% endif %}
-    <div class="schedule-detail-section flex">
+    <div class="schedule-detail-section font-text-2 flex">
       <div class="schedule-icon">
         <img src="{{ url_for('static', path='/img/time.svg') }}" width="24px">
       </div>
@@ -54,7 +56,7 @@
       </div>
       {% endif %}
     </div>
-    <div class="schedule-detail-section flex">
+    <div class="schedule-detail-section font-text-2 flex">
       <div class="schedule-icon">
         <img src="{{ url_for('static', path='/img/location.svg') }}" width="24px">
       </div>
@@ -65,14 +67,14 @@
       {% endif %}
     </div>
     {% if not is_register %}
-    <div class="schedule-detail-section flex">
+    <div class="schedule-detail-section font-text-2 flex">
       <div class="schedule-icon">
         <img src="{{ url_for('static', path='/img/users.svg') }}" width="24px">
       </div>
-      <p>{{ user_count }}명 {% if user_count > 0 %}<span>({{ usernames }})</span> {% endif %}</p>
+      <p>{{ user_count }}명 {% if user_count > 0 %}<span class="font-text-light-2">({{ usernames }})</span> {% endif %}</p>
     </div>
     {% endif %}
-    <div class="schedule-detail-section flex">
+    <div class="schedule-detail-section font-text-2 flex">
       <div class="schedule-icon">
         <img src="{{ url_for('static', path='/img/memo.svg') }}" width="24px">
       </div>

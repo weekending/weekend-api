@@ -20,7 +20,7 @@ async def register_schedule(request: Request):
     return template.TemplateResponse(
         request,
         "/schedule/schedule-detail.html",
-        context={"title": "일정 등록", "is_register": True, "is_edit": True},
+        context={"nav_title": "일정 등록", "is_register": True, "is_edit": True},
     )
 
 
@@ -61,6 +61,7 @@ async def edit_schedule(
         request,
         "/schedule/schedule-detail.html",
         context={
+            "nav_title": "일정 수정",
             "title": schedule.title,
             "date": schedule.day.strftime("%Y-%m-%d"),
             "start_time": schedule.start_time,

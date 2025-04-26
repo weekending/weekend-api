@@ -25,6 +25,8 @@ class BaseRepository:
         else:
             model = await self._session.get(entity, domain.id)
             for field, value in domain.model_dump().items():
+                if isinstance(value, list):
+                    continue
                 setattr(model, field, value)
         await self._session.commit()
         return model

@@ -7,7 +7,7 @@ from app.domain import Schedule
 class ScheduleUseCase(ABC):
     @abstractmethod
     async def create_schedule(
-        self, user_id: int, band_id: int, day: date, **kwargs
+        self, user_id: int, band_id: int, title: str, day: date, **kwargs
     ) -> Schedule:
         raise NotImplementedError
 
@@ -23,4 +23,10 @@ class ScheduleUseCase(ABC):
         from_: date,
         to: date,
     ) -> list[Schedule]:
+        raise NotImplementedError
+
+    @abstractmethod
+    async def update_schedule_info(
+        self, schedule_id: int, user_id: int, **kwargs
+    ) -> Schedule:
         raise NotImplementedError

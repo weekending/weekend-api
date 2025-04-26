@@ -33,9 +33,7 @@ async def get_user_bands(
 ) -> APIResponse:
     """사용자 정보 조회"""
     user = await service.get_user_info(credential.user_id)
-    return APIResponse(
-        Http2XX.OK, data=UserInfoResponse.from_domain(user).model_dump()
-    )
+    return APIResponse(Http2XX.OK, data=UserInfoResponse.from_domain(user))
 
 
 @router.get(
@@ -54,4 +52,6 @@ async def get_user_bands(
 ) -> APIResponse:
     """사용자가 가입한 밴드 리스트 조회"""
     bands = await service.get_user_bands(credential.user_id)
-    return APIResponse(Http2XX.OK, data=[band.model_dump() for band in bands])
+    return APIResponse(
+        Http2XX.OK, data=[BandResponse.from_domain(band) for band in bands]
+    )

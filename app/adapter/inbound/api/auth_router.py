@@ -68,5 +68,5 @@ async def login(
     """사용자 정보를 받아 검증 후 인증 토큰 반환"""
     return APIResponse(
         Http2XX.OK,
-        data={"token": await service.login(**body.model_dump())},
+        data={"token": await service.login(body.email, body.password)},
     )

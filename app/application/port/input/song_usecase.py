@@ -21,9 +21,11 @@ class SongUseCase(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def remove_song(self, song_id: int):
+    async def remove_song(self, song_id: int, user_id: int):
         raise NotImplementedError
 
     @abstractmethod
-    async def update_status(self, song_id: int, status: SongStatus) -> Song:
+    async def update_song_info(
+        self,  song_id: int, user_id: int, **kwargs
+    ) -> Song:
         raise NotImplementedError

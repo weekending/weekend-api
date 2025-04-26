@@ -12,8 +12,10 @@ class SongInfo(BaseModel):
     singer: str = Field(title="가수", examples=["아이유"])
 
 
-class SongStatusInfo(BaseModel):
-    status: SongStatus
+class SongUpdateInfo(BaseModel):
+    title: str | None = Field(default=None, title="곡 제목", examples=["밥편지"])
+    singer: str | None = Field(default=None, title="가수", examples=["아이유"])
+    status: SongStatus | None = Field(default=None, title="상태")
 
 
 class SongResponse(BaseModel):

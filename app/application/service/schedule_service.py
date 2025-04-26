@@ -18,10 +18,17 @@ class ScheduleService(ScheduleUseCase):
         self._schedule_repo = schedule_repo
 
     async def create_schedule(
-        self, user_id: int, band_id: int, day: date, **kwargs
+        self, user_id: int, band_id: int, title: str, day: date, **kwargs
     ) -> Schedule:
         return await self._schedule_repo.save(
-            Schedule(band_id=band_id, day=day, is_active=True, users=[], **kwargs)
+            Schedule(
+                band_id=band_id,
+                title=title,
+                day=day,
+                is_active=True,
+                users=[],
+                **kwargs,
+            )
         )
 
     async def get_schedule_info(self, schedule_id: int) -> Schedule:
@@ -39,3 +46,13 @@ class ScheduleService(ScheduleUseCase):
         return await self._schedule_repo.find_active_schedules_with_user(
             band_id, from_, to
         )
+
+    async def update_schedule_info(
+        self, schedule_id: int, user_id: int, **kwargs
+    ) -> Schedule:
+        if not (schedule := await self._schedule_repo.find_by_id_with_user(schedule_id)):
+            raise APIException(Http4XX.SCHEDULE_NOT_FOUND)
+        for field, value in kwargs.items():
+            if value is not None:
+                setattr(schedule, field, value)
+        return await self._schedule_repo.save(schedule)

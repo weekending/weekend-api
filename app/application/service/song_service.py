@@ -28,7 +28,6 @@ class SongService(SongUseCase):
     async def get_song_list(
         self, user_id: int, band_id: int, status: SongStatus
     ) -> list[Song]:
-        await self._check_user_band_permission(user_id, band_id)
         return await self._song_repo.find_by_band(band_id, status)
 
     async def create_song(
@@ -55,13 +54,19 @@ class SongService(SongUseCase):
             raise APIException(Http4XX.SONG_NOT_FOUND)
         return song
 
-    async def remove_song(self, song_id: int):
+    async def remove_song(self, song_id: int, user_id: int):
         if not (song := await self._song_repo.find_by_id_or_none(song_id)):
             raise APIException(Http4XX.SONG_NOT_FOUND)
+        await self._check_user_band_permission(user_id, song.band_id)
         await self._song_repo.remove(song)
 
-    async def update_status(self, song_id: int, status: SongStatus) -> Song:
+    async def update_song_info(
+        self,  song_id: int, user_id: int, **kwargs
+    ) -> Song:
         if not (song := await self._song_repo.find_by_id_or_none(song_id)):
             raise APIException(Http4XX.SONG_NOT_FOUND)
-        song.status = status
+        await self._check_user_band_permission(user_id, song.band_id)
+        for field, value in kwargs.items():
+            if value is not None:
+                setattr(song, field, value)
         return await self._song_repo.save(song)

@@ -37,9 +37,7 @@ async def create_band(
     band = await service.create_band(
         user_id=credential.user_id, **body.model_dump()
     )
-    return APIResponse(
-        Http2XX.CREATED, data=BandResponse.from_domain(band).model_dump()
-    )
+    return APIResponse(Http2XX.CREATED, data=BandResponse.from_domain(band))
 
 
 @router.get(
@@ -60,6 +58,4 @@ async def get_band_info(
 ) -> APIResponse:
     """밴드 정보 조회"""
     band = await service.get_band_info(band_id)
-    return APIResponse(
-        Http2XX.OK, data=BandResponse.from_domain(band).model_dump()
-    )
+    return APIResponse(Http2XX.OK, data=BandResponse.from_domain(band))

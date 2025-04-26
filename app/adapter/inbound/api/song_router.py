@@ -12,7 +12,7 @@ from .schemas.song import (
     SongInfo,
     SongNotFoundResponse,
     SongResponse,
-    SongStatusInfo,
+    SongUpdateInfo,
 )
 from .schemas.base import (
     CreatedResponse,
@@ -45,8 +45,7 @@ async def register_song(
     """곡 목록 조회"""
     songs = await service.get_song_list(credential.user_id, band_id, status)
     return APIResponse(
-        Http2XX.OK,
-        data=[SongResponse.from_domain(song).model_dump() for song in songs]
+        Http2XX.OK, data=[SongResponse.from_domain(song) for song in songs]
     )
 
 
@@ -69,14 +68,12 @@ async def register_song(
 ) -> APIResponse:
     """곡 등록"""
     song = await service.create_song(credential.user_id, **body.model_dump())
-    return APIResponse(
-        Http2XX.CREATED, data=SongResponse.from_domain(song).model_dump()
-    )
+    return APIResponse(Http2XX.CREATED, data=SongResponse.from_domain(song))
 
 
 @router.get(
     "/{song_id}",
-    summary="곡 조회",
+    summary="곡 정보 조회",
     responses={
         200: {"description": "곡 조회 성공", "model": SuccessResponse[SongResponse]},
         401: UnauthenticatedResponse.to_openapi(),
@@ -87,13 +84,12 @@ async def register_song(
 )
 async def get_song_info(
     song_id: int = Path(title="곡 PK"),
+    credential: JWTAuthorizationCredentials = Depends(is_authenticated),
     service: SongUseCase = Depends(SongService),
 ) -> APIResponse:
     """곡 조회"""
     song = await service.get_song_info(song_id)
-    return APIResponse(
-        Http2XX.OK, data=SongResponse.from_domain(song).model_dump()
-    )
+    return APIResponse(Http2XX.OK, data=SongResponse.from_domain(song))
 
 
 @router.delete(
@@ -109,17 +105,20 @@ async def get_song_info(
 )
 async def remove_song(
     song_id: int = Path(title="곡 PK"),
+    credential: JWTAuthorizationCredentials = Depends(is_authenticated),
     service: SongUseCase = Depends(SongService),
 ) -> APIResponse:
     """곡 제거"""
-    return APIResponse(Http2XX.OK, data=await service.remove_song(song_id))
+    return APIResponse(
+        Http2XX.OK, data=await service.remove_song(song_id, credential.user_id)
+    )
 
 
-@router.post(
-    "/{song_id}/status",
-    summary="곡 상태 변경",
+@router.patch(
+    "/{song_id}",
+    summary="곡 정보 변경",
     responses={
-        200: {"description": "곡 상태 변경 성공", "model": SuccessResponse[SongResponse]},
+        200: {"description": "곡 정보 변경 성공", "model": SuccessResponse[SongResponse]},
         401: UnauthenticatedResponse.to_openapi(),
         403: PermissionDeniedResponse.to_openapi(),
         404: SongNotFoundResponse.to_openapi(),
@@ -127,12 +126,13 @@ async def remove_song(
     },
 )
 async def update_song(
-    body: SongStatusInfo,
+    body: SongUpdateInfo,
     song_id: int = Path(title="곡 PK"),
+    credential: JWTAuthorizationCredentials = Depends(is_authenticated),
     service: SongUseCase = Depends(SongService),
 ) -> APIResponse:
-    """곡 상태 변경"""
-    song = await service.update_status(song_id, body.status)
-    return APIResponse(
-        Http2XX.OK, data=SongResponse.from_domain(song).model_dump()
+    """곡 정보 변경"""
+    song = await service.update_song_info(
+        song_id, credential.user_id, **body.model_dump()
     )
+    return APIResponse(Http2XX.OK, data=SongResponse.from_domain(song))

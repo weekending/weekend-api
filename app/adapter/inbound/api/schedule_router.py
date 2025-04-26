@@ -14,7 +14,11 @@ from .schemas.base import (
     SuccessResponse,
     UnauthenticatedResponse,
 )
-from .schemas.schedule import ScheduleInfo, ScheduleResponse
+from .schemas.schedule import (
+    ScheduleInfo,
+    ScheduleResponse,
+    ScheduleUpdateInfo,
+)
 
 router = APIRouter(prefix="/schedules", tags=["Schedule"])
 
@@ -42,8 +46,7 @@ async def get_schedules(
         credential.user_id, band_id, from_, to
     )
     return APIResponse(
-        Http2XX.OK,
-        data=[ScheduleResponse.from_domain(s).model_dump() for s in schedule],
+        Http2XX.OK, data=[ScheduleResponse.from_domain(s) for s in schedule]
     )
 
 
@@ -67,7 +70,7 @@ async def create_schedule(
     schedule = await service.create_schedule(
         user_id=credential.user_id, **body.model_dump()
     )
-    return APIResponse(Http2XX.CREATED, data=schedule.model_dump())
+    return APIResponse(Http2XX.CREATED, data=schedule)
 
 
 @router.get(
@@ -89,5 +92,31 @@ async def get_schedule_info(
     """일정 정보 조회"""
     schedule = await service.get_schedule_info(schedule_id)
     return APIResponse(
-        Http2XX.OK, data=ScheduleResponse.from_domain(schedule).model_dump()
+        Http2XX.OK, data=ScheduleResponse.from_domain(schedule)
+    )
+
+
+@router.patch(
+    "/{schedule_id}",
+    status_code=200,
+    summary="일정 정보 변경",
+    responses={
+        200: {"description": "일정 정보 변경 성공", "model": SuccessResponse[ScheduleResponse]},
+        401: UnauthenticatedResponse.to_openapi(),
+        403: PermissionDeniedResponse.to_openapi(),
+        422: {},
+    },
+)
+async def update_schedule(
+    body: ScheduleUpdateInfo,
+    schedule_id: int = Path(title="밴드 PK"),
+    credential: JWTAuthorizationCredentials = Depends(is_authenticated),
+    service: ScheduleUseCase = Depends(ScheduleService),
+) -> APIResponse:
+    """일정 정보 변경"""
+    schedule = await service.update_schedule_info(
+        schedule_id, credential.user_id, **body.model_dump()
+    )
+    return APIResponse(
+        Http2XX.OK, data=ScheduleResponse.from_domain(schedule)
     )

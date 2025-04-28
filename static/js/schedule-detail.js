@@ -1,5 +1,5 @@
 $("#saveSchedule").click(() => {
-  saveSchedule();
+  createSchedule();
 });
 
 $("#updateSchedule").click(() => {
@@ -16,14 +16,14 @@ const createSchedule = () => {
     data = {
       "band_id": getBandId(),
       "title": $("#inputScheduleTitle").val(),
-      "date": $("#inputScheduleDate").val(),
+      "day": $("#inputScheduleDate").val(),
       "start_time": $("#inputScheduleStartTime").val(),
       "end_time": $("#inputScheduleEndTime").val(),
       "location": $("#inputScheduleLocation").val(),
       "memo": $("#inputScheduleMemo").val(),
     },
     success = () => {
-      location.replace("/schedule/" + scheduleId);
+      location.replace("/schedule");
     },
     error = (response) => {
       result = response.responseJSON;

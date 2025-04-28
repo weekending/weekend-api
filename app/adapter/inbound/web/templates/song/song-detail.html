@@ -16,8 +16,12 @@
       <img src="{{ url_for('static', path='/img/back.svg') }}" width="25px">
     </a>
     <div class="nav-title font-title-3">{{ nav_title }}</div>
-    {% if is_edit %}
+    {% if is_register %}
     <a id="saveSong" class="nav-edit font-text-light-1">
+      <p>저장</p>
+    </a>
+    {% elif is_edit %}
+    <a id="updateSong" class="nav-edit font-text-light-1">
       <p>저장</p>
     </a>
     {% else %}

@@ -36,10 +36,14 @@ const fillDays = (calendarDay, year, month, firstDay, lastDate) => {
 
 const renderScheduleList = (scheduleList, year, month) => {
   requestSchedules(
-    $.param(
-      {"from": dateToYYYYMMDD(new Date(year, month, 1)), "to": dateToYYYYMMDD(new Date(year, month + 1, 0))}
+    data = $.param(
+      {
+        "band_id": getBandId(),
+        "from": dateToYYYYMMDD(new Date(year, month, 1)),
+        "to": dateToYYYYMMDD(new Date(year, month + 1, 0)),
+      }
     ),
-    (response) => {
+    success = (response) => {
       let scheduleDate = null;
       response.data.forEach(item => {
         if (scheduleDate !== item.day) {

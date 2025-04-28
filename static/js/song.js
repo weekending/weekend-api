@@ -14,8 +14,8 @@ const registerSong = () => {
 }
 
 requestSongs(
-  $.param({}),
-  (response) => {
+  data = $.param({"band_id": getBandId()}),
+  success = (response) => {
     const songLint = $("#song-list")
     songLint.empty();
     response.data.forEach(item => {

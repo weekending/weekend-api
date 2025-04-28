@@ -1,6 +1,8 @@
+$.cookie("bandId", 1);
+
 requestSchedules(
-  $.param({"from": dateToYYYYMMDD(new Date())}),
-  (response) => {
+  data = $.param({"band_id": getBandId(), "from": dateToYYYYMMDD(new Date())}),
+  success = (response) => {
     response.data.forEach(item => {
       $("#d-day-list").append(
         `<div class="schedule-item flex">
@@ -23,8 +25,8 @@ requestSchedules(
 );
 
 requestSongs(
-  $.param({"status": "INPROGRESS"}),
-  (response) => {
+  data = $.param({"band_id": getBandId(), "status": "INPROGRESS"}),
+  success = (response) => {
     $("#song-list").empty();
     const maxCount = 5;
     for (let i = 0; i < maxCount && i < response.data.length; i++) {

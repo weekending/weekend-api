@@ -35,7 +35,7 @@ router = APIRouter(prefix="/schedules", tags=["Schedule"])
     },
 )
 async def get_schedules(
-    band_id: int = Query(title="밴드 PK", default=1),
+    band_id: int = Query(title="밴드 PK"),
     from_: date = Query(title="조회 시작일", default=None, alias="from"),
     to: date = Query(title="조회 종료일", default=None),
     # credential: JWTAuthorizationCredentials = Depends(is_authenticated),

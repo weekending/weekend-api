@@ -1,3 +1,7 @@
+const getBandId = () => {
+  return $.cookie("bandId") ? $.cookie("bandId") : -1;
+}
+
 const calcDDay = (dateStr) => {
   const targetDate = new Date(dateStr);
   const today = new Date();

@@ -34,6 +34,21 @@ const requestSchedules = (query, success) => {
   });
 };
 
+const requestCreateSchedule = (data, success, error) => {
+  $.ajax({
+    url: "/api/schedules",
+    method: "POST",
+    dataType: "JSON",
+    contentType: "application/json;",
+    data: JSON.stringify(data),
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("Authorization", "Bearer " + $.cookie("token"));
+    },
+    success: success,
+    error: error,
+  });
+};
+
 const requestUpdateSchedule = (scheduleId, data, success, error) => {
   $.ajax({
     url: "/api/schedules/" + scheduleId,
@@ -57,6 +72,21 @@ const requestSongs = (query, success) => {
     error: function(error) {
       console.error(error);
     },
+  });
+};
+
+const requestCreateSong = (data, success, error) => {
+  $.ajax({
+    url: "/api/songs",
+    method: "POST",
+    dataType: "JSON",
+    contentType: "application/json;",
+    data: JSON.stringify(data),
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("Authorization", "Bearer " + $.cookie("token"));
+    },
+    success: success,
+    error: error,
   });
 };
 

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Path
+from fastapi import APIRouter, Depends, Path, Query
 
 from app.application.port.input import SongUseCase
 from app.application.service.song_service import SongService
@@ -37,7 +37,7 @@ router = APIRouter(prefix="/songs", tags=["Song"])
     },
 )
 async def register_song(
-    band_id: int = 1,
+    band_id: int = Query(title="밴드 PK"),
     status: SongStatus = None,
     # credential: JWTAuthorizationCredentials = Depends(is_authenticated),
     service: SongUseCase = Depends(SongService),

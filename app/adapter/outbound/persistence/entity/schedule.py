@@ -55,10 +55,10 @@ class ScheduleEntity(Base):
     band_id = Column(
         Integer, ForeignKey("t_band.id", ondelete="CASCADE"), nullable=False
     )
+    title = Column(String(20), comment="제목", nullable=False)
     day = Column(Date, nullable=False, comment="일시")
     start_time = Column(Time, comment="시작 시간")
     end_time = Column(Time, comment="종료 시간")
-    title = Column(String(20), comment="제목")
     location = Column(String(30), comment="장소")
     memo = Column(Text, comment="메모")
     is_active = Column(Boolean, default=True, nullable=False, comment="활성화 여부")

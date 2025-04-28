@@ -26,7 +26,8 @@ router = APIRouter(prefix="/auth", tags=["Auth"])
     },
 )
 async def check_email(
-    body: EmailInfo, service: AuthUseCase = Depends(AuthService)
+    body: EmailInfo,
+    service: AuthUseCase = Depends(AuthService),
 ) -> APIResponse:
     return APIResponse(
         Http2XX.OK, data=await service.check_email_exists(body.email)
@@ -44,7 +45,8 @@ async def check_email(
     },
 )
 async def signup(
-    body: SignupInfo, service: AuthUseCase = Depends(AuthService)
+    body: SignupInfo,
+    service: AuthUseCase = Depends(AuthService),
 ) -> APIResponse:
     """사용자 정보를 받아 회원가입 후 인증 토큰 반환"""
     return APIResponse(
@@ -63,7 +65,8 @@ async def signup(
     },
 )
 async def login(
-    body: LoginInfo, service: AuthUseCase = Depends(AuthService)
+    body: LoginInfo,
+    service: AuthUseCase = Depends(AuthService),
 ) -> APIResponse:
     """사용자 정보를 받아 검증 후 인증 토큰 반환"""
     return APIResponse(

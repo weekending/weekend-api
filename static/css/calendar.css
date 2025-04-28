@@ -58,7 +58,7 @@
 }
 
 .day.red {
-  color: #E84141;
+  color: var(--red);
 }
 
 .day.today {

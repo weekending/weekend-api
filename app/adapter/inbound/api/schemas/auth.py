@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
 
+from app.common.utils import generate_name
 from .base import BaseErrorResponse
 
 
@@ -8,7 +9,7 @@ class EmailInfo(BaseModel):
 
 
 class SignupInfo(BaseModel):
-    name: str = Field(title="닉네임", examples=["미민또"])
+    name: str = Field(default_factory=generate_name, title="닉네임", examples=["미민또"])
     email: str = Field(title="이메일", examples=["weekend.dev@gmail.com"])
     password: str = Field(title="비밀번호", examples=["1q2w3e4r!"])
     password_check: str = Field(title="비밀번호 확인", examples=["1q2w3e4r!"])

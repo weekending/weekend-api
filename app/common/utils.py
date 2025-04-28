@@ -1,4 +1,5 @@
 from datetime import date, time
+from random import randint
 
 from fastapi import Request
 from jinja2 import pass_context
@@ -26,3 +27,7 @@ def urlx_for(context: dict, name: str, **path_params) -> URL:
     if scheme := request.headers.get("x-forwarded-proto"):
         return http_url.replace(scheme=scheme)
     return http_url
+
+
+def generate_name() -> str:
+    return f"name{randint(0, 100)}"

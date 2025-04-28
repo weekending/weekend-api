@@ -1,6 +1,6 @@
 const calcDDay = (dateStr) => {
   const targetDate = new Date(dateStr);
-  const today = new Date()
+  const today = new Date();
   today.setHours(0, 0, 0, 0);
   targetDate.setHours(0, 0, 0, 0);
   const diffDays = Math.ceil((targetDate - today) / (1000 * 60 * 60 * 24));

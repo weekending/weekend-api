@@ -3,14 +3,14 @@ const todayClass = (year, month, day, today) => {
     day === today.getDate() &&
     month === today.getMonth() &&
     year === today.getFullYear()
-  ) return "today"
-  return ""
+  ) return "today";
+  return "";
 }
 
 const sundayClass = (year, month, day) => {
-  const date = new Date(year, month, day)
-  if (date.getDay() === 0) return "red"
-  return ""
+  const date = new Date(year, month, day);
+  if (date.getDay() === 0) return "red";
+  return "";
 }
 
 const fillDays = (calendarDay, year, month, firstDay, lastDate) => {
@@ -48,17 +48,17 @@ const renderScheduleList = (scheduleList, year, month) => {
               <div class="circle"></div>
               <p>${formatDate(item.day)} (${item.weekday})</p>
             </div>`
-          )
+          );
           scheduleDate = item.day;
         }
         scheduleList.append(
           `<div class="schedule-description line" data-id="${item.id}">
-            <div class="schedule-title font-title-3">${item.title}</div>
+            <div class="schedule-title font-title-4">${item.title}</div>
             <div class="schedule-text font-text-light-3">${formatTimeTo12Hour(item.start_time)} ~ ${formatTimeTo12Hour(item.end_time)}</div>
             <div class="schedule-text font-text-light-3">${item.location}</div>
             <div class="schedule-text font-text-light-3">${item.users.length}명 참여</div>
           </div>`
-        )
+        );
         $(`.day-schedule[data-date="${item.day}"]`).append(`<div class="event"></div>`);
       });
       scheduleList.on("click", ".schedule-description", function() {
@@ -81,8 +81,8 @@ const renderCalendar = (date) => {
   calendarDay.empty();
   scheduleList.empty();
 
-  fillDays(calendarDay, year, month, firstDay, lastDate)
-  renderScheduleList(scheduleList, year, month)
+  fillDays(calendarDay, year, month, firstDay, lastDate);
+  renderScheduleList(scheduleList, year, month);
 }
 
 const currentDate = new Date();

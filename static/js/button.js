@@ -8,7 +8,7 @@ const hideButton = () => {
 }
 
 const expandButton = () => {
-  $("#screen").removeAttr("hidden")
+  $("#screen").removeAttr("hidden");
   $(".button-item").each((i, item) => {
     $(item).css("bottom", 60 * (i + 1));
     $(item).css("opacity", 1);

@@ -26,14 +26,14 @@ requestSongs(
               <img src="${item.thumbnail}">
             </div>
             <div class="song-info">
-              <div class="song-title font-title-3">${item.title}</div>
+              <div class="song-title font-title-4">${item.title}</div>
               <div class="font-text-light-2">${item.singer}</div>
             </div>
           </div>
           <div class="song-item-right">${getStatusDisplay(item.status)}
           <div>
         </div>`
-      )
+      );
     });
     songLint.on("click", ".song-item", function() {
       location.href = "/songs/" + $(this).data("id");

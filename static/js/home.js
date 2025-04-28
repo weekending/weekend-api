@@ -11,13 +11,13 @@ requestSchedule(
             </div>
           </div>
           <div class="schedule-description">
-            <div class="schedule-title font-title-3">${item.title}</div>
+            <div class="schedule-title font-title-4">${item.title}</div>
             <div class="schedule-text font-text-light-3">${formatTimeTo12Hour(item.start_time)} ~ ${formatTimeTo12Hour(item.end_time)}</div>
             <div class="schedule-text font-text-light-3">${item.location}</div>
             <div class="schedule-text font-text-light-3">4명 참여</div>
           </div>
         </div>`
-      )
+      );
     });
   }
 );
@@ -35,11 +35,11 @@ requestSongs(
             <img src="${item.thumbnail}">
           </div>
           <div class="song-info">
-            <div class="song-title font-title-3">${item.title}</div>
+            <div class="song-title font-title-4">${item.title}</div>
             <div class="font-text-light-2">${item.singer}</div>
           </div>
         </div>`
-      )
+      );
     };
   }
 );

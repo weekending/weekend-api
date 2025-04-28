@@ -39,11 +39,11 @@ router = APIRouter(prefix="/songs", tags=["Song"])
 async def register_song(
     band_id: int = 1,
     status: SongStatus = None,
-    credential: JWTAuthorizationCredentials = Depends(is_authenticated),
+    # credential: JWTAuthorizationCredentials = Depends(is_authenticated),
     service: SongUseCase = Depends(SongService),
 ) -> APIResponse:
     """곡 목록 조회"""
-    songs = await service.get_song_list(credential.user_id, band_id, status)
+    songs = await service.get_song_list(-1, band_id, status)
     return APIResponse(
         Http2XX.OK, data=[SongResponse.from_domain(song) for song in songs]
     )
@@ -84,7 +84,7 @@ async def register_song(
 )
 async def get_song_info(
     song_id: int = Path(title="곡 PK"),
-    credential: JWTAuthorizationCredentials = Depends(is_authenticated),
+    # credential: JWTAuthorizationCredentials = Depends(is_authenticated),
     service: SongUseCase = Depends(SongService),
 ) -> APIResponse:
     """곡 조회"""

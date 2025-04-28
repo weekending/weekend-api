@@ -23,12 +23,12 @@ class BaseAuthentication:
         try:
             return JWTAuthorizationCredentials(**jwt.decode_token(token))
         except (ValidationError, InvalidTokenError):
-            self.handle_exception()
+            self.handle_exception(request)
 
     def get_authorization(self, request: Request) -> str:
         raise NotImplementedError("`get_authorization` must be overridden.")
 
-    def handle_exception(self):
+    def handle_exception(self, request: Request):
         raise APIException(Http4XX.UNAUTHENTICATED)
 
 
@@ -56,5 +56,11 @@ class CookieAuthentication(BaseAuthentication):
         token = cookie.get("token")
         return token.value if token else ""
 
-    def handle_exception(self):
+    def handle_exception(self, request: Request):
+        location = f"/login?redirect={request.url.path}"
+        raise HTTPException(status_code=302, headers={"Location": location})
+
+
+class CookieForRedocAuthentication(CookieAuthentication):
+    def handle_exception(self, request: Request):
         raise HTTPException(status_code=302, headers={"Location": "/docs/login"})

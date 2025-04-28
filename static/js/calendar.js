@@ -35,7 +35,7 @@ const fillDays = (calendarDay, year, month, firstDay, lastDate) => {
 }
 
 const renderScheduleList = (scheduleList, year, month) => {
-  requestSchedule(
+  requestSchedules(
     $.param(
       {"from": dateToYYYYMMDD(new Date(year, month, 1)), "to": dateToYYYYMMDD(new Date(year, month + 1, 0))}
     ),

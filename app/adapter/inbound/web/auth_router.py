@@ -15,4 +15,3 @@ async def signup(request: Request):
 async def login(request: Request):
     """로그인 화면"""
     return template.TemplateResponse(request, "/auth/login.html")
-

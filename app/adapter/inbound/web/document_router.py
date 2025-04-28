@@ -5,7 +5,7 @@ from starlette.responses import HTMLResponse
 
 from app.application.port.input import UserUseCase
 from app.application.service.user_service import UserService
-from app.common.auth import cookie
+from app.common.auth import cookie_redoc
 from app.common.auth.schemas import JWTAuthorizationCredentials
 from app.common.template import template
 
@@ -14,7 +14,7 @@ router = APIRouter()
 
 @router.get("/docs", include_in_schema=False)
 async def redoc_html(
-    credentials: JWTAuthorizationCredentials = Depends(cookie),
+    credentials: JWTAuthorizationCredentials = Depends(cookie_redoc),
     service: UserUseCase = Depends(UserService),
 ) -> HTMLResponse:
     """API 문서"""

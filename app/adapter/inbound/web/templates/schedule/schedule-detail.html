@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block script %}
+<script src="{{ url_for('static', path='/js/request.js') }}"></script>
 <script src="{{ url_for('static', path='/js/schedule-detail.js') }}"></script>
 {% endblock %}
 
@@ -16,11 +17,11 @@
     </a>
     <div class="nav-title font-title-3">{{ nav_title }}</div>
     {% if is_edit %}
-    <a id="save-schedule" class="nav-edit font-text-light-1">
+    <a id="saveSchedule" class="nav-edit font-text-light-1">
       <p>저장</p>
     </a>
     {% else %}
-    <a id="edit-schedule" class="nav-edit font-text-light-1">
+    <a id="editSchedule" class="nav-edit font-text-light-1">
       <p>수정</p>
     </a>
     {% endif %}
@@ -31,7 +32,7 @@
         <img src="{{ url_for('static', path='/img/schedule.svg') }}" width="24px">
       </div>
       {% if is_edit %}
-      <input id="schedule-input-title" class="schedule-input-title" placeholder="타이틀" value="{{ title }}"  style="height: 35px;">
+      <input id="inputScheduleTitle" class="schedule-input-title" placeholder="타이틀" value="{{ title }}"  style="height: 35px;">
       {% else %}
       <p class="schedule-title font-text-1">{{ title }}</p>
       {% endif %}
@@ -42,11 +43,11 @@
       </div>
       {% if is_edit %}
       <div class="schedule-input-date">
-        <input id="schedule-input-date" value="{{ date }}" type="date">
+        <input id="inputScheduleDate" value="{{ date }}" type="date">
         <div class="flex">
-          <input id="schedule-input-start-time" value="{{ start_time }}" type="time">
-        <p>~</p>
-          <input id="schedule-input-end-time" value="{{ end_time }}" type="time">
+          <input id="inputScheduleStartTime" value="{{ start_time }}" type="time">
+          <p>~</p>
+          <input id="inputScheduleEndTime" value="{{ end_time }}" type="time">
         </div>
       </div>
       {% else %}
@@ -61,7 +62,7 @@
         <img src="{{ url_for('static', path='/img/location.svg') }}" width="24px">
       </div>
       {% if is_edit %}
-      <textarea id="schedule-input-location" placeholder="장소" style="height: 35px;">{{ location }}</textarea>
+      <textarea id="inputScheduleLocation" placeholder="장소" style="height: 35px;">{{ location }}</textarea>
       {% else %}
       <p>{{ location }}</p>
       {% endif %}
@@ -79,7 +80,7 @@
         <img src="{{ url_for('static', path='/img/memo.svg') }}" width="24px">
       </div>
       {% if is_edit %}
-      <textarea id="schedule-input-memo" placeholder="메모" style="height: 10em;">{{ memo }}</textarea>
+      <textarea id="inputScheduleMemo" placeholder="메모" style="height: 10em;">{{ memo }}</textarea>
       {% else %}
       <p>{{ memo }}</p>
       {% endif %}

@@ -1,47 +1,76 @@
-const requestSignup = (data, successFunc, errorFunc) => {
+const requestSignup = (data, success, error) => {
   $.ajax({
     url: "/api/auth/signup",
     type: "POST",
     dataType: "JSON",
     contentType: "application/json;",
     data: JSON.stringify(data),
-    success: successFunc,
-    error: errorFunc,
+    success: success,
+    error: error,
   });
 };
 
-const requestLogin = (data, beforeSendFunc, successFunc, errorFunc) => {
+const requestLogin = (data, beforeSend, success, error) => {
   $.ajax({
     url: "/api/auth/login",
     type: "POST",
     dataType: "JSON",
     contentType: "application/json;",
     data: JSON.stringify(data),
-    beforeSend: beforeSendFunc,
-    success: successFunc,
-    error: errorFunc,
+    beforeSend: beforeSend,
+    success: success,
+    error: error,
   });
 };
 
-const requestSchedule = (query, successFunc) => {
+const requestSchedules = (query, success) => {
   $.ajax({
     url: "/api/schedules?" + query,
     method: "GET",
-    headers: {"Authorization": "Bearer ${$.cookie('token')}"},
-    success: successFunc,
+    success: success,
     error: function(error) {
       console.error(error);
-    }
+    },
   });
 };
 
-const requestSongs = (query, successFunc) => {
+const requestUpdateSchedule = (scheduleId, data, success, error) => {
+  $.ajax({
+    url: "/api/schedules/" + scheduleId,
+    method: "PATCH",
+    dataType: "JSON",
+    contentType: "application/json;",
+    data: JSON.stringify(data),
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("Authorization", "Bearer " + $.cookie("token"));
+    },
+    success: success,
+    error: error,
+  });
+};
+
+const requestSongs = (query, success) => {
   $.ajax({
     url: "/api/songs?" + query,
     method: "GET",
-    success: successFunc,
+    success: success,
     error: function(error) {
       console.error(error);
-    }
+    },
+  });
+};
+
+const requestUpdateSong = (songId, data, success, error) => {
+  $.ajax({
+    url: "/api/songs/" + songId,
+    method: "PATCH",
+    dataType: "JSON",
+    contentType: "application/json;",
+    data: JSON.stringify(data),
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("Authorization", "Bearer " + $.cookie("token"));
+    },
+    success: success,
+    error: error,
   });
 };

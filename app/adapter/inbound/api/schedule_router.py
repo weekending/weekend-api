@@ -38,13 +38,11 @@ async def get_schedules(
     band_id: int = Query(title="밴드 PK", default=1),
     from_: date = Query(title="조회 시작일", default=None, alias="from"),
     to: date = Query(title="조회 종료일", default=None),
-    credential: JWTAuthorizationCredentials = Depends(is_authenticated),
+    # credential: JWTAuthorizationCredentials = Depends(is_authenticated),
     service: ScheduleUseCase = Depends(ScheduleService),
 ) -> APIResponse:
     """밴드에 등록된 일정 리스트 조회"""
-    schedule = await service.get_band_schedules(
-        credential.user_id, band_id, from_, to
-    )
+    schedule = await service.get_band_schedules(-1, band_id, from_, to)
     return APIResponse(
         Http2XX.OK, data=[ScheduleResponse.from_domain(s) for s in schedule]
     )
@@ -86,7 +84,7 @@ async def create_schedule(
 )
 async def get_schedule_info(
     schedule_id: int = Path(title="밴드 PK"),
-    credential: JWTAuthorizationCredentials = Depends(is_authenticated),
+    # credential: JWTAuthorizationCredentials = Depends(is_authenticated),
     service: ScheduleUseCase = Depends(ScheduleService),
 ) -> APIResponse:
     """일정 정보 조회"""

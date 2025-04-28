@@ -1,4 +1,4 @@
-requestSchedule(
+requestSchedules(
   $.param({"from": dateToYYYYMMDD(new Date())}),
   (response) => {
     response.data.forEach(item => {

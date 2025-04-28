@@ -11,14 +11,16 @@ const login = () => {
 
   requestLogin(
     params,
-    () => {
+    beforeSend = () => {
       $("#loginErrorPassword").hide();
     },
-    (response) => {
+    success = (response) => {
       $.cookie("token", response.data.token);
-      location.href = "/";
+      const params = new URLSearchParams(window.location.search);
+      const redirectUrl = params.get("redirect") || "/";
+      location.replace(redirectUrl);
     },
-    (response) => {
+    error = (response) => {
       $("#loginButton").attr("disabled", true);
       result = response.responseJSON;
       if (result.code === "F006") {

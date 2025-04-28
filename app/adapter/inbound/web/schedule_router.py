@@ -2,6 +2,8 @@ from fastapi import APIRouter, Depends, Request
 
 from app.application.port.input import ScheduleUseCase
 from app.application.service.schedule_service import ScheduleService
+from app.common.auth.authentication import JWTAuthorizationCredentials
+from app.common.permission import cookie_authenticated
 from app.common.template import template
 from app.common.utils import format_time, to_weekday
 
@@ -15,7 +17,10 @@ async def schedule_list(request: Request):
 
 
 @router.get("/register")
-async def register_schedule(request: Request):
+async def register_schedule(
+    request: Request,
+    credential: JWTAuthorizationCredentials = Depends(cookie_authenticated),
+):
     """일정 등록"""
     return template.TemplateResponse(
         request,
@@ -53,6 +58,7 @@ async def schedule_detail(
 async def edit_schedule(
     schedule_id: int,
     request: Request,
+    credential: JWTAuthorizationCredentials = Depends(cookie_authenticated),
     service: ScheduleUseCase = Depends(ScheduleService),
 ):
     """일정 수정"""

@@ -2,6 +2,8 @@ from fastapi import APIRouter, Depends, Request
 
 from app.application.port.input import SongUseCase
 from app.application.service.song_service import SongService
+from app.common.auth.authentication import JWTAuthorizationCredentials
+from app.common.permission import cookie_authenticated
 from app.common.template import template
 from app.domain.song import SongStatus
 
@@ -15,7 +17,10 @@ async def song_list(request: Request):
 
 
 @router.get("/register")
-async def register_song(request: Request):
+async def register_song(
+    request: Request,
+    credential: JWTAuthorizationCredentials = Depends(cookie_authenticated),
+):
     """곡 등록"""
     return template.TemplateResponse(
         request,
@@ -60,6 +65,7 @@ async def song_detail(
 async def song_detail(
     song_id: int,
     request: Request,
+    credential: JWTAuthorizationCredentials = Depends(cookie_authenticated),
     service: SongUseCase = Depends(SongService),
 ):
     """곡 상세"""

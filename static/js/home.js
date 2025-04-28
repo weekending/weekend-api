@@ -3,8 +3,8 @@ $.cookie("bandId", 1);
 requestSchedules(
   data = $.param({"band_id": getBandId(), "from": dateToYYYYMMDD(new Date())}),
   success = (response) => {
-    response.data.forEach(item => {
-      $("#d-day-list").append(
+    response.data.forEach((item, i) => {
+      $("#dDayList").append(
         `<div class="schedule-item flex">
           <div class="schedule-info flex">
             <div class="schedule-info-wrapper">
@@ -16,10 +16,15 @@ requestSchedules(
             <div class="schedule-title font-title-4">${item.title}</div>
             <div class="schedule-text font-text-light-3">${formatTimeTo12Hour(item.start_time)} ~ ${formatTimeTo12Hour(item.end_time)}</div>
             <div class="schedule-text font-text-light-3">${item.location}</div>
-            <div class="schedule-text font-text-light-3">4명 참여</div>
+            <div class="schedule-text font-text-light-3">${item.users.length}명 참여</div>
           </div>
         </div>`
       );
+      if (i === 0) {
+        $("#scheduleScroll").append('<button class="active"></button>')
+      } else {
+        $("#scheduleScroll").append('<button></button>')
+      }
     });
   }
 );
@@ -27,11 +32,11 @@ requestSchedules(
 requestSongs(
   data = $.param({"band_id": getBandId(), "status": "INPROGRESS"}),
   success = (response) => {
-    $("#song-list").empty();
+    $("#songList").empty();
     const maxCount = 5;
     for (let i = 0; i < maxCount && i < response.data.length; i++) {
       item = response.data[i];
-      $("#song-list").append(
+      $("#songList").append(
         `<div class="song-item flex">
           <div class="song-thumbnail">
             <img src="${item.thumbnail}">

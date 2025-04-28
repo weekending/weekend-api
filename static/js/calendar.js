@@ -78,9 +78,9 @@ const renderCalendar = (date) => {
   const firstDay = new Date(year, month, 1).getDay();
   const lastDate = new Date(year, month + 1, 0).getDate();
 
-  $("#month-title").text(`${year}년 ${month + 1}월`);
-  const calendarDay = $("#calendar-day");
-  const scheduleList = $("#schedule-list");
+  $("#monthTitle").text(`${year}년 ${month + 1}월`);
+  const calendarDay = $("#calendarDay");
+  const scheduleList = $("#scheduleList");
 
   calendarDay.empty();
   scheduleList.empty();
@@ -93,12 +93,12 @@ const currentDate = new Date();
 
 renderCalendar(currentDate);
 
-$("#prev-month").click(() => {
+$("#prevMonth").click(() => {
   currentDate.setMonth(currentDate.getMonth() - 1);
   renderCalendar(currentDate);
 })
 
-$("#next-month").click(() => {
+$("#nextMonth").click(() => {
   currentDate.setMonth(currentDate.getMonth() + 1);
   renderCalendar(currentDate);
 })

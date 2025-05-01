@@ -26,6 +26,12 @@ class SongUseCase(ABC):
 
     @abstractmethod
     async def update_song_info(
-        self,  song_id: int, user_id: int, **kwargs
+        self,
+        song_id: int,
+        user_id: int,
+        title: str,
+        singer: str,
+        thumbnail: str,
+        status: SongStatus,
     ) -> Song:
         raise NotImplementedError

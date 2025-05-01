@@ -19,14 +19,21 @@ class UserBandPersistenceAdapter(BaseRepository, UserBandRepositoryPort):
         )
         await self._session.commit()
 
-    async def exists(self, user_id: int, band_id: int) -> bool:
+    async def find_by_user_and_band(self, user_id: int, band_id: int) -> UserBand | None:
         result = await self._session.execute(
             select(user_band_entity).where(
                 user_band_entity.c.user_id == user_id,
                 user_band_entity.c.band_id == band_id,
-            ).limit(1)
+            )
         )
-        return result.scalar_one_or_none() is not None
+        if band_user := result.fetchone():
+            return UserBand(
+                id=band_user.id,
+                user_id=band_user.user_id,
+                band_id=band_user.band_id,
+                member_type=band_user.member_type,
+                user=None,
+            )
 
     async def find_user_bands(self, user_id: int) -> Iterable[Band]:
         result = await self._session.execute(

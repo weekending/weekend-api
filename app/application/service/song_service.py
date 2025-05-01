@@ -7,6 +7,7 @@ from app.adapter.outbound.persistence import (
 )
 from app.common.exception import APIException
 from app.common.http import Http4XX
+from app.common.utils import check_user_leader_permission
 from app.domain import Song, SongStatus
 from ..port.input import SongUseCase
 from ..port.output import SongRepositoryPort, UserBandRepositoryPort
@@ -21,10 +22,6 @@ class SongService(SongUseCase):
         self._song_repo = song_repo
         self._user_band_repo = user_band_repo
 
-    async def _check_user_band_permission(self, user_id: int, band_id: int):
-        if not await self._user_band_repo.exists(user_id, band_id):
-            raise APIException(Http4XX.BAND_NOT_REGISTERED)
-
     async def get_song_list(
         self, user_id: int, band_id: int, status: SongStatus
     ) -> list[Song]:
@@ -33,7 +30,11 @@ class SongService(SongUseCase):
     async def create_song(
         self, user_id: int, band_id: int, title: str, singer: str
     ) -> Song:
-        await self._check_user_band_permission(user_id, band_id)
+        check_user_leader_permission(
+            user_band=await self._user_band_repo.find_by_user_and_band(
+                user_id, band_id
+            )
+        )
         return await self._song_repo.save(
             Song(
                 band_id=band_id,
@@ -57,16 +58,48 @@ class SongService(SongUseCase):
     async def remove_song(self, song_id: int, user_id: int):
         if not (song := await self._song_repo.find_by_id_or_none(song_id)):
             raise APIException(Http4XX.SONG_NOT_FOUND)
-        await self._check_user_band_permission(user_id, song.band_id)
+
+        check_user_leader_permission(
+            user_band=await self._user_band_repo.find_by_user_and_band(
+                user_id, song.band_id
+            )
+        )
         await self._song_repo.remove(song)
 
+    def _update_status(self, song: Song, status: SongStatus):
+        match status:
+            case SongStatus.PENDING:
+                song.in_progress_dtm = None
+                song.closed_dtm = None
+            case SongStatus.INPROGRESS:
+                song.in_progress_dtm = datetime.now()
+            case SongStatus.CLOSED:
+                song.closed_dtm = datetime.now()
+        song.status = status
+
     async def update_song_info(
-        self,  song_id: int, user_id: int, **kwargs
+        self,
+        song_id: int,
+        user_id: int,
+        title: str = None,
+        singer: str = None,
+        thumbnail: str = None,
+        status: SongStatus = None,
     ) -> Song:
         if not (song := await self._song_repo.find_by_id_or_none(song_id)):
             raise APIException(Http4XX.SONG_NOT_FOUND)
-        await self._check_user_band_permission(user_id, song.band_id)
-        for field, value in kwargs.items():
-            if value is not None:
-                setattr(song, field, value)
+
+        check_user_leader_permission(
+            user_band=await self._user_band_repo.find_by_user_and_band(
+                user_id, song.band_id
+            )
+        )
+        if title:
+            song.title = title
+        if singer:
+            song.singer = singer
+        if thumbnail:
+            song.thumbnail = thumbnail
+        if status and song.status != status:
+            self._update_status(song, status)
         return await self._song_repo.save(song)

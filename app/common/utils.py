@@ -5,6 +5,10 @@ from fastapi import Request
 from jinja2 import pass_context
 from starlette.datastructures import URL
 
+from app.common.http import Http4XX
+from app.common.exception import APIException
+from app.domain import MemberType, UserBand
+
 
 weekdays = ["월", "화", "수", "목", "금", "토", "일"]
 
@@ -30,4 +34,16 @@ def urlx_for(context: dict, name: str, **path_params) -> URL:
 
 
 def generate_name() -> str:
-    return f"name{randint(0, 100)}"
+    first = ["가지런한",  "고요한", "날카로운", "눈부신", "부드러운", "용감한", "용맹한", "지혜로운"]
+    second = ["꿈속의", "들판의", "절벽의", "천국의", "초원의",  "태양의", "폭풍의", "협곡의"]
+    last = ["고향", "날개", "독수리", "물고기", "별빛", "불꽃", "은하수", "향기"]
+    return " ".join(
+        func[randint(0, len(func) - 1)] for func in [first, second, last]
+    )
+
+
+def check_user_leader_permission(user_band: UserBand):
+    if not user_band:
+        raise APIException(Http4XX.BAND_NOT_REGISTERED)
+    elif user_band.member_type != MemberType.LEADER:
+        raise APIException(Http4XX.PERMISSION_DENIED)

@@ -9,7 +9,7 @@ settings = get_settings()
 
 class BandInfo(BaseModel):
     name: str = Field(title="밴드명", examples=["대일밴드"])
-    member_type: MemberType = Field(title="멤버 권한", default=MemberType.NORMAL)
+    member_type: MemberType = Field(title="멤버 권한", default=MemberType.LEADER)
 
 
 class BandResponse(BaseModel):

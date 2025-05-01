@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/setting.css') }}">
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+{% block content %}
+<div class="inner-content">
+  <div class="nav flex">
+    <a class="nav-back flex" onclick="javascript:history.back();">
+      <img src="{{ url_for('static', path='/img/back.svg') }}" width="25px">
+    </a>
+    <div class="nav-title font-title-3">설정</div>
+    <a class="nav-edit font-text-light-1">
+      <p></p>
+    </a>
+  </div>
+  <div class="setting-content">
+    <div class="setting-header">
+      <p class="font-text-light-3">계정 관리</p>
+    </div>
+    <div class="setting-section">
+      <div class="setting-item" onclick="location.href='/settings/profile';">
+        <p class="font-title-4">프로필</p>
+      </div>
+    </div>
+    <div class="setting-header">
+      <p class="font-text-light-3">밴드 관리</p>
+    </div>
+    <div class="setting-section">
+      <div class="setting-item" onclick="location.href='/settings/members';">
+        <p class="font-title-4">멤버 관리</p>
+      </div>
+      <div class="setting-item">
+        <p class="font-title-4">초대 링크</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

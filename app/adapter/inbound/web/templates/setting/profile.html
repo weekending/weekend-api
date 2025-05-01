@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/setting.css') }}">
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+{% block content %}
+<div class="inner-content">
+  <div class="nav flex">
+    <a class="nav-back flex" onclick="javascript:history.back();">
+      <img src="{{ url_for('static', path='/img/back.svg') }}" width="25px">
+    </a>
+    <div class="nav-title font-title-3">프로필</div>
+    <a class="nav-edit font-text-light-1">
+      <p></p>
+    </a>
+  </div>
+  <div class="setting-content">
+    <div class="profile-section">
+      <div class="profile-header">
+        <p class="font-text-3">내 정보</p>
+      </div>
+      <div class="profile-item">
+        <p class="font-text-light-1">닉네임</p>
+        <p class="font-subtitle-1">{{ user.name }}</p>
+      </div>
+      <div class="profile-item">
+        <p class="font-text-light-1">아이디</p>
+        <p class="font-subtitle-1">{{ user.email }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

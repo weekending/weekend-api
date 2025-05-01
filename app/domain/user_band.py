@@ -2,6 +2,8 @@ from enum import Enum
 
 from pydantic import BaseModel
 
+from .user import User
+
 
 class MemberType(Enum):
     LEADER = "LEADER"
@@ -16,3 +18,4 @@ class UserBand(BaseModel):
     user_id: int
     band_id: int
     member_type: MemberType
+    user: User | None

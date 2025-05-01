@@ -16,3 +16,7 @@ class UserBandRepositoryPort(ABC):
     @abstractmethod
     async def find_user_bands(self, user_id: int) -> Iterable[Band]:
         raise NotImplementedError
+
+    @abstractmethod
+    async def find_band_users(self, band_id: int) -> list[UserBand]:
+        raise NotImplementedError

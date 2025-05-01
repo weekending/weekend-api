@@ -120,6 +120,10 @@ input::placeholder,textarea::placeholder {
   }
 }
 
+inner-content {
+  width: 100%;
+}
+
 .flex {
   display: flex;
 }
@@ -143,6 +147,7 @@ input::placeholder,textarea::placeholder {
 .setting {
   width: 35px;
   height: 35px;
+  cursor: pointer;
 }
 
 .nav-edit {

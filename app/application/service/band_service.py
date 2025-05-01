@@ -8,7 +8,7 @@ from app.adapter.outbound.persistence import (
 )
 from app.common.exception import APIException
 from app.common.http import Http4XX
-from app.domain import Band, BandLink, MemberType, UserBand
+from app.domain import Band, BandLink, MemberType, User, UserBand
 from ..port.input import BandUseCase
 from ..port.output import BandRepositoryPort, UserBandRepositoryPort
 
@@ -33,7 +33,7 @@ class BandService(BandUseCase):
             Band(name=name, thumbnail=None, is_active=True)
         )
         await self._user_band_repo.save(
-            UserBand(user_id=user_id, band_id=band.id, member_type=member_type)
+            UserBand(user_id=user_id, band_id=band.id, member_type=member_type, user=None)
         )
         await self._band_repo.create_link(
             BandLink(band_id=band.id, hash=uuid4().hex[:18], is_active=True)
@@ -44,3 +44,6 @@ class BandService(BandUseCase):
         if not (band := await self._band_repo.find_by_id_or_none(band_id)):
             raise APIException(Http4XX.BAND_NOT_FOUND)
         return band
+
+    async def get_band_members(self, band_id: int) -> list[UserBand]:
+        return await self._user_band_repo.find_band_users(band_id)

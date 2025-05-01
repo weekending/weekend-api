@@ -2,7 +2,7 @@ from typing import Iterable
 
 from sqlalchemy import insert, select
 
-from app.adapter.outbound.persistence.entity import BandEntity, user_band_entity
+from app.adapter.outbound.persistence.entity import BandEntity, UserEntity, user_band_entity
 from app.adapter.outbound.persistence.reporitory.base import BaseRepository
 from app.application.port.output import UserBandRepositoryPort
 from app.domain import Band, UserBand
@@ -39,3 +39,27 @@ class UserBandPersistenceAdapter(BaseRepository, UserBandRepositoryPort):
             .where(user_band_entity.c.user_id == user_id)
         )
         return map(lambda band: band.to_domain(), result.scalars())
+
+    async def find_band_users(self, band_id: int) -> list[UserBand]:
+        result = await self._session.execute(
+            select(user_band_entity, UserEntity)
+            .select_from(
+                user_band_entity.join(
+                    UserEntity, user_band_entity.c.user_id == UserEntity.id
+                )
+            )
+            .where(user_band_entity.c.band_id == band_id)
+            .order_by(
+                user_band_entity.c.member_type, user_band_entity.c.created_dtm
+            )
+        )
+        return [
+            UserBand(
+                id=row.id,
+                user_id=row.user_id,
+                band_id=row.band_id,
+                member_type=row.member_type,
+                user=row.UserEntity.to_domain(),
+            )
+            for row in result.all()
+        ]

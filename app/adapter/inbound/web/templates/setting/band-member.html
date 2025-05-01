@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/setting.css') }}">
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+{% block content %}
+<div class="inner-content">
+  <div class="nav flex">
+    <a class="nav-back flex" onclick="javascript:history.back();">
+      <img src="{{ url_for('static', path='/img/back.svg') }}" width="25px">
+    </a>
+    <div class="nav-title font-title-3">멤버 관리</div>
+    <a class="nav-edit font-text-light-1">
+      <p></p>
+    </a>
+  </div>
+  <div class="setting-content">
+    {% for member in members %}
+    <div class="member-item flex">
+      <div class="member-name flex">
+        <p class="font-subtitle-1">
+          {{ member.user.name }}
+          <span class="font-text-light-3">({{ member.user.email }})</span>
+        </p>
+      </div>
+      {% if member.member_type.name == 'LEADER' %}
+        <div class="member-leader">
+          <p class="font-subtitle-2">리더</p>
+        </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

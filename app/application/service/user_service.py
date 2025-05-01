@@ -8,7 +8,7 @@ from app.adapter.outbound.persistence import (
 )
 from app.common.exception import APIException
 from app.common.http import Http4XX
-from app.domain import User, Band
+from app.domain import Band, User
 from ..port.input import UserUseCase
 from ..port.output import UserBandRepositoryPort, UserRepositoryPort
 

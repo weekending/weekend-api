@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from app.domain import Band, MemberType
+from app.domain import Band, MemberType, UserBand
 
 
 class BandUseCase(ABC):
@@ -12,4 +12,7 @@ class BandUseCase(ABC):
 
     @abstractmethod
     async def get_band_info(self, band_id: int) -> Band:
+        raise NotImplementedError
+
+    async def get_band_members(self, band_id: int) -> list[UserBand]:
         raise NotImplementedError

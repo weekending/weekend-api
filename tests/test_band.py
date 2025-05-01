@@ -13,7 +13,7 @@ async def test_밴드_생성(client):
     client.headers.update({"Authorization": f"Bearer {token}"})
 
     data = {"name": "밴드명"}
-    response = await client.post("/bands", json=data)
+    response = await client.post("/api/bands", json=data)
     assert response.status_code == 201
     return response.json()["data"]
 
@@ -22,6 +22,6 @@ async def test_밴드_생성(client):
 async def test_밴드_조회(client):
     band = await test_밴드_생성(client)
 
-    response = await client.get(f"/bands/{band["id"]}")
+    response = await client.get(f"/api/bands/{band["id"]}")
     assert response.status_code == 200
     return response.json()

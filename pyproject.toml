@@ -1,30 +1,24 @@
-[tool.poetry]
-name = "weekend"
+[project]
+name = "weekend-api"
 version = "0.1.0"
-description = "An Application to manage songs for band practice"
-authors = ["miintto <miintto.log@gmail.com>"]
-readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "asyncpg>=0.30.0",
+    "bcrypt>=4.3.0",
+    "fastapi>=0.115.12",
+    "greenlet>=3.2.1",
+    "gunicorn>=23.0.0",
+    "jinja2>=3.1.6",
+    "pydantic-settings>=2.9.1",
+    "pyjwt>=2.10.1",
+    "sqlalchemy>=2.0.40",
+    "uvicorn[standard]>=0.34.2",
+]
 
-[tool.poetry.dependencies]
-python = "^3.12"
-asyncpg = "^0.30.0"
-bcrypt = "^4.2.1"
-fastapi = "^0.115.6"
-greenlet = "^3.1.1"
-gunicorn = "^23.0.0"
-jinja2 = "^3.1.5"
-pydantic-settings = "^2.7.1"
-pyjwt = "^2.10.1"
-sqlalchemy = "^2.0.37"
-uvicorn = {extras = ["standard"], version = "^0.34.0"}
-
-
-[tool.poetry.group.dev.dependencies]
-httpx = "^0.28.1"
-pytest = "^8.3.4"
-pytest-asyncio = "^0.25.2"
-coverage = "^7.6.10"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[dependency-groups]
+dev = [
+    "coverage>=7.8.0",
+    "httpx>=0.28.1",
+    "pytest>=8.3.5",
+    "pytest-asyncio>=0.26.0",
+]

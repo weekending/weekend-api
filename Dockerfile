@@ -7,23 +7,22 @@ RUN apt-get -y update \
     && apt-get install -y \
     libpq-dev \
     gcc \
-    && pip install poetry
+    && pip install uv
 
 WORKDIR /usr/src
 
-COPY poetry.lock pyproject.toml /usr/src/
+COPY uv.lock pyproject.toml /usr/src/
 
-RUN virtualenv -p python3.12 venv \
-    && PATH="/usr/src/venv/bin:$PATH" \
-    VIRTUAL_ENV="/usr/src/venv" \
-    poetry install --no-root --only main
+RUN uv venv --python 3.12 .venv \
+    && PATH="/usr/src/.venv/bin:$PATH" \
+    uv sync --no-dev
 
 ###############################################################################
 # RUNTIME IMAGE                                                               #
 ###############################################################################
 FROM python:3.12-slim
 
-ENV PATH="/usr/src/venv/bin:$PATH"
+ENV PATH="/usr/src/.venv/bin:$PATH"
 
 EXPOSE 8000
 
@@ -35,7 +34,7 @@ RUN apt-get -y update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=build /usr/src/venv /usr/src/venv
+COPY --from=build /usr/src/.venv /usr/src/.venv
 
 COPY ./app /usr/src/app
 COPY ./static /usr/src/static

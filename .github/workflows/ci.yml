@@ -4,12 +4,9 @@ on:
   push:
     tags:
       - "*"
-  workflow_dispatch:
-    inputs:
-      version:
-        description: Test Version
-        default: 0.1.0
-        required: true
+  pull_request:
+    branches:
+      - "main"
 
 jobs:
   test:
@@ -50,6 +47,7 @@ jobs:
   docker:
     name: CI
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }}
 
     steps:
     - name: CHECKOUT

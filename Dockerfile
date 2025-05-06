@@ -13,16 +13,17 @@ WORKDIR /usr/src
 
 COPY uv.lock pyproject.toml /usr/src/
 
-RUN uv venv --python 3.12 .venv \
-    && PATH="/usr/src/.venv/bin:$PATH" \
-    uv sync --no-dev
+RUN uv venv --python 3.12 venv \
+    && PATH="/usr/src/venv/bin:$PATH" \
+    VIRTUAL_ENV="/usr/src/venv" \
+    uv sync --active --no-dev
 
 ###############################################################################
 # RUNTIME IMAGE                                                               #
 ###############################################################################
 FROM python:3.12-slim
 
-ENV PATH="/usr/src/.venv/bin:$PATH"
+ENV PATH="/usr/src/venv/bin:$PATH"
 
 EXPOSE 8000
 
@@ -34,7 +35,7 @@ RUN apt-get -y update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=build /usr/src/.venv /usr/src/.venv
+COPY --from=build /usr/src/venv /usr/src/venv
 
 COPY ./app /usr/src/app
 COPY ./static /usr/src/static

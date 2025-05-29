@@ -70,6 +70,7 @@
 
 .day-schedule {
   height: 12px;
+  margin: 3px;
 
   .event {
     display: inline-block;

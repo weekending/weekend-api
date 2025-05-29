@@ -1,6 +1,8 @@
 import logging
+import re
 from uuid import uuid4
 
+from starlette.datastructures import Headers
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
 logger = logging.getLogger("fastapi.request")
@@ -18,13 +20,21 @@ class LoggingMiddleware:
         request_logging_msg = self._parse_logging_message(scope)
         logger.info(request_logging_msg)
 
+        async def receive_before_logging():
+            nonlocal scope
+            message = await receive()
+            headers = Headers(scope=scope)
+            if re.search(r"^application/json", headers.get("Content-Type")):
+                logger.info(f"Request - {message["body"].decode()}")
+            return message
+
         async def send_before_logging(message: Message):
             nonlocal request_logging_msg
             await send(message)
             if message["type"] == "http.response.start":
                 logger.info(f"{request_logging_msg} - {message["status"]}")
 
-        await self.app(scope, receive, send_before_logging)
+        await self.app(scope, receive_before_logging, send_before_logging)
 
     def _parse_logging_message(self, scope: Scope) -> str:
         query = f"?{scope["query_string"].decode()}" if scope.get("query_string") else ""

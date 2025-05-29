@@ -8,7 +8,7 @@ $("#updateSong").click(() => {
 
 $("#editSong").click(() => {
   const currentPath = location.pathname;
-  location.href = currentPath.endsWith("/") ? currentPath + "edit" : currentPath + "/edit";
+  location.replace(currentPath.endsWith("/") ? currentPath + "edit" : currentPath + "/edit");
 });
 
 $("#songSelect").click(() => {
@@ -16,10 +16,9 @@ $("#songSelect").click(() => {
 });
 
 $(".status-option-item").click(function() {
-  $("#songSelect .status-item").empty();
-  $("#songSelect .status-item").append(
-    $(this).find(".song-status").clone(true)
-  );
+  const songSelectItem = $("#songSelect .status-item");
+  songSelectItem.empty();
+  songSelectItem.append($(this).find(".song-status").clone(true));
   $("#songStatusOption").hide();
 });
 
@@ -31,7 +30,7 @@ const createSong = () => {
       "singer": $("#inputSongSinger").val(),
     },
     success = () => {
-      location.replace("/songs");
+      location.href = "/songs";
     },
     error = (response) => {
       result = response.responseJSON;
@@ -56,7 +55,7 @@ const updateSong = () => {
       "status": status.toUpperCase(),
     },
     success = () => {
-      location.replace("/songs/" + songId);
+      location.replace("/songs/");
     },
     error = (response) => {
       result = response.responseJSON;

@@ -8,7 +8,7 @@ $("#updateSchedule").click(() => {
 
 $("#editSchedule").click(() => {
   const currentPath = location.pathname;
-  location.href = currentPath.endsWith("/") ? currentPath + "edit" : currentPath + "/edit";
+  location.replace(currentPath.endsWith("/") ? currentPath + "edit" : currentPath + "/edit");
 });
 
 const createSchedule = () => {
@@ -43,14 +43,14 @@ const updateSchedule = () => {
     scheduleId,
     data = {
       "title": $("#inputScheduleTitle").val(),
-      "date": $("#inputScheduleDate").val(),
+      "day": $("#inputScheduleDate").val(),
       "start_time": $("#inputScheduleStartTime").val(),
       "end_time": $("#inputScheduleEndTime").val(),
       "location": $("#inputScheduleLocation").val(),
       "memo": $("#inputScheduleMemo").val(),
     },
     success = () => {
-      location.replace("/schedule/" + scheduleId);
+      location.replace("/schedule/");
     },
     error = (response) => {
       result = response.responseJSON;

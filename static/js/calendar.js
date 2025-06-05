@@ -66,7 +66,7 @@ const renderScheduleList = (scheduleList, year, month) => {
         $(`.day-schedule[data-date="${item.day}"]`).append(`<div class="event"></div>`);
       });
       scheduleList.on("click", ".schedule-description", function() {
-        location.href = "/schedule/" + $(this).data("id");
+        location.href = "/schedules/" + $(this).data("id");
       });
     }
   );

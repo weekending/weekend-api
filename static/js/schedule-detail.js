@@ -2,6 +2,10 @@ $("#saveSchedule").click(() => {
   createSchedule();
 });
 
+$("#cancelCreateSchedule").click(() => {
+  location.replace("/schedules");
+});
+
 $("#updateSchedule").click(() => {
   updateSchedule();
 });
@@ -9,6 +13,11 @@ $("#updateSchedule").click(() => {
 $("#editSchedule").click(() => {
   const currentPath = location.pathname;
   location.replace(currentPath.endsWith("/") ? currentPath + "edit" : currentPath + "/edit");
+});
+
+$("#cancelEditSchedule").click(() => {
+  const currentPath = location.pathname;
+  location.replace(currentPath.replace("/edit", ""));
 });
 
 const createSchedule = () => {
@@ -23,7 +32,7 @@ const createSchedule = () => {
       "memo": $("#inputScheduleMemo").val(),
     },
     success = () => {
-      location.replace("/schedule");
+      location.replace("/schedules");
     },
     error = (response) => {
       result = response.responseJSON;
@@ -50,7 +59,7 @@ const updateSchedule = () => {
       "memo": $("#inputScheduleMemo").val(),
     },
     success = () => {
-      location.replace("/schedule/");
+      location.replace("/schedules/");
     },
     error = (response) => {
       result = response.responseJSON;

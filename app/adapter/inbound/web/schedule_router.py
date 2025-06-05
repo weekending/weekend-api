@@ -7,7 +7,7 @@ from app.common.permission import cookie_authenticated
 from app.common.template import template
 from app.common.utils import format_time, to_weekday
 
-router = APIRouter(prefix="/schedule")
+router = APIRouter(prefix="/schedules")
 
 
 @router.get("")
@@ -25,7 +25,7 @@ async def register_schedule(
     return template.TemplateResponse(
         request,
         "/schedule/schedule-detail.html",
-        context={"nav_title": "일정 등록", "is_register": True, "is_edit": True},
+        context={"nav_title": "일정 등록", "is_register": True, "is_edit": False},
     )
 
 

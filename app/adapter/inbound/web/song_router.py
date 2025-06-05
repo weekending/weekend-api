@@ -25,7 +25,7 @@ async def register_song(
     return template.TemplateResponse(
         request,
         "/song/song-detail.html",
-        context={"nav_title": "연습곡 등록", "is_register": True, "is_edit": True},
+        context={"nav_title": "연습곡 등록", "is_register": True, "is_edit": False},
     )
 
 
@@ -56,6 +56,7 @@ async def song_detail(
                 if song.closed_dtm
                 else "-"
             ),
+            "is_register": False,
             "is_edit": False,
         },
     )
@@ -79,6 +80,7 @@ async def song_detail(
             "thumbnail": song.thumbnail,
             "status": song.status,
             "status_list": list(SongStatus),
+            "is_register": False,
             "is_edit": True,
         },
     )

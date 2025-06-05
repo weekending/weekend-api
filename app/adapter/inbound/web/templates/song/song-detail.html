@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block style %}
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/button.css') }}">
 <link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/song.css') }}">
 {% endblock %}
 
@@ -12,17 +13,21 @@
 {% block content %}
 <div class="song">
   <div class="nav flex">
-    <a class="nav-back flex" onclick="location.href='/';">
+    {% if is_register or is_edit %}
+    <a class="nav-back flex"></a>
+    {% else %}
+    <a class="nav-back flex" onclick="location.href='/songs';">
       <img src="{{ url_for('static', path='/img/back.svg') }}" width="25px">
     </a>
+    {% endif %}
     <div class="nav-title font-title-3">{{ nav_title }}</div>
     {% if is_register %}
-    <a id="saveSong" class="nav-edit font-text-light-1">
-      <p>저장</p>
+    <a id="cancelCreateSong" class="nav-edit font-text-light-1">
+      <p>취소</p>
     </a>
     {% elif is_edit %}
-    <a id="updateSong" class="nav-edit font-text-light-1">
-      <p>저장</p>
+    <a id="cancelEditSong" class="nav-edit font-text-light-1">
+      <p>취소</p>
     </a>
     {% else %}
     <a id="editSong" class="nav-edit font-text-light-1">
@@ -42,7 +47,7 @@
     </div>
     <!-- 연습곡 상세 정보 -->
     <div class="song-detail">
-      {% if is_edit %}
+      {% if is_register or is_edit %}
       <div class="song-text-edit flex">
         <div class="song-icon">
           <img src="{{ url_for('static', path='/img/song.svg') }}" width="24px">
@@ -94,8 +99,17 @@
       </div>
     </div>
     {% endif %}
+    <!-- 저장 버튼 -->
+    {% if is_register %}
+    <div class="song-save">
+      <button id="createSong" class="bottom-1">저장</button>
+    </div>
+    {% elif is_edit %}
+    <div class="song-save">
+      <button id="updateSong" class="bottom-1">저장</button>
+    </div>
+    {% else %}
     <!-- 연습곡 변경 이력 -->
-    {% if not is_edit %}
     <div class="line"><hr></div>
     <div class="song-history">
       <div class="song-timeline font-text-light-3">

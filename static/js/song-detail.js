@@ -1,5 +1,9 @@
-$("#saveSong").click(() => {
+$("#createSong").click(() => {
   createSong();
+});
+
+$("#cancelCreateSong").click(() => {
+  location.replace("/songs");
 });
 
 $("#updateSong").click(() => {
@@ -9,6 +13,11 @@ $("#updateSong").click(() => {
 $("#editSong").click(() => {
   const currentPath = location.pathname;
   location.replace(currentPath.endsWith("/") ? currentPath + "edit" : currentPath + "/edit");
+});
+
+$("#cancelEditSong").click(() => {
+  const currentPath = location.pathname;
+  location.replace(currentPath.replace("/edit", ""));
 });
 
 $("#songSelect").click(() => {

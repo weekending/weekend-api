@@ -15,7 +15,7 @@
 {% block content %}
 <div class="schedule">
   <div class="nav flex">
-    <a class="nav-back flex" onclick="javascript:history.back();">
+    <a class="nav-back flex" onclick="location.href='/';">
       <img src="{{ url_for('static', path='/img/back.svg') }}" width="25px">
     </a>
     <div class="nav-title font-title-3">일정 관리</div>
@@ -29,7 +29,7 @@
   </div>
 </div>
 <div class="bottom-button flex" hidden>
-  <div class="circle-button button-plus" onclick="location.href='/schedule/register'">
+  <div class="circle-button button-plus" onclick="location.href='/schedules/register'">
     <img src="{{ url_for('static', path='/img/plus.svg') }}">
   </div>
 </div>

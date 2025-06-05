@@ -144,6 +144,11 @@
   }
 }
 
+.song-save {
+  margin: 5px;
+  padding-top: 30px;
+}
+
 .line {
   margin: 0 10px;
 

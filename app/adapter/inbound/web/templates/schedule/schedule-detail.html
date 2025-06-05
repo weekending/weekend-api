@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block style %}
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/button.css') }}">
 <link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/schedule.css') }}">
 {% endblock %}
 
@@ -12,17 +13,21 @@
 {% block content %}
 <div class="schedule">
   <div class="nav flex">
-    <a class="nav-back flex" onclick="location.href='/';">
+    {% if is_register or is_edit %}
+    <a class="nav-back flex"></a>
+    {% else %}
+    <a class="nav-back flex" onclick="location.href='/schedules';">
       <img src="{{ url_for('static', path='/img/back.svg') }}" width="25px">
     </a>
+    {% endif %}
     <div class="nav-title font-title-3">{{ nav_title }}</div>
     {% if is_register %}
-    <a id="saveSchedule" class="nav-edit font-text-light-1">
-      <p>저장</p>
+    <a id="cancelCreateSchedule" class="nav-edit font-text-light-1">
+      <p>취소</p>
     </a>
     {% elif is_edit %}
-    <a id="updateSchedule" class="nav-edit font-text-light-1">
-      <p>저장</p>
+    <a id="cancelEditSchedule" class="nav-edit font-text-light-1">
+      <p>취소</p>
     </a>
     {% else %}
     <a id="editSchedule" class="nav-edit font-text-light-1">
@@ -35,7 +40,7 @@
       <div class="schedule-icon title">
         <img src="{{ url_for('static', path='/img/schedule.svg') }}" width="24px">
       </div>
-      {% if is_edit %}
+      {% if is_register or is_edit %}
       <input id="inputScheduleTitle" class="schedule-input-title" placeholder="타이틀" value="{{ title }}"  style="height: 45px;">
       {% else %}
       <p class="schedule-title font-text-1">{{ title }}</p>
@@ -45,7 +50,7 @@
       <div class="schedule-icon">
         <img src="{{ url_for('static', path='/img/time.svg') }}" width="24px">
       </div>
-      {% if is_edit %}
+      {% if is_register or is_edit %}
       <div class="schedule-input-date">
         <input id="inputScheduleDate" value="{{ date }}" type="date">
         <div class="flex">
@@ -65,7 +70,7 @@
       <div class="schedule-icon">
         <img src="{{ url_for('static', path='/img/location.svg') }}" width="24px">
       </div>
-      {% if is_edit %}
+      {% if is_register or is_edit %}
       <textarea id="inputScheduleLocation" placeholder="장소" style="height: 35px;">{{ location }}</textarea>
       {% else %}
       <p>{{ location }}</p>
@@ -83,12 +88,22 @@
       <div class="schedule-icon">
         <img src="{{ url_for('static', path='/img/memo.svg') }}" width="24px">
       </div>
-      {% if is_edit %}
+      {% if is_register or is_edit %}
       <textarea id="inputScheduleMemo" placeholder="메모" style="height: 10em;">{{ memo }}</textarea>
       {% else %}
       <p>{{ memo }}</p>
       {% endif %}
     </div>
+    <!-- 저장 버튼 -->
+    {% if is_register %}
+    <div class="schedule-save">
+      <button id="saveSchedule" class="bottom-1">저장</button>
+    </div>
+    {% elif is_edit %}
+    <div class="schedule-save">
+      <button id="updateSchedule" class="bottom-1">저장</button>
+    </div>
+    {% endif %}
   </div>
 </div>
 {% endblock %}

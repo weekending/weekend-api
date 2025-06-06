@@ -2,7 +2,8 @@ from pydantic import BaseModel
 
 
 class JWTAuthorizationCredentials(BaseModel):
-    user_id: int
-    email: str
+    is_authenticated: bool
+    user_id: int | None
+    email: str | None
     exp: float
     iat: float

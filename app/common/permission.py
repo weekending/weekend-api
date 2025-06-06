@@ -6,9 +6,17 @@ from app.common.exception import APIException
 from app.common.http import Http4XX
 
 
+def allow_any(
+    credentials: JWTAuthorizationCredentials = Depends(jwt_auth)
+) -> JWTAuthorizationCredentials:
+    return credentials
+
+
 def is_authenticated(
     credentials: JWTAuthorizationCredentials = Depends(jwt_auth)
 ) -> JWTAuthorizationCredentials:
+    if not credentials.is_authenticated:
+        raise APIException(Http4XX.PERMISSION_DENIED)
     return credentials
 
 

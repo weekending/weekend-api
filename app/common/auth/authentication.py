@@ -19,7 +19,14 @@ class BaseAuthentication:
         request: Request,
         jwt: JWTProvider = Depends(JWTProvider),
     ) -> JWTAuthorizationCredentials:
-        token = self.get_authorization(request)
+        if not (token := self.get_authorization(request)):
+            return JWTAuthorizationCredentials(
+                is_authenticated=False,
+                user_id=None,
+                email=None,
+                exp=0,
+                iat=0,
+            )
         try:
             return JWTAuthorizationCredentials(**jwt.decode_token(token))
         except (ValidationError, InvalidTokenError):
@@ -41,8 +48,9 @@ class Authentication(BaseAuthentication):
 
     scheme = "BEARER"
 
-    def get_authorization(self, request: Request) -> str:
-        authorization = request.headers.get("Authorization")
+    def get_authorization(self, request: Request) -> str | None:
+        if not (authorization := request.headers.get("Authorization")):
+            return None
         scheme, token = get_authorization_scheme_param(authorization)
         if not authorization or scheme.upper() != self.scheme:
             raise APIException(Http4XX.UNAUTHENTICATED)

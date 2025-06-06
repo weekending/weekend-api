@@ -20,6 +20,7 @@ class JWTProvider:
     def encode_token(self, user: User) -> str:
         now = datetime.now(tz=timezone.utc)
         credential = JWTAuthorizationCredentials(
+            is_authenticated=True,
             user_id=user.id,
             email=user.email,
             exp=(now + self.JWT_EXPIRATION_INTERVAL).timestamp(),

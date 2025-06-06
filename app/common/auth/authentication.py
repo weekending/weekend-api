@@ -22,7 +22,7 @@ class BaseAuthentication:
         if not (token := self.get_authorization(request)):
             return JWTAuthorizationCredentials(
                 is_authenticated=False,
-                user_id=None,
+                user_id=-1,
                 email=None,
                 exp=0,
                 iat=0,

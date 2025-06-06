@@ -1,4 +1,5 @@
 from .band_adapter import BandPersistenceAdapter
+from .post_adapter import PostPersistenceAdapter
 from .schedule_adapter import SchedulePersistenceAdapter
 from .song_adapter import SongPersistenceAdapter
 from .user_adapter import UserPersistenceAdapter

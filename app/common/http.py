@@ -39,6 +39,7 @@ class Http4XX(BaseStatus):
     SCHEDULE_NOT_FOUND = ("F011", "일정을 찾을 수 없습니다.", HTTP_404_NOT_FOUND)
     POST_NOT_FOUND = ("F012", "게시물을 찾을 수 없습니다.", HTTP_404_NOT_FOUND)
     INACTIVE_POST = ("F013", "비활성화된 게시물입니다.", HTTP_422_UNPROCESSABLE_ENTITY)
+    CATEGORY_NOT_FOUND = ("F014", "카테고리를 찾을 수 없습니다.", HTTP_404_NOT_FOUND)
 
 
 class Http5XX(BaseStatus):

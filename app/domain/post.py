@@ -1,4 +1,8 @@
+from datetime import datetime
+
 from pydantic import BaseModel
+
+from .user import User
 
 
 class PostCategory(BaseModel):
@@ -7,6 +11,7 @@ class PostCategory(BaseModel):
     code: str
     allow_anonymous: bool
     is_active: bool
+    sequence: int
 
 
 class Post(BaseModel):
@@ -16,3 +21,7 @@ class Post(BaseModel):
     title: str
     content: str
     is_active: bool
+    updated_dtm: datetime | None = None
+    created_dtm: datetime
+    category: PostCategory | None = None
+    user: User | None = None

@@ -18,3 +18,6 @@ class PostRepositoryPort(ABC):
     ) -> list[Post]:
         raise NotImplementedError
 
+    @abstractmethod
+    async def count_by_category(self, category_id: int) -> int:
+        raise NotImplementedError

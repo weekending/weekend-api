@@ -13,10 +13,10 @@ class PostUseCase(ABC):
     @abstractmethod
     async def create_post(
         self,
+        category_id: int,
+        user_id: int,
         title: str,
         content: str,
-        user_id: int,
-        category_id: int,
     ) -> Post:
         raise NotImplementedError
 
@@ -32,4 +32,8 @@ class PostUseCase(ABC):
         title: str,
         content: str,
     ) -> Post:
+        raise NotImplementedError
+
+    @abstractmethod
+    async def get_post_count(self, category_id: int) -> int:
         raise NotImplementedError

@@ -1,18 +1,28 @@
-from fastapi import Depends
+from datetime import datetime
 
-from app.adapter.outbound.persistence import PostPersistenceAdapter
+from fastapi import Depends
+from watchfiles import awatch
+
+from app.adapter.outbound.persistence import (
+    PostPersistenceAdapter,
+    PostCategoryPersistenceAdapter,
+)
 from app.common.exception import APIException
 from app.common.http import Http4XX
-from app.domain import Post
+from app.domain import Post, PostCategory
 from ..port.input import PostUseCase
-from ..port.output import PostRepositoryPort
+from ..port.output import PostCategoryRepositoryPort, PostRepositoryPort
 
 
 class PostService(PostUseCase):
     def __init__(
         self,
+        category_repo: PostCategoryRepositoryPort = Depends(
+            PostCategoryPersistenceAdapter
+        ),
         post_repo: PostRepositoryPort = Depends(PostPersistenceAdapter),
     ):
+        self._category_repo = category_repo
         self._post_repo = post_repo
 
     async def get_post_list(
@@ -22,22 +32,34 @@ class PostService(PostUseCase):
             limit=size, offset=size * (page - 1), category_id=category_id
         )
 
+    async def _get_category(self, category_id: int) -> PostCategory:
+        category = await self._category_repo.find_by_id_or_none(category_id)
+        if not category:
+            raise APIException(Http4XX.CATEGORY_NOT_FOUND)
+        return category
+
     async def create_post(
         self,
+        category_id: int,
+        user_id: int,
         title: str,
         content: str,
-        user_id: int,
-        category_id: int,
     ) -> Post:
-        return await self._post_repo.save(
+        category = await self._get_category(category_id)
+        if not category.allow_anonymous and user_id <= 0:
+            raise APIException(Http4XX.PERMISSION_DENIED)
+        post = await self._post_repo.save(
             Post(
-                category_id=category_id,
+                category_id=category.id,
                 user_id=user_id if user_id > 0 else None,
                 title=title,
                 content=content,
                 is_active=True,
+                created_dtm=datetime.now(),
             )
         )
+        post.category = category
+        return post
 
     async def get_post_info(self, post_id: int) -> Post:
         if not (post := await self._post_repo.find_by_id_or_none(post_id)):
@@ -55,6 +77,15 @@ class PostService(PostUseCase):
     ) -> Post:
         if not (post := await self._post_repo.find_by_id_or_none(post_id)):
             raise APIException(Http4XX.POST_NOT_FOUND)
+        elif post.user_id is None:
+            raise APIException(Http4XX.PERMISSION_DENIED)
+        elif post.user_id != user_id:
+            raise APIException(Http4XX.PERMISSION_DENIED)
         post.title = title
         post.content = content
+        post.updated_dtm = datetime.now()
         return await self._post_repo.save(post)
+
+    async def get_post_count(self, category_id: int) -> int:
+        return await self._post_repo.count_by_category(category_id)
+

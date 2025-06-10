@@ -3,19 +3,17 @@ from typing import TypeVar
 
 from pydantic import BaseModel
 from sqlalchemy import Column, DateTime
-from sqlalchemy.orm import declarative_base
-
-_Base = declarative_base()
+from sqlalchemy.orm import DeclarativeBase
 
 _T = TypeVar("_T")
 
 
-class Base(_Base):
+class Base(DeclarativeBase):
     __abstract__ = True
 
     updated_dtm = Column(DateTime, comment="수정 일시")
     created_dtm = Column(
-        DateTime, comment="생성 일시", nullable=False, default=datetime.now
+        DateTime, nullable=False, default=datetime.now, comment="생성 일시"
     )
 
     @classmethod
@@ -24,5 +22,8 @@ class Base(_Base):
 
     def to_domain(self, **kwargs):
         return self.__domain__(
-            **{col: getattr(self, col) for col in self.__domain__.model_fields.keys()}
+            **{
+                col: getattr(self, col)
+                for col in self.__domain__.model_fields.keys()
+            }
         )

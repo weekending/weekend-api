@@ -1,4 +1,4 @@
-from datetime import date, time
+from datetime import date, datetime, time, timedelta, timezone
 from random import randint
 
 from fastapi import Request
@@ -22,6 +22,12 @@ def format_time(t: time):
         f"{'오전' if t.hour < 12 else '오후'} "
         f"{t.hour if t.hour <= 12 else t.hour - 12}:{str(t.minute).zfill(2)}"
     )
+
+
+def format_dt(dt: datetime) -> str:
+    if datetime.now().date() == dt.date():
+        return dt.strftime("%H:%M")
+    return dt.strftime("%Y-%m-%d")
 
 
 @pass_context

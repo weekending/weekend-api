@@ -36,7 +36,7 @@ router = APIRouter(prefix="/songs", tags=["Song"])
         422: {},
     },
 )
-async def register_song(
+async def song_list(
     band_id: int = Query(title="밴드 PK"),
     status: SongStatus = None,
     # credential: JWTAuthorizationCredentials = Depends(is_authenticated),

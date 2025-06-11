@@ -19,4 +19,3 @@ class SongRepositoryPort(ABC):
     @abstractmethod
     async def find_by_band(self, band_id: int, status: SongStatus) -> list[Song]:
         raise NotImplementedError
-

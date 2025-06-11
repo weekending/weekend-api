@@ -104,3 +104,30 @@ const requestUpdateSong = (songId, data, success, error) => {
     error: error,
   });
 };
+
+const requestPostList = (query, success, error) => {
+  $.ajax({
+    url: "/api/posts?" + query,
+    type: "GET",
+    success: success,
+    error: error,
+  });
+};
+
+const requestPostCount = (query, success, error) => {
+  $.ajax({
+    url: "/api/posts/count?" + query,
+    type: "GET",
+    success: success,
+    error: error,
+  });
+};
+
+const requestPostCommentList = (postId, success, error) => {
+  $.ajax({
+    url: "/api/posts/" + postId + "/comments",
+    type: "GET",
+    success: success,
+    error: error,
+  });
+};

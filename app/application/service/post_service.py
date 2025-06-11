@@ -1,7 +1,6 @@
 from datetime import datetime
 
 from fastapi import Depends
-from watchfiles import awatch
 
 from app.adapter.outbound.persistence import (
     PostPersistenceAdapter,

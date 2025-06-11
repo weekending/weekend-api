@@ -16,6 +16,7 @@
   --crimson-2: #DFA1A1;
   --crimson-3: #B46363;
   --red: #E84141;
+  --orange: #EC6A5E;
 }
 
 body {
@@ -66,6 +67,11 @@ input::placeholder,textarea::placeholder {
   font-weight: 500;
 }
 
+.font-title-5 {
+  font-size: 15px;
+  font-weight: 500;
+}
+
 .font-subtitle-1 {
   font-size: 18px;
   font-weight: 500;
@@ -89,6 +95,10 @@ input::placeholder,textarea::placeholder {
   font-size: 14px;
 }
 
+.font-text-4 {
+  font-size: 12px;
+}
+
 .font-text-light-1 {
   font-size: 16px;
   color: var(--gray-5);
@@ -102,6 +112,11 @@ input::placeholder,textarea::placeholder {
 .font-text-light-3 {
   font-size: 14px;
   color: var(--gray-5);
+}
+
+.font-text-light-4 {
+  font-size: 12px;
+  color: var(--gray-4);
 }
 
 .wrapper {
@@ -141,6 +156,7 @@ inner-content {
 .nav-back {
   width: 35px;
   height: 35px;
+  line-height: 35px;
   cursor: pointer;
 }
 

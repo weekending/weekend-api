@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/button.css') }}">
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/post.css') }}">
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', path='/js/request.js') }}"></script>
+<script src="{{ url_for('static', path='/js/post.js') }}"></script>
+<script>
+  loadPost({{ category_id }}, {{ page }});
+  loadPagination({{ category_id }}, {{ page }});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="post">
+  <div class="nav flex">
+    <a class="nav-back nav-home flex font-title-5" onclick="location.href='/';">홈</a>
+    <div class="nav-title font-title-3">커뮤니티</div>
+    <a class="setting flex">
+    </a>
+  </div>
+  <div class="post-category">
+    <div class="category-item font-text-2">
+      <a {% if category_id == 0 %}class="category-active"{% else %}{% endif %} href="/community">전체</a>
+    </div>
+    {% for category in categories %}
+      <div class="category-item font-text-2">
+        <a {% if category.id == category_id %}class="category-active"{% else %}{% endif %} href="/community?category_id={{ category.id }}">{{ category.name }}</a>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="post-content">
+    <ul id="postList" >
+    </ul>
+  </div>
+  <div id="postPagination" class="post-pagination font-text-3"></div>
+</div>
+<div class="bottom-button flex" hidden>
+  <div class="circle-button button-plus">
+    <img src="{{ url_for('static', path='/img/plus.svg') }}">
+  </div>
+</div>
+{% endblock %}

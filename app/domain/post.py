@@ -21,7 +21,21 @@ class Post(BaseModel):
     title: str
     content: str
     is_active: bool
+    comment_count: int = 0
     updated_dtm: datetime | None = None
     created_dtm: datetime
     category: PostCategory | None = None
+    user: User | None = None
+
+
+class PostComment(BaseModel):
+    id: int = None
+    user_id: int | None = None
+    post_id: int
+    parent_id: int | None = None
+    level: int
+    content: str
+    is_active: bool
+    updated_dtm: datetime | None = None
+    created_dtm: datetime
     user: User | None = None

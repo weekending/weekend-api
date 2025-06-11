@@ -11,4 +11,3 @@ class PostCategoryRepositoryPort(ABC):
     @abstractmethod
     async def find_active_list(self) -> list[PostCategory]:
         raise NotImplementedError
-

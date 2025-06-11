@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, Path, Query
 
-from app.application.port.input import PostUseCase
+from app.application.port.input import PostCommentUseCase, PostUseCase
+from app.application.service.comment_service import PostCommentService
 from app.application.service.post_service import PostService
 from app.common.auth.schemas import JWTAuthorizationCredentials
 from app.common.http import Http2XX
@@ -12,6 +13,7 @@ from .schemas.base import (
     SuccessResponse,
     UnauthenticatedResponse,
 )
+from .schemas.comment import CommentResponse
 from .schemas.post import (
     PostCreateInfo,
     PostResponse,
@@ -128,3 +130,25 @@ async def update_post(
         post_id, user_id=credential.user_id, **body.model_dump()
     )
     return APIResponse(Http2XX.OK, data=PostResponse.from_domain(post))
+
+
+@router.get(
+    "/{post_id}/comments",
+    status_code=200,
+    summary="게시물 댓글 조회",
+    responses={
+        200: {"description": "조회 성공", "model": SuccessResponse[CommentResponse]},
+        422: {},
+    },
+)
+async def get_post_comments(
+    post_id: int = Path(title="게시물 PK"),
+    service: PostCommentUseCase = Depends(PostCommentService),
+) -> APIResponse:
+    """게시물 댓글 조회"""
+    comments = await service.get_post_comments(post_id)
+    return APIResponse(
+        Http2XX.OK,
+        data=[CommentResponse.from_domain(comment) for comment in comments],
+    )
+

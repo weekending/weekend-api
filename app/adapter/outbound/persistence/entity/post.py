@@ -5,6 +5,7 @@ from sqlalchemy import (
     Column,
     ForeignKey,
     Integer,
+    SmallInteger,
     String,
     Text,
 )
@@ -12,7 +13,7 @@ from sqlalchemy.orm import relationship
 from zoneinfo import ZoneInfo
 
 from app.core.settings import get_settings
-from app.domain import Post, PostCategory
+from app.domain import Post, PostCategory, PostComment
 from .base import Base
 from .user import UserEntity
 
@@ -66,7 +67,7 @@ class PostEntity(Base):
             created_dtm=post.created_dtm,
         )
 
-    def to_domain(self, join: bool = False) -> Post:
+    def to_domain(self, **kwargs) -> Post:
         return Post(
             id=self.id,
             category_id=self.category_id,
@@ -74,8 +75,29 @@ class PostEntity(Base):
             title=self.title,
             content=self.content,
             is_active=self.is_active,
+            comment_count=kwargs.get("comment_count", 0),
             updated_dtm=self.updated_dtm,
             created_dtm=self.created_dtm.replace(tzinfo=timezone.utc).astimezone(kst),
-            category=self.category.to_domain() if join else None,
-            user=self.user.to_domain() if join and self.user else None,
+            category=self.category.to_domain() if self.category else None,
+            user=self.user.to_domain() if self.user else None,
         )
+
+
+class PostCommentEntity(Base):
+    __tablename__ = "t_post_comment"
+    __domain__ = PostComment
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(
+        Integer, ForeignKey("t_user.id", ondelete="SET NULL"), nullable=True
+    )
+    post_id = Column(
+        Integer, ForeignKey("t_post.id", ondelete="CASCADE"), nullable=False
+    )
+    parent_id = Column(
+        Integer, ForeignKey("t_post_comment.id", ondelete="SET NULL"), nullable=True
+    )
+    level = Column(SmallInteger, comment="댓글 본문")
+    content = Column(String(255), comment="댓글 본문")
+    is_active = Column(Boolean, default=True, nullable=False, comment="활성화 여부")
+    user = relationship(UserEntity, lazy="joined")

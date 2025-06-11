@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/post.css') }}">
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', path='/js/request.js') }}"></script>
+<script src="{{ url_for('static', path='/js/post-detail.js') }}"></script>
+<script>
+  loadPostCommentList({{ post.id }});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="post">
+  <div class="nav flex">
+    <a class="nav-back flex" onclick="javascript:history.back();">
+      <img src="{{ url_for('static', path='/img/back.svg') }}" width="25px">
+    </a>
+    <div class="nav-title font-title-3"></div>
+    {% if is_owner %}
+    <a id="editPost" class="nav-edit font-text-light-1">
+      <p>수정</p>
+    </a>
+    {% else %}
+    <a class="nav-edit"></a>
+    {% endif %}
+  </div>
+  <div class="post-detail">
+    <div class="post-header">
+      <div class="font-title-3 post-title">
+        <p>{{ post.title }}</p>
+      </div>
+      <div class="post-below font-text-light-3">
+        <span>{{ post.category.name }}</span>
+        <span>·</span>
+        <span>{% if post.user %}{{ post.user.name }}{% else %}익명{% endif %}</span>
+        <span>·</span>
+        <span>{{ post.created_dtm.strftime("%Y-%m-%d %H:%M:%S") }}</span>
+      </div>
+      <hr>
+    </div>
+    <div class="post-body font-text-3">
+      <pre>{{ post.content | safe }}</pre>
+    </div>
+    <hr>
+  </div>
+  <div class="post-comment">
+    <div class="post-comment-header">
+      <p class="font-title-5">댓글 <span id="postCommentCount">0</span>개</p>
+    </div>
+    <div id="postComment" class="comment-list"></div>
+    <div class="post-comment-register flex">
+      <div class="comment-input">
+        <textarea id="inputComment" placeholder="댓글 쓰기 전에 생각했나요?ㅎㅎ"></textarea>
+      </div>
+      <div class="bottom-register">
+        <button id="commentButton" disabled="true">등록</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

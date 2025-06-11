@@ -15,4 +15,3 @@ class BandRepositoryPort(ABC):
     @abstractmethod
     async def create_link(self, band_link: BandLink) -> BandLink:
         raise NotImplementedError
-

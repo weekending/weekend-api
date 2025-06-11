@@ -40,6 +40,7 @@ class PostCategoryResponse(BaseModel):
 class PostListResponse(BaseModel):
     id: int
     title: str
+    comment_count: int
     is_new: bool
     category: PostCategoryResponse
     user: UserInfoResponse | None
@@ -51,6 +52,7 @@ class PostListResponse(BaseModel):
         return cls(
             id=post.id,
             title=post.title,
+            comment_count=post.comment_count,
             is_new=(datetime.now(kst) - post.created_dtm).days < 1,
             category=PostCategoryResponse.from_domain(post.category),
             user=UserInfoResponse.from_domain(post.user) if post.user else None,

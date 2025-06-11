@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/home.css') }}">
 <link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/schedule.css') }}">
 <link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/song.css') }}">
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', path='/css/post.css') }}">
 {% endblock %}
 
 {% block script %}
@@ -12,6 +13,7 @@
 <script src="{{ url_for('static', path='/js/button.js') }}"></script>
 <script src="{{ url_for('static', path='/js/home.js') }}"></script>
 <script src="{{ url_for('static', path='/js/calendar.js') }}"></script>
+<script src="{{ url_for('static', path='/js/post.js') }}"></script>
 {% endblock %}
 
 {% block content %}
@@ -70,8 +72,19 @@
     <div class="section">
       <div class="section-content">
         <div class="section-header">
-          <div class="section-title font-title-3">투표</div>
-          <div class="section-subtitle font-text-light-1">Coming Soon!</div>
+          <div class="section-title font-title-3">커뮤니티</div>
+          <div class="section-subtitle font-text-light-1">여러 사용자와 소통해보세요!</div>
+        </div>
+        <div class="post-content">
+          <ul id="postList"></ul>
+        </div>
+        <div class="section-bottom">
+          <a>
+            <div class="section-next font-text-light-2" onclick="location.href='/community';">
+              <span>더 보기</span>
+              <img src="{{ url_for('static', path='/img/next.svg') }}" width="18px">
+            </div>
+          </a>
         </div>
       </div>
     </div>

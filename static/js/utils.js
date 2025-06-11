@@ -32,6 +32,12 @@ const dateToYYYYMMDD = (date) => {
   return `${year}-${month}-${day}`;
 }
 
+const dateToHHMM = (date) => {
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  return `${hour}:${minute.toString().padStart(2, "0")}`;
+}
+
 const dayToYYYYMMDD = (year, month, day) => {
   return `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 }

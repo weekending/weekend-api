@@ -1,11 +1,13 @@
+from datetime import datetime
+
 from fastapi import APIRouter, Depends, Request
 
 from app.application.port.input import ScheduleUseCase
 from app.application.service.schedule_service import ScheduleService
 from app.common.auth.authentication import JWTAuthorizationCredentials
-from app.common.permission import cookie_authenticated
+from app.common.permission import cookie_allow_any, cookie_authenticated
 from app.common.template import template
-from app.common.utils import format_time, to_weekday
+from app.common.utils import format_time, to_weekday, localtime
 
 router = APIRouter(prefix="/schedules")
 
@@ -33,6 +35,8 @@ async def register_schedule(
 async def schedule_detail(
     schedule_id: int,
     request: Request,
+    credential: JWTAuthorizationCredentials = Depends(cookie_allow_any),
+    now: datetime = Depends(localtime),
     service: ScheduleUseCase = Depends(ScheduleService),
 ):
     """일정 상세"""
@@ -50,6 +54,8 @@ async def schedule_detail(
             "memo": schedule.memo or "",
             "is_register": False,
             "is_edit": False,
+            "is_attended": credential.user_id in [u.id for u in schedule.users],
+            "can_attend": schedule.day >= now.date(),
         },
     )
 

@@ -37,11 +37,11 @@
         <span>·</span>
         <span>{% if post.user %}{{ post.user.name }}{% else %}익명{% endif %}</span>
         <span>·</span>
-        <span>{{ post.created_dtm.strftime("%Y-%m-%d %H:%M:%S") }}</span>
+        <span>{{ post.created_dtm.strftime("%Y-%m-%d %H:%M") }}</span>
       </div>
       <hr>
     </div>
-    <div class="post-body font-text-3">
+    <div class="post-body">
       <pre>{{ post.content | safe }}</pre>
     </div>
     <hr>

@@ -1,12 +1,14 @@
-from datetime import date, datetime, time, timedelta, timezone
+from datetime import date, datetime, time
 from random import randint
 
-from fastapi import Request
+from fastapi import Depends, Request
 from jinja2 import pass_context
 from starlette.datastructures import URL
+from zoneinfo import ZoneInfo
 
 from app.common.http import Http4XX
 from app.common.exception import APIException
+from app.core.settings import Settings, get_settings
 from app.domain import MemberType, UserBand
 
 
@@ -28,6 +30,10 @@ def format_dt(dt: datetime) -> str:
     if datetime.now().date() == dt.date():
         return dt.strftime("%H:%M")
     return dt.strftime("%Y-%m-%d")
+
+
+def localtime(settings: Settings = Depends(get_settings)) -> datetime:
+    return datetime.now(tz=ZoneInfo(settings.TIMEZONE))
 
 
 @pass_context

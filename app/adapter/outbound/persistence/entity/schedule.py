@@ -20,7 +20,7 @@ from .base import Base
 from .user import UserEntity
 
 
-schedule_user_model = Table(
+schedule_user_entity = Table(
     "t_schedule_user",
     Base.metadata,
     Column("id", Integer, primary_key=True),
@@ -62,7 +62,7 @@ class ScheduleEntity(Base):
     location = Column(String(30), comment="장소")
     memo = Column(Text, comment="메모")
     is_active = Column(Boolean, default=True, nullable=False, comment="활성화 여부")
-    users: Mapped[list[UserEntity]] = relationship(secondary=schedule_user_model)
+    users: Mapped[list[UserEntity]] = relationship(secondary=schedule_user_entity)
 
     def to_domain(self, user: bool = False) -> Schedule:
         return Schedule(

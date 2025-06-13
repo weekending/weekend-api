@@ -1,5 +1,7 @@
 const getPostItem = (item) => {
   const created_dtm = new Date(item.created_dtm)
+  const isToday = created_dtm.toDateString() === new Date().toDateString()
+  console.log(isToday)
   const comments = item.comment_count
   return `
     <li>
@@ -14,7 +16,7 @@ const getPostItem = (item) => {
           <span>·</span>
           <span>${item.user ? item.user.name : '익명'}</span>
           <span>·</span>
-          <span>${dateToYYYYMMDD(created_dtm)}</span>
+          <span>${isToday ? dateToHHMM(created_dtm) : dateToYYYYMMDD(created_dtm)}</span>
         </div>
       </a>
     </li>

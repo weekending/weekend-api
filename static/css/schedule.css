@@ -1,51 +1,56 @@
-.schedule-content {
+.schedule {
+  position: relative;
+}
+
+.calendar-content {
   margin: 15px;
 }
 
+.schedule-content {
+  border-bottom: solid 1px var(--gray-2);
+  background: var(--gray-1);
+}
+
 .schedule-list {
-  margin: 20px 0;
-  padding: 20px 0;
-  border-top: solid 1px var(--gray-1);
+  margin: 15px;
 
   .schedule-date {
-    display: flex;
-    flex-direction: row-reverse;
-    width: 100px;
-
-    .circle {
-      width: 11px;
-      height: 11px;
-      margin: 3px 0px 3px 12px;
-      background: var(--gray-5);
-      border-radius: 50%;
-    }
+    padding-top: 10px;
 
     p {
-      margin: 0;
+      margin: 15px 8px;
     }
   }
 }
 
-.schedule-description {
-  padding: 3px 15px 12px 15px;
+.schedule-item-border {
+  margin-left: 25px;
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 5px 5px 15px 0px rgba(0, 0, 0, 0.03);
+}
+
+.schedule-item {
+  background: var(--white);
+  cursor: pointer;
 
   .schedule-title {
-    margin: 5px;
+    margin-top: 8px;
+    margin-bottom: 12px;
+
+    p {
+      margin: 5px;
+    }
+  }
+
+  .schedule-description {
+    margin: 10px 0;
   }
 
   .schedule-text {
     margin: 5px;
   }
-}
-
-.schedule-description.line {
-  margin-left: 93px;
-  border-left: solid 3px var(--gray-2);
-  cursor: pointer;
-}
-
-.schedule-description.line:active {
-  background: var(--gray-1);
 }
 
 .schedule-detail-content {
@@ -84,6 +89,7 @@
   }
 
   p {
+    white-space: pre-wrap;
     min-height: 25px;
     margin: 5px;
     line-height: 25px;
@@ -103,4 +109,31 @@
 .schedule-save {
   margin: 5px;
   padding-top: 30px;
+}
+
+.schedule-attend {
+  margin: 5px;
+  padding-top: 30px;
+
+  button {
+    width: 90px;
+    height: 36px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .bottom-attend {
+    background: var(--gray-7);
+    color: var(--gray-1);
+    cursor: pointer;
+  }
+
+  .bottom-participated {
+    border: solid 1px var(--gray-3);
+    background: var(--white);
+    color: var(--gray-5);
+    cursor: default;
+  }
 }

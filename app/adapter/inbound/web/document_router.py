@@ -18,6 +18,8 @@ async def redoc_html(
     service: UserUseCase = Depends(UserService),
 ) -> HTMLResponse:
     """API 문서"""
+    if not credentials.is_authenticated:
+        raise HTTPException(status_code=302, headers={"Location": "/docs/login"})
     user = await service.get_user_info(credentials.user_id)
     if not user or not user.is_admin:
         raise HTTPException(status_code=302, headers={"Location": "/docs/login"})

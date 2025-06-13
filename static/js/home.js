@@ -5,15 +5,17 @@ requestSchedules(
   success = (response) => {
     response.data.forEach((item, i) => {
       $("#dDayList").append(
-        `<div class="schedule-item flex">
+        `<div class="d-day-item flex">
           <div class="schedule-info flex">
             <div class="schedule-info-wrapper">
               <div class="schedule-info-dday">${calcDDay(item.day)}</div>
               <div class="font-subtitle-2">${formatDate(item.day)} (${item.weekday})</div>
             </div>
           </div>
-          <div class="schedule-description">
-            <div class="schedule-title font-title-4">${item.title}</div>
+          <div class="schedule-item">
+            <div class="schedule-title font-title-4">
+              <p>${item.title}</p>
+            </div>
             <div class="schedule-text font-text-light-3">${formatTimeTo12Hour(item.start_time)} ~ ${formatTimeTo12Hour(item.end_time)}</div>
             <div class="schedule-text font-text-light-3">${item.location}</div>
             <div class="schedule-text font-text-light-3">${item.users.length}명 참여</div>

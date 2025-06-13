@@ -1,10 +1,13 @@
-from datetime import date, datetime
+from datetime import date
 from typing import Iterable
 
-from sqlalchemy import select
+from sqlalchemy import ScalarResult, select, insert
 from sqlalchemy.orm import selectinload
 
-from app.adapter.outbound.persistence.entity import ScheduleEntity
+from app.adapter.outbound.persistence.entity import (
+    ScheduleEntity,
+    schedule_user_entity,
+)
 from app.adapter.outbound.persistence.reporitory.base import BaseRepository
 from app.application.port.output import ScheduleRepositoryPort
 from app.domain import Schedule
@@ -44,3 +47,22 @@ class SchedulePersistenceAdapter(BaseRepository, ScheduleRepositoryPort):
             query.order_by(ScheduleEntity.day, ScheduleEntity.start_time)
         )
         return map(lambda schedule: schedule.to_domain(user=True), result.scalars())
+
+    async def find_schedule_user_exists(
+        self, schedule_id: int, user_id: int
+    ) -> ScalarResult:
+        result = await self._session.execute(
+            select(schedule_user_entity).where(
+                schedule_user_entity.c.schedule_id == schedule_id,
+                schedule_user_entity.c.user_id == user_id,
+            )
+        )
+        return result.scalars()
+
+    async def insert_schedule_user(self, schedule_id: int, user_id: int):
+        await self._session.execute(
+            insert(schedule_user_entity).values(
+                schedule_id=schedule_id, user_id=user_id
+            )
+        )
+        await self._session.commit()

@@ -64,6 +64,18 @@ const requestUpdateSchedule = (scheduleId, data, success, error) => {
   });
 };
 
+const requestAttendSchedule = (scheduleId, success, error) => {
+  $.ajax({
+    url: "/api/schedules/" + scheduleId + "/attend",
+    method: "POST",
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("Authorization", "Bearer " + $.cookie("token"));
+    },
+    success: success,
+    error: error,
+  });
+};
+
 const requestSongs = (query, success) => {
   $.ajax({
     url: "/api/songs?" + query,

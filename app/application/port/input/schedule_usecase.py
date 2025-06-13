@@ -30,3 +30,7 @@ class ScheduleUseCase(ABC):
         self, schedule_id: int, user_id: int, **kwargs
     ) -> Schedule:
         raise NotImplementedError
+
+    @abstractmethod
+    async def attend_schedule(self, schedule_id: int, user_id: int) -> bool:
+        raise NotImplementedError

@@ -83,7 +83,7 @@ async def create_schedule(
     },
 )
 async def get_schedule_info(
-    schedule_id: int = Path(title="밴드 PK"),
+    schedule_id: int = Path(title="스케줄 PK"),
     # credential: JWTAuthorizationCredentials = Depends(is_authenticated),
     service: ScheduleUseCase = Depends(ScheduleService),
 ) -> APIResponse:
@@ -107,7 +107,7 @@ async def get_schedule_info(
 )
 async def update_schedule(
     body: ScheduleUpdateInfo,
-    schedule_id: int = Path(title="밴드 PK"),
+    schedule_id: int = Path(title="스케줄 PK"),
     credential: JWTAuthorizationCredentials = Depends(is_authenticated),
     service: ScheduleUseCase = Depends(ScheduleService),
 ) -> APIResponse:
@@ -117,4 +117,27 @@ async def update_schedule(
     )
     return APIResponse(
         Http2XX.OK, data=ScheduleResponse.from_domain(schedule)
+    )
+
+
+@router.post(
+    "/{schedule_id}/attend",
+    status_code=200,
+    summary="일정 참여",
+    responses={
+        200: {"description": "일정 참여 성공", "model": SuccessResponse[ScheduleResponse]},
+        401: UnauthenticatedResponse.to_openapi(),
+        403: PermissionDeniedResponse.to_openapi(),
+        422: {},
+    },
+)
+async def attend_schedule(
+    schedule_id: int = Path(title="스케줄 PK"),
+    credential: JWTAuthorizationCredentials = Depends(is_authenticated),
+    service: ScheduleUseCase = Depends(ScheduleService),
+) -> APIResponse:
+    """일정 참여"""
+    return APIResponse(
+        Http2XX.OK,
+        data=await service.attend_schedule(schedule_id, credential.user_id),
     )

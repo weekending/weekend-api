@@ -35,7 +35,7 @@ const dateToYYYYMMDD = (date) => {
 const dateToHHMM = (date) => {
   const hour = date.getHours();
   const minute = date.getMinutes();
-  return `${hour}:${minute.toString().padStart(2, "0")}`;
+  return `${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`;
 }
 
 const dayToYYYYMMDD = (year, month, day) => {

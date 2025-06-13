@@ -48,24 +48,27 @@ const renderScheduleList = (scheduleList, year, month) => {
       response.data.forEach(item => {
         if (scheduleDate !== item.day) {
           scheduleList.append(
-            `<div class="schedule-date font-text-light-3">
-              <div class="circle"></div>
+            `<div class="schedule-date font-subtitle-2">
               <p>${formatDate(item.day)} (${item.weekday})</p>
             </div>`
           );
           scheduleDate = item.day;
         }
         scheduleList.append(
-          `<div class="schedule-description line" data-id="${item.id}">
-            <div class="schedule-title font-title-4">${item.title}</div>
-            <div class="schedule-text font-text-light-3">${formatTimeTo12Hour(item.start_time)} ~ ${formatTimeTo12Hour(item.end_time)}</div>
-            <div class="schedule-text font-text-light-3">${item.location}</div>
-            <div class="schedule-text font-text-light-3">${item.users.length}명 참여</div>
+          `<div class="schedule-item schedule-item-border" data-id="${item.id}">
+            <div class="schedule-title font-title-4">
+              <p>${item.title}</p>
+            </div>
+            <div class="schedule-description font-text-light-3">
+              <div class="schedule-text">${formatTimeTo12Hour(item.start_time)} ~ ${formatTimeTo12Hour(item.end_time)}</div>
+              <div class="schedule-text">${item.location}</div>
+              <div class="schedule-text">${item.users.length}명 참여</div>
+            </div>
           </div>`
         );
         $(`.day-schedule[data-date="${item.day}"]`).append(`<div class="event"></div>`);
       });
-      scheduleList.on("click", ".schedule-description", function() {
+      scheduleList.on("click", ".schedule-item", function() {
         location.href = "/schedules/" + $(this).data("id");
       });
     }

@@ -17,8 +17,12 @@ from ..port.output import ScheduleRepositoryPort, UserBandRepositoryPort
 class ScheduleService(ScheduleUseCase):
     def __init__(
         self,
-        schedule_repo: ScheduleRepositoryPort = Depends(SchedulePersistenceAdapter),
-        user_band_repo: UserBandRepositoryPort = Depends(UserBandPersistenceAdapter),
+        schedule_repo: ScheduleRepositoryPort = Depends(
+            SchedulePersistenceAdapter,
+        ),
+        user_band_repo: UserBandRepositoryPort = Depends(
+            UserBandPersistenceAdapter,
+        ),
     ):
         self._schedule_repo = schedule_repo
         self._user_band_repo = user_band_repo
@@ -73,3 +77,11 @@ class ScheduleService(ScheduleUseCase):
             if value is not None:
                 setattr(schedule, field, value)
         return await self._schedule_repo.save(schedule)
+
+    async def attend_schedule(self, schedule_id: int, user_id: int) -> bool:
+        if await self._schedule_repo.find_schedule_user_exists(
+            schedule_id, user_id
+        ):
+            raise APIException(Http4XX.ALREADY_PARTICIPATED)
+        await self._schedule_repo.insert_schedule_user(schedule_id, user_id)
+        return True

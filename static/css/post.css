@@ -59,6 +59,7 @@
 
   .post-new {
     margin-right: 8px;
+    font-weight: 500;
     color: var(--orange);
   }
 
@@ -126,6 +127,7 @@
   margin: 30px 5px 60px 5px;
 
   pre {
+    font-size: 15px;
     font-family: "Pretendard", sans-serif;
     line-height: 1.6;
     white-space: pre-wrap;

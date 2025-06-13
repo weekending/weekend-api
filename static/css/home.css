@@ -7,6 +7,7 @@ body {
   border-radius: 20px;
   background: var(--white);
   overflow: hidden;
+  box-shadow: 5px 5px 15px 0px rgba(0, 0, 0, 0.03);
 }
 
 .section-content {
@@ -60,9 +61,10 @@ body {
   display: none;
 }
 
-.schedule-item {
+.d-day-item {
   flex: 0 0 auto;
   width: 100%;
+  margin-bottom: 10px;
   border-radius: 8px
 }
 

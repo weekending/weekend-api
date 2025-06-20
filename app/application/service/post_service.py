@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from fastapi import Depends
+from zoneinfo import ZoneInfo
 
 from app.adapter.outbound.persistence import (
     PostPersistenceAdapter,
@@ -8,6 +9,7 @@ from app.adapter.outbound.persistence import (
 )
 from app.common.exception import APIException
 from app.common.http import Http4XX
+from app.core.settings import Settings, get_settings
 from app.domain import Post, PostCategory
 from ..port.input import PostUseCase
 from ..port.output import PostCategoryRepositoryPort, PostRepositoryPort
@@ -20,9 +22,11 @@ class PostService(PostUseCase):
             PostCategoryPersistenceAdapter
         ),
         post_repo: PostRepositoryPort = Depends(PostPersistenceAdapter),
+        settings: Settings = Depends(get_settings),
     ):
         self._category_repo = category_repo
         self._post_repo = post_repo
+        self._tz = ZoneInfo(settings.TIMEZONE)
 
     async def get_post_list(
         self, size: int, page: int, category_id: int
@@ -82,7 +86,7 @@ class PostService(PostUseCase):
             raise APIException(Http4XX.PERMISSION_DENIED)
         post.title = title
         post.content = content
-        post.updated_dtm = datetime.now()
+        post.updated_dtm = datetime.now(tz=self._tz)
         return await self._post_repo.save(post)
 
     async def get_post_count(self, category_id: int) -> int:

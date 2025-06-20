@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from datetime import date
 
-from sqlalchemy import ScalarResult
+from sqlalchemy import Sequence
 
 from app.domain import Schedule
 
@@ -24,7 +24,7 @@ class ScheduleRepositoryPort(ABC):
     @abstractmethod
     async def find_schedule_user_exists(
         self, schedule_id: int, user_id: int
-    ) -> ScalarResult:
+    ) -> Sequence:
         raise NotImplementedError
 
     @abstractmethod

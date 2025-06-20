@@ -8,6 +8,7 @@ from sqlalchemy import (
     SmallInteger,
     String,
     Text,
+    inspect,
 )
 from sqlalchemy.orm import relationship
 from zoneinfo import ZoneInfo
@@ -68,6 +69,9 @@ class PostEntity(Base):
         )
 
     def to_domain(self, **kwargs) -> Post:
+        insp = inspect(self)
+        category_loaded = "category" not in insp.unloaded
+        user_loaded = "user" not in insp.unloaded
         return Post(
             id=self.id,
             category_id=self.category_id,
@@ -78,8 +82,8 @@ class PostEntity(Base):
             comment_count=kwargs.get("comment_count", 0),
             updated_dtm=self.updated_dtm,
             created_dtm=self.created_dtm.replace(tzinfo=timezone.utc).astimezone(kst),
-            category=self.category.to_domain() if self.category else None,
-            user=self.user.to_domain() if self.user else None,
+            category=self.category.to_domain() if category_loaded else None,
+            user=self.user.to_domain() if user_loaded and self.user else None,
         )
 
 

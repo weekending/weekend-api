@@ -1,7 +1,7 @@
 from datetime import date
 from typing import Iterable
 
-from sqlalchemy import ScalarResult, select, insert
+from sqlalchemy import Sequence, select, insert
 from sqlalchemy.orm import selectinload
 
 from app.adapter.outbound.persistence.entity import (
@@ -50,14 +50,14 @@ class SchedulePersistenceAdapter(BaseRepository, ScheduleRepositoryPort):
 
     async def find_schedule_user_exists(
         self, schedule_id: int, user_id: int
-    ) -> ScalarResult:
+    ) -> Sequence:
         result = await self._session.execute(
             select(schedule_user_entity).where(
                 schedule_user_entity.c.schedule_id == schedule_id,
                 schedule_user_entity.c.user_id == user_id,
             )
         )
-        return result.scalars()
+        return result.scalars().all()
 
     async def insert_schedule_user(self, schedule_id: int, user_id: int):
         await self._session.execute(

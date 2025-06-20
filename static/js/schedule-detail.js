@@ -71,3 +71,23 @@ const updateSchedule = () => {
     },
   )
 }
+
+const attendSchedule = () => {
+  const scheduleId = window.location.pathname.split("/")[2];
+
+  requestAttendSchedule(
+    scheduleId,
+    success = () => {
+      alert("참여 완료");
+      location.replace("/schedules/" + scheduleId);
+    },
+    error = (response) => {
+      result = response.responseJSON;
+      if (result.code === "F001") {
+        alert("권한이 없습니다.");
+      } else {
+        alert(result.message);
+      }
+    },
+  )
+}

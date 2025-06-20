@@ -94,24 +94,24 @@
       <p>{{ memo }}</p>
       {% endif %}
     </div>
-    <!-- 저장 버튼 -->
-    {% if is_register %}
-    <div class="schedule-save">
-      <button id="saveSchedule" class="bottom-1">저장</button>
-    </div>
-    {% elif is_edit %}
-    <div class="schedule-save">
-      <button id="updateSchedule" class="bottom-1">저장</button>
-    </div>
-    {% elif is_attended %}
-    <div class="schedule-attend">
-      <button class="bottom-participated" disabled="disabled">참여 완료</button>
-    </div>
-    {% elif can_attend %}
-    <div class="schedule-attend">
-      <button class="bottom-attend">일정 참여</button>
-    </div>
-    {% endif %}
   </div>
+  <!-- 저장 버튼 -->
+  {% if is_register %}
+  <div class="schedule-save">
+    <button id="saveSchedule" class="bottom-1">저장</button>
+  </div>
+  {% elif is_edit %}
+  <div class="schedule-save">
+    <button id="updateSchedule" class="bottom-1">저장</button>
+  </div>
+  {% elif is_attended %}
+  <div class="schedule-attend">
+    <button class="bottom-participated" disabled="disabled">참여 완료</button>
+  </div>
+  {% elif can_attend %}
+  <div class="schedule-attend">
+    <button class="bottom-attend" onclick="attendSchedule()">일정 참여</button>
+  </div>
+  {% endif %}
 </div>
 {% endblock %}

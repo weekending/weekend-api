@@ -57,8 +57,8 @@
   cursor: pointer;
 }
 
-.day.red {
-  color: var(--red);
+.day.holiday {
+  color: var(--gray-4);
 }
 
 .day.today {
@@ -69,7 +69,8 @@
 }
 
 .day-schedule {
-  height: 12px;
+  height: 6px;
+  margin: 3px;
 
   .event {
     display: inline-block;

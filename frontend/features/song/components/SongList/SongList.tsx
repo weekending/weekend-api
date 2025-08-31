@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Nav from "@features/common/components/Nav";
-import Template from "@features/common/components/Template";
+import Wrapper from "@features/common/components/Wrapper";
 import getSongs from "@features/song/requests/getSongs";
 import { TSongs, Status } from "@features/song/types";
 import SongItem from "./SongItem";
@@ -32,7 +32,7 @@ export default function SongList() {
   return (
     <>
       <Nav/>
-      <Template>
+      <Wrapper>
         <div className="mt-18 md:mt-24 p-3 text-center">
           <h1 className="text-[36px] md:text-[42px] font-bold">SONGS</h1>
         </div>
@@ -57,7 +57,7 @@ export default function SongList() {
             />
           ))}
         </div>
-      </Template>
+      </Wrapper>
     </>
   )
 }

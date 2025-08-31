@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Nav from "@features/common/components/Nav";
-import Template from "@features/common/components/Template";
+import Wrapper from "@features/common/components/Wrapper";
 import getSchedules from "@features/schedules/requests/getSchedules";
 import ScheduleCalendar from "./ScheduleCalendar";
 import ScheduleSection from "./ScheduleSection";
@@ -28,7 +28,7 @@ export default function Schedule() {
   return (
     <>
       <Nav/>
-      <Template>
+      <Wrapper>
         <div className="block md:flex flex-wrap flex-row-reverse mt-18 md:mt-30">
           <div className="block md:hidden p-3 text-center">
             <h1 className="text-[36px] font-bold">SCHEDULES</h1>
@@ -47,7 +47,7 @@ export default function Schedule() {
             </div>
           </div>
         </div>
-      </Template>
+      </Wrapper>
     </>
   )
 }

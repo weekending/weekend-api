@@ -1,8 +1,8 @@
-interface TemplateProps {
+interface WrapperProps {
   children: React.ReactNode;
 }
 
-export default function Template({ children }: TemplateProps) {
+export default function Wrapper({ children }: WrapperProps) {
   return (
     <div className="flex justify-center min-h-screen">
       <div className="w-full max-w-[1080]">

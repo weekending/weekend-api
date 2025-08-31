@@ -8,19 +8,12 @@ export type TMember = {
 
 type MemberSectionProps = {
   member: TMember;
-  onClick: React.MouseEventHandler<HTMLDivElement>;
-  isActive: boolean;
 };
 
-export default function MemberSection({ member, onClick, isActive }: MemberSectionProps) {
+export default function MemberSection({ member }: MemberSectionProps) {
   return (
-    <>
-      <div className="cursor-pointer p-2" onClick={onClick}>
-        <h2 className={`text-[28px] md:text-[36px] lg:text-[48px] font-bold ${isActive ? "" : "md:text-[#C0C0C0]"}`}>
-          {member.name}
-        </h2>
-      </div>
-      <div className="flex-1 block md:hidden pb-10">
+    <div className="shadow-lg pb-10">
+      <div className="pb-1">
         <Image
           src={member.image}
           alt="profile"
@@ -29,6 +22,10 @@ export default function MemberSection({ member, onClick, isActive }: MemberSecti
           unoptimized
         />
       </div>
-    </>
+      <div className="p-4">
+        <h2 className={`text-[28px] font-bold`}>{member.name}</h2>
+        <p className="text-[16px]">{member.position}</p>
+      </div>
+    </div>
   )
 }

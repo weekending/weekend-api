@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Nav from "@features/common/components/Nav";
-import Template from "@features/common/components/Template";
+import Wrapper from "@features/common/components/Wrapper";
 import getSongs from "@features/song/requests/getSongs";
 import { TSongs } from "@features/song/types";
 import HomeBackground from "./HomeBackground";
@@ -21,9 +21,9 @@ export default function Home() {
     <>
       <Nav/>
       <HomeBackground/>
-      <Template>
+      <Wrapper>
         <HomeSong songs={songs} />
-      </Template>
+      </Wrapper>
     </>
   )
 }

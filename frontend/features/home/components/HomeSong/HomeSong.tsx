@@ -10,9 +10,9 @@ export default function HomeSong({ songs }: HomeSongProps) {
   return (
     <div className="block md:flex md:gap-8 p-5">
       <div className="flex-1 mb-12">
-        <h2 className="mb-5 text-[36px] md:text-[42px] font-bold">진행중인 연습곡</h2>
+        <h2 className="mb-5 text-[32px] md:text-[42px] font-bold">진행중인 연습곡</h2>
         <div className="max-w-[400px]">
-          <p className="text-[18px]">저희 밴드는 감성적인 얼터너티브 록부터, 파워플한 브릿팝까지 다양한 장르를 넘나들며 노래하고 있습니다.</p>
+          <p className="text-[16px] md:text-[18px]">저희 밴드는 감성적인 얼터너티브 록부터, 파워플한 브릿팝까지 다양한 장르를 넘나들며 노래하고 있습니다.</p>
         </div>
       </div>
       <div className="flex-1">

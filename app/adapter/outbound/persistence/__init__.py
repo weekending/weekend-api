@@ -1,6 +1,7 @@
 from .band_adapter import BandPersistenceAdapter
 from .category_adapter import PostCategoryPersistenceAdapter
 from .comment_adapter import PostCommentPersistenceAdapter
+from .notice_adapter import NoticePersistenceAdapter
 from .post_adapter import PostPersistenceAdapter
 from .schedule_adapter import SchedulePersistenceAdapter
 from .song_adapter import SongPersistenceAdapter

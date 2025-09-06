@@ -2,6 +2,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+export type Menu = {
+  name: string;
+  link: string;
+};
+
+const menuList: Menu[] = [
+  { name: "ABOUT", link: "/about" },
+  { name: "SONGS", link: "/songs" },
+  { name: "SCHEDULES", link: "/schedules" },
+  { name: "NOTICE", link: "/notice" },
+  { name: "SHOP", link: "/shop" },
+]
+
 export default function Nav() {
   const [open, setOpen] = useState(false);
 
@@ -13,7 +26,7 @@ export default function Nav() {
     }
   }, [open]);
 
-return (
+  return (
     <nav className="fixed w-full border-b border-gray-300 bg-white z-999">
       <div className="flex flex-wrap justify-between max-w-[1080] ml-auto mr-auto p-2">
         <div>
@@ -31,29 +44,14 @@ return (
         <button className="block md:hidden" onClick={() => setOpen(!open)}>
           <Image src="/img/menu.svg" alt="menu" width={30} height={30}/>
         </button>
-        <div className={`overflow-hidden md:flex gap-5 w-full md:w-auto md:max-h-full text-[15px] font-semibold ${open ? "h-screen" : "max-h-0"}`}>
-          <div className="flex pt-6 md:pt-0">
-            <Link href="/about" className="w-full p-2">
-              ABOUT
-            </Link>
-          </div>
-          <div className="flex">
-            <Link href="/songs" className="w-full p-2">
-              SONGS
-            </Link>
-          </div>
-          <div className="flex">
-            <Link href="/schedules" className="w-full p-2">
-              SCHEDULES
-            </Link>
-          </div>
-          <div className="flex">
-            <Link href="/shop" className="w-full p-2">
-              SHOP
-            </Link>
-          </div>
+        <div className={`overflow-hidden md:flex gap-5 w-full md:w-auto md:max-h-full text-[15px] font-semibold ${open ? "h-screen pt-6" : "max-h-0"}`}>
+          {menuList.map((menu, idx) => (
+            <div key={idx} className="flex">
+              <Link href={menu.link} className="w-full p-2">{menu.name}</Link>
+            </div>
+          ))}
         </div>
       </div>
     </nav>
-  )
+  );
 }

@@ -12,5 +12,5 @@ export default function Shop() {
         </div>
       </Wrapper>
     </>
-  )
+  );
 }

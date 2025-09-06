@@ -7,7 +7,7 @@ const formatTime24to12 = (timeStr: string) => {
   return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
 }
 
-function formatDay(date: string) {
+const formatDay = (date: string) => {
   const [year, month, day] = date.split("-");
   return `${month}.${day}`;
 }
@@ -18,17 +18,17 @@ type ScheduleSectionProps = {
 
 export default function ScheduleSection({ schedule }: ScheduleSectionProps) {
   return (
-    <div className="flex pb-6">
-      <div className="w-[72px] text-center">
-        <p className="text-[24px] font-semibold">{formatDay(schedule.day)}</p>
-        <p className="text-[16px]/[16px]">({schedule.weekday})</p>
-      </div>
-      <div className="ml-6">
-        <p className="text-[16px]">{schedule.title}</p>
-        <div className="text-[14px]/[20px] text-[#808080]">
-          <p>{formatTime24to12(schedule.start_time)} ~ {formatTime24to12(schedule.end_time)}</p>
-          <p>{schedule.location}</p>
+    <div className="flex px-2 py-5 border-b border-gray-300">
+      <div className="text-center">
+        <div className="flex justify-center items-center gap-1 w-[72px]">
+          <p className="text-[16px]">{formatDay(schedule.day)}</p>
+          <p className="text-[14px]">({schedule.weekday})</p>
         </div>
+        <p className="text-[14px] text-[#808080]">{formatTime24to12(schedule.start_time)}</p>
+      </div>
+      <div className="ml-5">
+        <p className="text-[16px] font-semibold">{schedule.title}</p>
+        <p className="text-[14px] text-[#808080] leading-[1.4]">{schedule.location}</p>
       </div>
     </div>
   );

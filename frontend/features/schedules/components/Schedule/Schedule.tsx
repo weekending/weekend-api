@@ -37,10 +37,10 @@ export default function Schedule() {
             <ScheduleCalendar setMonth={setMonth} scheduleDates={scheduleDates} />
           </div>
           <div className="flex-1 md:mr-10 lg:mr-30 p-3">
-            <div className="hidden md:block pb-12 border-b">
+            <div className="hidden md:block pb-12">
               <h1 className="p-2 text-[42px] font-bold">SCHEDULES</h1>
             </div>
-            <div className="max-w-[420px] mt-3 mx-auto md:mx-0 p-3">
+            <div className="mx-auto md:mx-0 border-t p-3">
               {schedules.map((schedule) => (
                 <ScheduleSection key={schedule.id} schedule={schedule} />
               ))}
@@ -49,5 +49,5 @@ export default function Schedule() {
         </div>
       </Wrapper>
     </>
-  )
+  );
 }

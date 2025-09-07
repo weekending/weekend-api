@@ -44,10 +44,10 @@ export default function Nav() {
         <button className="block md:hidden" onClick={() => setOpen(!open)}>
           <Image src="/img/menu.svg" alt="menu" width={30} height={30}/>
         </button>
-        <div className={`overflow-hidden md:flex gap-5 w-full md:w-auto md:max-h-full text-[15px] font-semibold ${open ? "h-screen pt-6" : "max-h-0"}`}>
+        <div className={`overflow-hidden md:flex gap-5 w-full md:w-auto md:max-h-full font-semibold ${open ? "h-screen pt-6" : "max-h-0"}`}>
           {menuList.map((menu, idx) => (
             <div key={idx} className="flex">
-              <Link href={menu.link} className="w-full p-2">{menu.name}</Link>
+              <Link href={menu.link} className="w-full px-4 py-2 md:p-2 text-[18px] md:text-[15px]">{menu.name}</Link>
             </div>
           ))}
         </div>

@@ -4,7 +4,7 @@ import Nav from "@features/common/components/Nav";
 import Wrapper from "@features/common/components/Wrapper";
 import getSongs from "@features/song/requests/getSongs";
 import { TSongs } from "@features/song/types";
-import HomeBackground from "./HomeBackground";
+import HomeHeader from "./HomeHeader";
 import HomeSong from "./HomeSong";
 
 export default function Home() {
@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <>
       <Nav/>
-      <HomeBackground/>
+      <HomeHeader/>
       <Wrapper>
         <HomeSong songs={songs} />
       </Wrapper>

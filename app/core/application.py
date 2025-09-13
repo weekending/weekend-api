@@ -1,10 +1,8 @@
 from logging.config import DictConfigurator
 
 from fastapi import FastAPI
-from starlette.staticfiles import StaticFiles
 
 from app.adapter.inbound.api import router as api_router
-from app.adapter.inbound.web import router as web_router
 from app.adapter.outbound.persistence.reporitory import db
 from app.common.exception import APIException
 from app.core.openapi import DESCRIPTION
@@ -26,7 +24,6 @@ def create_app() -> FastAPI:
     )
 
     app.include_router(api_router)
-    app.include_router(web_router)
 
     # Logging
     DictConfigurator(logging_config).configure()
@@ -37,7 +34,4 @@ def create_app() -> FastAPI:
     # Database
     app.add_event_handler("startup", db.check_connection)
     app.add_event_handler("shutdown", db.dispose_connection)
-
-    # Static
-    app.mount("/static", StaticFiles(directory="static"), name="static")
     return app

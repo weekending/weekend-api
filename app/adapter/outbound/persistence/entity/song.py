@@ -37,4 +37,3 @@ class SongEntity(Base):
     is_active = Column(Boolean, default=True, nullable=False, comment="활성화 여부")
     in_progress_dtm = Column(DateTime, comment="진행 시작 일시")
     closed_dtm = Column(DateTime, comment="종료 일시")
-

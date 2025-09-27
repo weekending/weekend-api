@@ -4,6 +4,7 @@ from pydantic import BaseModel, Field
 
 from app.common.utils import to_weekday
 from app.domain import Schedule
+from .song import SongResponse
 from .user import UserInfoResponse
 
 
@@ -51,6 +52,7 @@ class ScheduleResponse(BaseModel):
     title: str
     location: str | None
     memo: str | None
+    songs: list[SongResponse]
     users: list[UserInfoResponse]
 
     @staticmethod
@@ -64,5 +66,6 @@ class ScheduleResponse(BaseModel):
             title=schedule.title,
             location=schedule.location,
             memo=schedule.memo,
+            songs=[SongResponse.from_domain(song) for song in schedule.songs],
             users=[UserInfoResponse.from_domain(user) for user in schedule.users],
         )

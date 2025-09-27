@@ -12,12 +12,41 @@ from sqlalchemy import (
     Text,
     Time,
     UniqueConstraint,
+    inspect,
 )
 from sqlalchemy.orm import Mapped, relationship
 
 from app.domain import Schedule
 from .base import Base
+from .song import SongEntity
 from .user import UserEntity
+
+
+schedule_song_entity = Table(
+    "t_schedule_song",
+    Base.metadata,
+    Column("id", Integer, primary_key=True),
+    Column(
+        "schedule_id",
+        Integer,
+        ForeignKey("t_schedule.id", ondelete="CASCADE"),
+        nullable=False,
+    ),
+    Column(
+        "song_id",
+        Integer,
+        ForeignKey("t_song.id", ondelete="CASCADE"),
+        nullable=False,
+    ),
+    Column(
+        "created_dtm",
+        DateTime,
+        nullable=False,
+        default=datetime.now,
+        comment="생성 일시",
+    ),
+    UniqueConstraint("schedule_id", "song_id"),
+)
 
 
 schedule_user_entity = Table(
@@ -62,9 +91,13 @@ class ScheduleEntity(Base):
     location = Column(String(30), comment="장소")
     memo = Column(Text, comment="메모")
     is_active = Column(Boolean, default=True, nullable=False, comment="활성화 여부")
+    songs: Mapped[list[SongEntity]] = relationship(
+        secondary=schedule_song_entity, order_by=schedule_song_entity.c.id.asc()
+    )
     users: Mapped[list[UserEntity]] = relationship(secondary=schedule_user_entity)
 
-    def to_domain(self, user: bool = False) -> Schedule:
+    def to_domain(self) -> Schedule:
+        insp = inspect(self)
         return Schedule(
             id=self.id,
             band_id=self.band_id,
@@ -75,5 +108,14 @@ class ScheduleEntity(Base):
             location=self.location,
             memo=self.memo,
             is_active=self.is_active,
-            users=[u.to_domain() for u in self.users] if user else [],
+            songs=(
+                [s.to_domain() for s in self.songs]
+                if "songs" not in insp.unloaded
+                else []
+            ),
+            users=(
+                [u.to_domain() for u in self.users]
+                if "users" not in insp.unloaded
+                else []
+            ),
         )

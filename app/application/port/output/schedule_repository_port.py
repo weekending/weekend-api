@@ -12,7 +12,7 @@ class ScheduleRepositoryPort(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def find_by_id_with_user(self, id_: int) -> Schedule | None:
+    async def find_by_id_with_song_and_user(self, id_: int) -> Schedule | None:
         raise NotImplementedError
 
     @abstractmethod

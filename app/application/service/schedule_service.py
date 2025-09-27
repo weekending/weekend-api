@@ -47,7 +47,7 @@ class ScheduleService(ScheduleUseCase):
         )
 
     async def get_schedule_info(self, schedule_id: int) -> Schedule:
-        if not (schedule := await self._schedule_repo.find_by_id_with_user(schedule_id)):
+        if not (schedule := await self._schedule_repo.find_by_id_with_song_and_user(schedule_id)):
             raise APIException(Http4XX.SCHEDULE_NOT_FOUND)
         return schedule
 
@@ -65,7 +65,7 @@ class ScheduleService(ScheduleUseCase):
     async def update_schedule_info(
         self, schedule_id: int, user_id: int, **kwargs
     ) -> Schedule:
-        if not (schedule := await self._schedule_repo.find_by_id_with_user(schedule_id)):
+        if not (schedule := await self._schedule_repo.find_by_id_with_song_and_user(schedule_id)):
             raise APIException(Http4XX.SCHEDULE_NOT_FOUND)
 
         check_user_leader_permission(

@@ -1,14 +1,16 @@
 import { DayPicker } from "react-day-picker";
 
 type ScheduleCalendarProps = {
-  setMonth: React.Dispatch<React.SetStateAction<Date>>;
+  month: Date;
+  setMonth: (date: Date) => void;
   scheduleDates: Date[];
 };
 
-export default function ScheduleCalendar({ setMonth, scheduleDates }: ScheduleCalendarProps) {
+export default function ScheduleCalendar({ month, setMonth, scheduleDates }: ScheduleCalendarProps) {
   return (
     <DayPicker
       mode="single"
+      month={month}
       onMonthChange={setMonth}
       modifiers={{
         highlight: scheduleDates,

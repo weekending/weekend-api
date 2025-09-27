@@ -1,5 +1,10 @@
-import ScheduleDetail from "@features/schedules/components/Schedule/ScheduleDetail";
+import { Suspense } from "react";
+import ScheduleDetail from "@features/schedules/components/ScheduleDetail/ScheduleDetail";
 
 export default async function ScheduleDetailPage() {
-  return <ScheduleDetail/>;
+  return (
+    <Suspense>
+      <ScheduleDetail/>
+    </Suspense>
+  );
 }

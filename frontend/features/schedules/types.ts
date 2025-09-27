@@ -1,3 +1,5 @@
+import { TSongs } from "@features/song/types";
+
 export type TSchedule = {
   id: number;
   title: string;
@@ -7,4 +9,5 @@ export type TSchedule = {
   end_time: string;
   location: string;
   memo: string;
+  songs: TSongs[];
 }

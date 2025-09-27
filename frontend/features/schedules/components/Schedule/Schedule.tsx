@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import Nav from "@features/common/components/Nav";
 import Wrapper from "@features/common/components/Wrapper";
 import getSchedules from "@features/schedules/requests/getSchedules";
+import { useScheduleStore } from "@features/schedules/store/useScheduleStore";
+import { TSchedule } from "@features/schedules/types";
 import ScheduleCalendar from "./ScheduleCalendar";
 import ScheduleSection from "./ScheduleSection";
-import { TSchedule } from "@features/schedules/types";
 
 export default function Schedule() {
-  const [month, setMonth] = useState(new Date());
+  const { month, setMonth } = useScheduleStore();
   const [schedules, setSchedules] = useState<TSchedule[]>([]);
   const [scheduleDates, setScheduleDates] = useState<Date[]>([]);
 
@@ -34,7 +35,11 @@ export default function Schedule() {
             <h1 className="text-[36px] font-bold">SCHEDULES</h1>
           </div>
           <div className="flex-1 p-3">
-            <ScheduleCalendar setMonth={setMonth} scheduleDates={scheduleDates} />
+            <ScheduleCalendar
+              month={month}
+              setMonth={setMonth}
+              scheduleDates={scheduleDates}
+            />
           </div>
           <div className="flex-1 md:mr-10 lg:mr-30 p-3">
             <div className="hidden md:block pb-12">

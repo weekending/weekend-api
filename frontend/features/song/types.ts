@@ -1,5 +1,5 @@
 export enum Status {
-  PEDNING = "PENDING",
+  PENDING = "PENDING",
   INPROGRESS = "INPROGRESS",
   CLOSED = "CLOSED",
 }

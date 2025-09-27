@@ -4,19 +4,8 @@ import Nav from "@features/common/components/Nav";
 import Wrapper from "@features/common/components/Wrapper";
 import getSongs from "@features/song/requests/getSongs";
 import { TSongs, Status } from "@features/song/types";
+import { statusChoices } from "@features/song/utils";
 import SongItem from "./SongItem";
-
-type StatusItem = {
-  status: Status | null;
-  text: string;
-};
-
-const statusChoices: StatusItem[] = [
-  { status: null, text: "전체" },
-  { status: Status.PEDNING, text: "대기" },
-  { status: Status.INPROGRESS, text: "연습중" },
-  { status: Status.CLOSED, text: "종료" },
-];
 
 export default function SongList() {
   const [status, setStatus] = useState<Status | null>(null);
@@ -36,28 +25,26 @@ export default function SongList() {
         <div className="mt-18 md:mt-24 p-3 text-center">
           <h1 className="text-[36px] md:text-[42px] font-bold">SONGS</h1>
         </div>
-        <div className="flex p-3">
+        <div className="flex p-4">
           {statusChoices.map((choice, idx) => (
             <button
               key={idx}
-              className={`p-2 text-[#404040] cursor-pointer ${choice.status === status ? "font-bold" : ""}`}
+              className={`p-2 text-[#404040] cursor-pointer ${choice.status === status ? "font-bold border-b-2" : ""}`}
               onClick={() => setStatus(choice.status)}
             >
               {choice.text}
             </button>
           ))}
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5 p-4">
+        <div className="grid md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-5 p-4">
           {songs.map((song, idx) => (
             <SongItem
               key={idx}
-              title={song.title}
-              singer={song.singer}
-              image={song.thumbnail}
+              song={song}
             />
           ))}
         </div>
       </Wrapper>
     </>
-  )
+  );
 }

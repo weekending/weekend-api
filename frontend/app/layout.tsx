@@ -37,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
-      <body className={pretendard.className}>
+      <body className={`flex flex-col min-h-screen ${pretendard.className}`}>
         {children}
       </body>
     </html>

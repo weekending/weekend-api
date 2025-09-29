@@ -6,19 +6,18 @@ type ScheduleDetailSongItemProps = {
 
 export default function ScheduleDetailSongItem({ song }: ScheduleDetailSongItemProps) {
   return (
-    <div className="flex mb-3 items-center">
-      <div className="w-[60px] mr-3">
+    <div className="flex mb-2 items-center">
+      <div className="w-[48px] mr-3">
         <img
-          className="rounded-md"
+          className="rounded-sm"
           src={song.thumbnail}
           alt="weekend"
-          width={240}
-          height={240}
+          width={100}
+          height={100}
         />
       </div>
       <div className="leading-[1.2]">
-        <p className="pb-2 text-[16px]">{song.title}</p>
-        <p className="text-[14px] text-[#808080]">{song.singer}</p>
+        <p className="pb-1 text-[14px]">{song.title}</p>
       </div>
     </div>
   );

@@ -20,10 +20,10 @@ export default function ScheduleCalendar({ month, setMonth, scheduleDates }: Sch
       }}
       classNames={{
         months: "relative max-w-fit mx-auto",
-        nav: "absolute top-0 right-0 flex h-[44px]",
+        nav: "absolute top-0 right-2 flex h-[44px]",
         button_previous: "cursor-pointer",
         button_next: "cursor-pointer",
-        month_caption: "flex items-center h-[44px] text-[20px] font-semibold",
+        month_caption: "flex items-center h-[44px] p-2 text-[20px] font-semibold",
         weekday: "py-2 text-[14px] font-semibold",
         month_grid: "border-separate border-spacing-3 sm:border-spacing-4 lg:border-spacing-5",
         weeks: "w-full",

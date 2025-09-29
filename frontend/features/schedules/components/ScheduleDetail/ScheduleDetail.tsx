@@ -1,8 +1,5 @@
-"use client";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import Nav from "@features/common/components/Nav";
-import Wrapper from "@features/common/components/Wrapper";
 import getScheduleInfo from "@features/schedules/requests/getScheduleInfo";
 import { TSchedule } from "@features/schedules/types";
 import ScheduleDetailLocation from "./ScheduleDetailLocation";
@@ -29,27 +26,28 @@ export default function ScheduleDetail() {
   }, [scheduleId]);
 
   return (
-    <>
-      <Nav/>
-      <Wrapper>
-        <div className="max-w-[500px] mx-auto mt-18 md:mt-24">
-          <div className="p-4">
-            <div className="ml-7 p-4">
-              <h1 className="text-[21px] font-bold">{schedule?.title}</h1>
-            </div>
-            <ScheduleDetailDate schedule={schedule} />
-            {schedule && schedule.location && (
-              <ScheduleDetailLocation location={schedule.location} />
-            )}
-            {schedule && schedule.songs.length > 0 && (
-              <ScheduleDetailSong songs={schedule.songs} />
-            )}
-            {schedule && schedule.memo && (
-              <ScheduleDetailMemo memo={schedule.memo} />
-            )}
-          </div>
+    <div className="max-w-[500px] mx-auto mt-18 md:mt-24">
+      <div className="p-4">
+        <div className="ml-7 p-4">
+          <h1 className="text-[21px] font-bold">{schedule?.title}</h1>
         </div>
-      </Wrapper>
-    </>
+        <ScheduleDetailDate schedule={schedule} />
+        {schedule && schedule.location && (
+          <ScheduleDetailLocation location={schedule.location} />
+        )}
+        {schedule && schedule.songs.length > 0 && (
+          <>
+            <hr className="my-4 border-gray-100"/>
+            <ScheduleDetailSong songs={schedule.songs} />
+          </>
+        )}
+        {schedule && schedule.memo && (
+          <>
+            <hr className="my-4 border-gray-100"/>
+            <ScheduleDetailMemo memo={schedule.memo} />
+          </>
+        )}
+      </div>
+    </div>
   );
 }

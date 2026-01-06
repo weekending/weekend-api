@@ -4,7 +4,7 @@ interface WrapperProps {
 
 export default function Wrapper({ children }: WrapperProps) {
   return (
-    <div className="flex justify-center grow">
+    <div className="flex justify-center grow pb-20">
       <div className="w-full max-w-[1080]">
         {children}
       </div>

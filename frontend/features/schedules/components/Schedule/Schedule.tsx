@@ -1,11 +1,10 @@
-"use client";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { dateToYYMMDD } from "@features/common/utils/dateFormat";
 import getSchedules from "@features/schedules/requests/getSchedules";
 import { TSchedule } from "@features/schedules/types";
 import ScheduleCalendar from "./ScheduleCalendar";
 import ScheduleSection from "./ScheduleSection";
-import { useRouter, useSearchParams } from "next/navigation";
-import { dateToYYMMDD } from "@features/common/utils/dateFormat";
 
 export default function Schedule() {
   const router = useRouter();

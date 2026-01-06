@@ -2,9 +2,9 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import getScheduleInfo from "@features/schedules/requests/getScheduleInfo";
 import { TSchedule } from "@features/schedules/types";
+import ScheduleDetailDate from "./ScheduleDetailDate";
 import ScheduleDetailLocation from "./ScheduleDetailLocation";
 import ScheduleDetailMemo from "./ScheduleDetailMemo";
-import ScheduleDetailDate from "./ScheduleDetailDate";
 import ScheduleDetailSong from "./ScheduleDetailSong";
 
 
@@ -35,16 +35,13 @@ export default function ScheduleDetail() {
         {schedule && schedule.location && (
           <ScheduleDetailLocation location={schedule.location} />
         )}
+        {schedule && schedule.memo && (
+          <ScheduleDetailMemo memo={schedule.memo} />
+        )}
         {schedule && schedule.songs.length > 0 && (
           <>
             <hr className="my-4 border-gray-100"/>
             <ScheduleDetailSong songs={schedule.songs} />
-          </>
-        )}
-        {schedule && schedule.memo && (
-          <>
-            <hr className="my-4 border-gray-100"/>
-            <ScheduleDetailMemo memo={schedule.memo} />
           </>
         )}
       </div>

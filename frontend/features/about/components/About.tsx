@@ -15,7 +15,7 @@ export default function About() {
         </p>
       </div>
       <div className="pb-40">
-        <MemberList/>
+        {/* <MemberList/> */}
       </div>
     </>
   );

@@ -36,34 +36,34 @@ export default function EmailLogin() {
 
   return (
     <AuthWrapper>
-      <h1 className="text-4xl font-bold mb-6">로그인</h1>
-      <div className="flex flex-col gap-3">
-        <Input
-          id="loginEmail"
-          placeholder="이메일"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          id="loginPassword"
-          placeholder="비밀번호"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          onKeyDown={(e) => {
-            if (["Enter"].includes(e.key)) {
-              requestLogin();
-            }
-          }}
-        />
-        <ErrorMessage message={error} />
-        <Button
-          onClick={requestLogin}
-          disabled={!email || !password}
-        >
-          로그인
-        </Button>
-      </div>
+        <h1 className="text-4xl font-bold mb-6">로그인</h1>
+        <div className="flex flex-col gap-3">
+          <Input
+            id="loginEmail"
+            placeholder="이메일"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            id="loginPassword"
+            placeholder="비밀번호"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={(e) => {
+              if (["Enter"].includes(e.key)) {
+                requestLogin();
+              }
+            }}
+          />
+          <ErrorMessage message={error} />
+          <Button
+            onClick={requestLogin}
+            disabled={!email || !password}
+          >
+            로그인
+          </Button>
+        </div>
     </AuthWrapper>
   );
 }

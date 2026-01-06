@@ -4,14 +4,21 @@ export default async function updateSchedules(
   scheduleId: number,
   title: string,
   day: string,
-  start_time: string,
-  end_time: string,
+  startTime: string,
+  endTime: string,
   location?: string,
   memo?: string
 ) {
   const api = await request();
   return await api.patch(
     `/api/schedules/${scheduleId}`,
-    { data: { title, day, start_time, end_time, location, memo }}
+    {
+      title,
+      day,
+      start_time: startTime,
+      end_time: endTime,
+      location,
+      memo
+    }
   );
 }

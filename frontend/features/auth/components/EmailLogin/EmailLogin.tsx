@@ -22,7 +22,7 @@ export default function EmailLogin() {
     try {
       const res = await login(email, password)
       Cookies.set("access_token", res.data.data.token, { expires: 7 });
-      router.push("");
+      router.push("/");
     } catch (err: unknown) {
       if (err instanceof AxiosError) {
         setError(err.response?.data.message);
@@ -36,6 +36,7 @@ export default function EmailLogin() {
 
   return (
     <AuthWrapper>
+      <div className="p-4">
         <h1 className="text-4xl font-bold mb-6">로그인</h1>
         <div className="flex flex-col gap-3">
           <Input
@@ -64,6 +65,7 @@ export default function EmailLogin() {
             로그인
           </Button>
         </div>
+      </div>
     </AuthWrapper>
   );
 }

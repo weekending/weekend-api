@@ -24,6 +24,7 @@ class ScheduleInfo(BaseModel):
     memo: str | None = Field(
         default=None, title="메모", examples=["통기타 대여 필요해보임.."]
     )
+    songs: list = Field(default_factory=list, title="곡 리스트")
 
 
 class ScheduleUpdateInfo(BaseModel):

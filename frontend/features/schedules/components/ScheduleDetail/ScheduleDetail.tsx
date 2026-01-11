@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import getScheduleInfo from "@features/schedules/requests/getScheduleInfo";
@@ -11,6 +12,7 @@ import ScheduleDetailSong from "./ScheduleDetailSong";
 export default function ScheduleDetail() {
   const [schedule, setScheule] = useState<TSchedule>();
   const [loading, setLoading] = useState(true);
+  const [notFoundError, setNotFoundError] = useState(false);
   const searchParams = useSearchParams();
   const scheduleId = Number(searchParams.get("pk"));
 
@@ -19,26 +21,35 @@ export default function ScheduleDetail() {
       try {
         const response = await getScheduleInfo(scheduleId);
         setScheule(response.data.data);
+        setLoading(false);
       } catch {
-        setLoading(false)
+        setNotFoundError(true);
       }
     })();
   }, [scheduleId]);
+
+  if (notFoundError) {
+    notFound();
+  }
+
+  if (loading || !schedule) {
+    return null;
+  }
 
   return (
     <div className="max-w-[500px] mx-auto mt-18 md:mt-24">
       <div className="p-4">
         <div className="ml-7 p-4">
-          <h1 className="text-[21px] font-bold">{schedule?.title}</h1>
+          <h1 className="text-[21px] font-bold">{schedule.title}</h1>
         </div>
         <ScheduleDetailDate schedule={schedule} />
-        {schedule && schedule.location && (
+        {schedule.location && (
           <ScheduleDetailLocation location={schedule.location} />
         )}
-        {schedule && schedule.memo && (
+        {schedule.memo && (
           <ScheduleDetailMemo memo={schedule.memo} />
         )}
-        {schedule && schedule.songs.length > 0 && (
+        {schedule.songs.length > 0 && (
           <>
             <hr className="my-4 border-gray-100"/>
             <ScheduleDetailSong songs={schedule.songs} />

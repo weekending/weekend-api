@@ -3,7 +3,7 @@ import { TSchedule } from "@features/schedules/types";
 import ScheduleDetailLogo from "../ScheduleDetailLogo";
 
 type ScheduleDetailDateProps = {
-  schedule: TSchedule | undefined;
+  schedule: TSchedule;
 };
 
 export default function ScheduleDetailDate({ schedule }: ScheduleDetailDateProps) {
@@ -12,13 +12,13 @@ export default function ScheduleDetailDate({ schedule }: ScheduleDetailDateProps
       <ScheduleDetailLogo src="/img/schedule.png" alt="schedule" />
       <div className="block md:flex gap-2 mb-1 md:mb-0 px-1 py-0 md:py-1 text-[16px]">
         <div className="flex gap-2">
-          <p>{schedule ? isoToYYMMDD(schedule.day) : ""}</p>
-          <p>{schedule?.weekday}요일</p>
+          <p>{isoToYYMMDD(schedule.day)}</p>
+          <p>{schedule.weekday}요일</p>
         </div>
         <div className="flex gap-1">
-          <p>{schedule ? formatTime24to12(schedule?.start_time) : ""}</p>
+          <p>{formatTime24to12(schedule.start_time)}</p>
           <p>~</p>
-          <p>{schedule ? formatTime24to12(schedule?.end_time) : ""}</p>
+          <p>{formatTime24to12(schedule.end_time)}</p>
         </div>
       </div>
     </div>

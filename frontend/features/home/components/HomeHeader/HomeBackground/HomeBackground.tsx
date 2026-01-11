@@ -7,7 +7,7 @@ export default function HomeBackground({ children }: { children: React.ReactNode
         {children}
       </div>
       <Image
-        src="/img/weekend-banner.jpeg"
+        src="/img/weekend-banner.png"
         alt="윅엔드"
         width={0}
         height={0}

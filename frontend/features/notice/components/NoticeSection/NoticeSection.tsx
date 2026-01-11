@@ -2,11 +2,11 @@ import { isoToYYMMDD } from "@features/common/utils/dateFormat";
 import { TNotice } from "@features/notice/types";
 import Link from "next/link";
 
-type HomeSongProps = {
+type NoticeSectionProps = {
   notice: TNotice;
 };
 
-export default function NoticeSection({ notice }: HomeSongProps) {
+export default function NoticeSection({ notice }: NoticeSectionProps) {
   return (
     <Link href={`/notice/detail?pk=${notice.id}`}>
       <div className="flex items-center px-2 py-5 border-b border-gray-300">

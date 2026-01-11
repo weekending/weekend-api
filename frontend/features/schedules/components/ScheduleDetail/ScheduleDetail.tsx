@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import getScheduleInfo from "@features/schedules/requests/getScheduleInfo";
@@ -7,20 +7,33 @@ import ScheduleDetailDate from "./ScheduleDetailDate";
 import ScheduleDetailLocation from "./ScheduleDetailLocation";
 import ScheduleDetailMemo from "./ScheduleDetailMemo";
 import ScheduleDetailSong from "./ScheduleDetailSong";
+import { isAuthenticated } from "@features/auth/utils/checkAuth";
+import EditButton from "@features/common/components/EditButton";
 
 
 export default function ScheduleDetail() {
+  const router = useRouter();
   const [schedule, setScheule] = useState<TSchedule>();
   const [loading, setLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [notFoundError, setNotFoundError] = useState(false);
   const searchParams = useSearchParams();
   const scheduleId = Number(searchParams.get("pk"));
+  
+  useEffect(() => {
+    setIsLoggedIn(isAuthenticated());
+  }, []);
 
   useEffect(() => {
     (async () => {
       try {
         const response = await getScheduleInfo(scheduleId);
-        setScheule(response.data.data);
+        const scheduleData = response.data.data;
+        if (!scheduleData.is_active) {
+          setNotFoundError(true);
+          return;
+        }
+        setScheule(scheduleData);
         setLoading(false);
       } catch {
         setNotFoundError(true);
@@ -56,6 +69,13 @@ export default function ScheduleDetail() {
           </>
         )}
       </div>
+
+      {isLoggedIn && (
+        <EditButton
+          onClick={() => router.push(`/schedules/detail/edit/?pk=${scheduleId}`)}
+          ariaLabel="스케줄 수정"
+        />
+      )}
     </div>
   );
 }

@@ -9,5 +9,6 @@ export type TSchedule = {
   end_time: string;
   location: string;
   memo: string;
+  is_active: boolean;
   songs: TSongs[];
 }

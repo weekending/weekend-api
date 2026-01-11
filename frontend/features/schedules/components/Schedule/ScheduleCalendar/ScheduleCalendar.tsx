@@ -25,7 +25,7 @@ export default function ScheduleCalendar({ month, setMonth, scheduleDates }: Sch
         button_next: "cursor-pointer",
         month_caption: "flex items-center h-[44px] p-2 text-[20px] font-semibold",
         weekday: "py-2 text-[14px] font-semibold",
-        month_grid: "border-separate border-spacing-3 sm:border-spacing-4 lg:border-spacing-5",
+        month_grid: "border-separate border-spacing-3 sm:border-spacing-4 lg:border-spacing-7",
         weeks: "w-full",
         day: "w-10 text-center",
         day_button: "w-8 md:w-10 h-8 md:h-10 text-center",

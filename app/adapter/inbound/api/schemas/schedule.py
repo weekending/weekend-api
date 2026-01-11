@@ -53,6 +53,7 @@ class ScheduleResponse(BaseModel):
     title: str
     location: str | None
     memo: str | None
+    is_active: bool
     songs: list[SongResponse]
     users: list[UserInfoResponse]
 
@@ -67,6 +68,7 @@ class ScheduleResponse(BaseModel):
             title=schedule.title,
             location=schedule.location,
             memo=schedule.memo,
+            is_active=schedule.is_active,
             songs=[SongResponse.from_domain(song) for song in schedule.songs],
             users=[UserInfoResponse.from_domain(user) for user in schedule.users],
         )

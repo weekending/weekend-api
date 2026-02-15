@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useSearchParams, notFound } from "next/navigation";
 import { useEffect, useState } from "react";
 import { isoToYYMMDDHHMMSS } from "@features/common/utils/dateFormat";
@@ -29,7 +30,7 @@ export default function NoticeDetail() {
   if (!loading) {
     notFound();
   }
-  console.log(notice);
+
   return (
     <div className="p-3">
       <div className="mt-18 md:mt-24 pt-3 pb-5 border-b">
@@ -43,9 +44,22 @@ export default function NoticeDetail() {
           <p className="min-h-5 text-[15px] leading-5" key={idx}>{line}</p>
         ))}
       </div>
-      <div className="mx-auto max-w-[900px]">
+      <div className="mx-auto max-w-[540px] mt-10">
         {notice?.images && notice.images.length > 0 && (
-          <NoticeImageSection images={notice.images} />
+          <>
+            <div className="relative overflow-hidden">
+              <NoticeImageSection images={[notice.images[0]]} />
+              <div className="absolute bottom-0 left-0 right-0 h-60 bg-gradient-to-t from-white to-transparent" />
+            </div>
+            <div className="p-3 text-center">
+              <Link
+                href={`/notice/detail/images?pk=${noticeId}`}
+                className="inline-block px-6 py-2 text-[14px] text-black bg-white border border-gray-400 rounded-lg"
+              >
+                이미지 전체보기
+              </Link>
+            </div>
+          </>
         )}
       </div>
     </div>

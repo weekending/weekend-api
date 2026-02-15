@@ -6,7 +6,7 @@ type Props = {
 
 export default function NoticeImageSection({ images }: Props) {
   return (
-    <div className="p-3 flex flex-col">
+    <div className="flex flex-col">
       {images
         .sort((a, b) => a.sequence - b.sequence)
         .map((img) =>

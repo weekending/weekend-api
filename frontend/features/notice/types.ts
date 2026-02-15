@@ -13,4 +13,5 @@ export type TNotice = {
   content: string;
   images: TNoticeImage[];
   created_dtm: string;
+  is_new: boolean;
 }

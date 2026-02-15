@@ -14,14 +14,19 @@ const socialList: Social[] = [
 
 export default function HomeSocial() {
   return (
-    <div className="flex gap-3">
+    <div className="flex justify-center gap-3">
       {socialList.map((social, idx) => (
-        <Link key={idx} href={social.link} target="_blank">
+        <Link
+          className="p-3 rounded-full bg-background/10 hover:bg-white/30 transition-colors"
+          key={idx}
+          href={social.link}
+          target="_blank"
+        >
           <Image
             src={social.image}
             alt={social.name}
-            width={32}
-            height={32}
+            width={20}
+            height={20}
             unoptimized
           />
         </Link>

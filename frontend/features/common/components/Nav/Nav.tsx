@@ -28,7 +28,7 @@ export default function Nav() {
 
   return (
     <nav className="fixed w-full border-b border-gray-300 bg-white z-999">
-      <div className="flex flex-wrap justify-between max-w-[1080] ml-auto mr-auto p-2">
+      <div className="flex flex-wrap justify-between max-w-[1080px] ml-auto mr-auto p-2">
         <div>
           <Link href="/">
             <Image

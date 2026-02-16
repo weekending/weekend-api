@@ -1,6 +1,6 @@
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
-import { TSchedule } from "@features/schedules/types";
+import { TSchedule } from "@features/schedule/types";
 import HomeScheduleItem from "./HomeScheduleItem";
 
 type HomeScheduleProps = {

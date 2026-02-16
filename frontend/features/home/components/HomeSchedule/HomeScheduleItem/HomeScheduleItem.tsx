@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { CalendarDays, MapPin } from "lucide-react";
 import { formatTime24to12, isoToYYMMDD } from "@features/common/utils/dateFormat";
-import { TSchedule } from "@features/schedules/types";
+import { TSchedule } from "@features/schedule/types";
 
 type HomeScheduleItemProps = {
   schedule: TSchedule;

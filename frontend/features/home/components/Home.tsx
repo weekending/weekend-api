@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import getSchedules from "@features/schedules/requests/getSchedules";
+import getSchedules from "@features/schedule/requests/getSchedules";
 import getSongs from "@features/song/requests/getSongs";
 import getNoticeList from "@features/notice/requests/getNoticeList";
 import HomeHeader from "./HomeHeader";

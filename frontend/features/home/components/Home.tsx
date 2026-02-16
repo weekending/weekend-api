@@ -1,34 +1,30 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import getSchedules from "@features/schedules/requests/getSchedules";
-import { TSchedule } from "@features/schedules/types";
 import getSongs from "@features/song/requests/getSongs";
-import { TSongs } from "@features/song/types";
 import getNoticeList from "@features/notice/requests/getNoticeList";
-import {TNotice} from "@features/notice/types"
 import HomeHeader from "./HomeHeader";
 import HomeNotice from "./HomeNotice";
 import HomeSchedule from "./HomeSchedule"
 import HomeSong from "./HomeSong";
 
 export default function Home() {
-  const [songs, setSongs] = useState<TSongs[]>([]);
-  const [schedules, setSchedules] = useState<TSchedule[]>([]);
-  const [notices, setNotices] = useState<TNotice[]>([]);
+  const today = new Date();
+  const endDate = new Date(today.getFullYear(), today.getMonth() + 3, 0);
 
-  useEffect(() => {
-    const today = new Date()
-    const endDate = new Date(today.getFullYear(), today.getMonth() + 3, 0);
-    (async () => {
-      const [songResp, scheduleResp, noticeResp] = await Promise.all([
-        getSongs(1, "INPROGRESS"),
-        getSchedules(1, today.toISOString().slice(0, 10), endDate.toISOString().slice(0, 10)),
-        getNoticeList(1),
-      ]);
-      setSongs(songResp.data.data);
-      setSchedules(scheduleResp.data.data);
-      setNotices(noticeResp.data.data);
-    })();
-  }, []);
+  const { data: songs = [] } = useQuery({
+    queryKey: ["songs", "INPROGRESS"],
+    queryFn: () => getSongs(1, "INPROGRESS").then(res => res.data.data),
+  });
+
+  const { data: schedules = [] } = useQuery({
+    queryKey: ["schedules", today.toISOString().slice(0, 10)],
+    queryFn: () => getSchedules(1, today.toISOString().slice(0, 10), endDate.toISOString().slice(0, 10)).then(res => res.data.data),
+  });
+
+  const { data: notices = [] } = useQuery({
+    queryKey: ["notices"],
+    queryFn: () => getNoticeList(1).then(res => res.data.data),
+  });
 
   return (
     <>

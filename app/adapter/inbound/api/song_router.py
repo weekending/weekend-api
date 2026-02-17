@@ -39,11 +39,13 @@ router = APIRouter(prefix="/songs", tags=["Song"])
 async def song_list(
     band_id: int = Query(title="밴드 PK"),
     status: SongStatus = None,
+    page: int = Query(1, title="페이지 번호"),
+    size: int = Query(10, title="페이지 사이즈"),
     # credential: JWTAuthorizationCredentials = Depends(is_authenticated),
     service: SongUseCase = Depends(SongService),
 ) -> APIResponse:
     """곡 목록 조회"""
-    songs = await service.get_song_list(-1, band_id, status)
+    songs = await service.get_song_list(-1, band_id, status, page, size)
     return APIResponse(
         Http2XX.OK, data=[SongResponse.from_domain(song) for song in songs]
     )

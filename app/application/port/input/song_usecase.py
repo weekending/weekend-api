@@ -6,7 +6,12 @@ from app.domain import Song, SongStatus
 class SongUseCase(ABC):
     @abstractmethod
     async def get_song_list(
-        self, user_id: int, band_id: int, status: SongStatus
+        self,
+        user_id: int,
+        band_id: int,
+        status: SongStatus,
+        page: int,
+        size: int,
     ) -> list[Song]:
         raise NotImplementedError
 

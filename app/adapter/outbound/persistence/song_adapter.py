@@ -20,13 +20,17 @@ class SongPersistenceAdapter(BaseRepository, SongRepositoryPort):
         if model := await self._find_by_id_or_none(id_, SongEntity):
             return model.to_domain()
 
-    async def find_by_band(self, band_id: int, status: SongStatus) -> list[Song]:
+    async def find_by_band(
+        self, band_id: int, status: SongStatus, limit: int, offset: int
+    ) -> list[Song]:
         query = select(SongEntity).where(
             SongEntity.is_active, SongEntity.band_id == band_id
         )
         if status:
             query = query.where(SongEntity.status == status)
         result = await self._session.execute(
-            query.order_by(SongEntity.created_dtm.desc())
+            query.order_by(SongEntity.created_dtm.desc(), SongEntity.id.desc())
+            .limit(limit)
+            .offset(offset)
         )
         return [song.to_domain() for song in result.scalars()]

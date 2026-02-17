@@ -23,9 +23,16 @@ class SongService(SongUseCase):
         self._user_band_repo = user_band_repo
 
     async def get_song_list(
-        self, user_id: int, band_id: int, status: SongStatus
+        self,
+        user_id: int,
+        band_id: int,
+        status: SongStatus,
+        page: int,
+        size: int,
     ) -> list[Song]:
-        return await self._song_repo.find_by_band(band_id, status)
+        return await self._song_repo.find_by_band(
+            band_id, status, limit=size, offset=size * (page - 1)
+        )
 
     async def create_song(
         self, user_id: int, band_id: int, title: str, singer: str

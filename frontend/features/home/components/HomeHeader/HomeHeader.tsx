@@ -11,10 +11,10 @@ export default function HomeHeader() {
       <div className="absolute inset-0 bg-foreground/60" />
 
       <div className="relative z-10 text-center px-5">
-        <h1 className="text-5xl md:text-7xl font-bold text-background mb-4">
+        <h1 className="text-5xl md:text-7xl font-bold text-background mb-4 animate-fade-in-up">
           RUNNING!
         </h1>
-        <p className="text-base md:text-lg text-background/80 max-w-lg mx-auto mb-8">
+        <p className="text-base md:text-lg text-background/80 max-w-lg mx-auto mb-8 animate-fade-in-up">
           Not professionals, but passionate.<br/>Not stars, but shining together.
         </p>
         <HomeSocial/>

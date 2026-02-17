@@ -31,7 +31,7 @@ export default function ScheduleCalendar({ month, setMonth, scheduleDates }: Sch
         weeks: "w-full",
         day: "w-8 text-center text-sm",
         day_button: "w-8 h-8 text-center",
-        today: "font-bold",
+        today: "rounded-[50%] bg-gray-1 font-bold",
         selected: "",
       }}
       locale={ko}

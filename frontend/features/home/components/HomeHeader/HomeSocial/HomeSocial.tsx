@@ -14,7 +14,7 @@ const socialList: Social[] = [
 
 export default function HomeSocial() {
   return (
-    <div className="flex justify-center gap-3">
+    <div className="flex justify-center gap-3 animate-fade-in-up">
       {socialList.map((social, idx) => (
         <Link
           className="p-3 rounded-full bg-background/10 hover:bg-white/30 transition-colors"

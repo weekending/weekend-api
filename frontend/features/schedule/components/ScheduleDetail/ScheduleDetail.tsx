@@ -49,8 +49,8 @@ export default function ScheduleDetail() {
   }
 
   return (
-    <div className="max-w-[500px] mx-auto mt-18 md:mt-24">
-      <div className="p-5">
+    <div className="pt-18">
+      <div className="w-full mx-auto max-w-[500px] p-5">
         <h1 className="text-2xl font-bold tracking-tight mb-6">{schedule.title}</h1>
         <ScheduleDetailDate schedule={schedule} />
         {schedule.location && (

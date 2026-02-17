@@ -6,15 +6,16 @@ import SongSectionVerticalItem from "./SongSectionVerticalItem";
 type SongSectionProps = {
   title: string;
   songs: TSong[];
+  link: string;
 };
 
-export default function SongSectionVertical({ title, songs }: SongSectionProps) {
+export default function SongSectionVertical({ title, songs, link }: SongSectionProps) {
   return (
     <div className="md:flex-1 min-w-0">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold">{title}</h2>
         <Link
-          href="/songs"
+          href={link}
           className="flex items-center gap-0.5 text-sm text-gray-6 hover:text-foreground transition-colors"
         >
           전체보기

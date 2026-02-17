@@ -24,11 +24,23 @@ export default function Song() {
       <div className="w-full mx-auto max-w-[1080px] p-5">
         <h1 className="text-2xl font-bold mb-8">SONGS</h1>
         <div className="mb-16">
-          <SongSectionCard title="연습 중인 곡" songs={inProgressingSongs}/>
+          <SongSectionCard
+            title="연습 중인 곡"
+            songs={inProgressingSongs}
+            link="/songs/list/?status=INPROGRESS"
+          />
         </div>
         <div className="flex flex-col md:flex-row gap-12 mb-16">
-          <SongSectionVertical title="대기" songs={pendingSongs} />
-          <SongSectionVertical title="종료" songs={closedSongs} />
+          <SongSectionVertical
+            title="대기"
+            songs={pendingSongs}
+            link="/songs/list/?status=PENDING"
+          />
+          <SongSectionVertical
+            title="종료"
+            songs={closedSongs}
+            link="/songs/list/?status=CLOSED"
+          />
         </div>
       </div>
     </div>

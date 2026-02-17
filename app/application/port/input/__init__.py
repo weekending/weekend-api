@@ -3,6 +3,7 @@ from .band_usecase import BandUseCase
 from .category_usecase import PostCategoryUseCase
 from .comment_usercase import PostCommentUseCase
 from .notice_usecase import NoticeUseCase
+from .playlist_usecase import PlaylistUseCase
 from .post_usecase import PostUseCase
 from .schedule_usecase import ScheduleUseCase
 from .song_usecase import SongUseCase

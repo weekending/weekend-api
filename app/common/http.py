@@ -43,6 +43,7 @@ class Http4XX(BaseStatus):
     ALREADY_PARTICIPATED = ("F015", "이미 참여한 일정입니다.", HTTP_422_UNPROCESSABLE_ENTITY)
     NOTICE_NOT_FOUND = ("F016", "공지를 찾을 수 없습니다.", HTTP_404_NOT_FOUND)
     INACTIVE_NOTICE = ("F017", "비활성화된 공지사항입니다.", HTTP_422_UNPROCESSABLE_ENTITY)
+    PLAYLIST_NOT_FOUND = ("F018", "플레이리스트를 찾을 수 없습니다.", HTTP_404_NOT_FOUND)
 
 
 class Http5XX(BaseStatus):

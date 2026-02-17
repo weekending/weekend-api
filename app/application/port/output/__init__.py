@@ -2,6 +2,7 @@ from .band_repository_port import BandRepositoryPort
 from .category_repository_port import PostCategoryRepositoryPort
 from .comment_repository_port import PostCommentRepositoryPort
 from .notice_repository_port import NoticeRepositoryPort
+from .playlist_repository_port import PlaylistRepositoryPort
 from .post_repository_port import PostRepositoryPort
 from .schedule_repository_port import ScheduleRepositoryPort
 from .song_repository_port import SongRepositoryPort

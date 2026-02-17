@@ -6,5 +6,6 @@ from .schedule import (
     schedule_song_entity,
     schedule_user_entity,
 )
+from .playlist import PlaylistEntity, playlist_song_entity
 from .song import SongEntity
 from .user import UserEntity

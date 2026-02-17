@@ -1,8 +1,8 @@
-import { TSongs } from "@features/song/types";
+import { TSong } from "@features/song/types";
 import SongStatus from "./SongStatus";
 
 interface SongItemProps {
-  song: TSongs;
+  song: TSong;
 }
 
 export default function SongItem({ song }: SongItemProps) {

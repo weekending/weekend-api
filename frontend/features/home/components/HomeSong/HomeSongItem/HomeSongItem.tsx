@@ -6,10 +6,11 @@ interface HomeSongItemProps {
 
 export default function HomeSongItem({title, singer, image}: HomeSongItemProps) {
   return (
-    <div className="group overflow-hidden rounded-xl border border-gray-300 bg-card hover:border-primary/50 transition-all hover:shadow-md">
+    <div className="group overflow-hidden rounded-xl border border-gray-300 hover:border-primary/50 transition-all hover:shadow-md">
       <div className="aspect-square bg-gray-1 flex items-center justify-center overflow-hidden">
         <img
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 animate-fade-in"
+          style={{ animationDelay: "300ms" }}
           src={image}
           alt="song"
           width={400}

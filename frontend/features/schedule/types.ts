@@ -1,4 +1,4 @@
-import { TSongs } from "@features/song/types";
+import { TSong } from "@features/song/types";
 
 export type TSchedule = {
   id: number;
@@ -10,5 +10,5 @@ export type TSchedule = {
   location: string;
   memo: string;
   is_active: boolean;
-  songs: TSongs[];
+  songs: TSong[];
 }

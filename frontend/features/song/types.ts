@@ -4,7 +4,7 @@ export enum Status {
   CLOSED = "CLOSED",
 }
 
-export type TSongs = {
+export type TSong = {
   id: number;
   title: string;
   singer: string;

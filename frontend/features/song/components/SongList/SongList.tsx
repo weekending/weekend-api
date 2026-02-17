@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import getSongs from "@features/song/requests/getSongs";
-import { TSongs, Status } from "@features/song/types";
+import { TSong, Status } from "@features/song/types";
 import { statusChoices } from "@features/song/utils";
 import SongItem from "./SongItem";
 
 export default function SongList() {
   const [status, setStatus] = useState<Status | null>(null);
-  const [songs, setSongs] = useState<TSongs[]>([]);
+  const [songs, setSongs] = useState<TSong[]>([]);
 
   useEffect(() => {
     (async () => {

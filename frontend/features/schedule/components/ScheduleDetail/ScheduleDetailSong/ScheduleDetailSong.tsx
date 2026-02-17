@@ -1,8 +1,8 @@
-import { TSongs } from "@features/song/types";
+import { TSong } from "@features/song/types";
 import ScheduleDetailSongItem from "./ScheduleDetailSongItem";
 
 type ScheduleDetailSongProps = {
-  songs: TSongs[];
+  songs: TSong[];
 };
 
 export default function ScheduleDetailSong({ songs }: ScheduleDetailSongProps) {

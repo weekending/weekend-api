@@ -1,16 +1,13 @@
 "use client";
 import Footer from "@features/common/components/Footer";
 import Nav from "@features/common/components/Nav";
-import Wrapper from "@features/common/components/Wrapper";
-import SongList from "@features/song/components/SongList";
+import Song from "@features/song/components/Song/Song";
 
 export default function SongPage() {
   return (
     <>
       <Nav/>
-      <Wrapper>
-        <SongList/>
-      </Wrapper>
+      <Song/>
       <Footer/>
     </>
   );
